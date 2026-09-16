@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-当前交付为项目初始化、规划、范围说明和本机环境检查。T0.1、T0.2 的文档与命令验收已完成；S0 的 Git 同步记录见 [任务状态](TASKS_v4.md)。T0.3 仅推进 Git 子项，依赖安装、版本锁、配置和 Spark 读写验证均 `not_run`。尚无数据处理、业务分析、实验或性能结果。
+S0、T0.1、T0.2 已完成；T0.3 的专用环境、实际依赖锁、配置校验和人工数据 Spark 写读也已通过验收。当前仅验证四行人工数据，没有真实业务 ETL、实验分析或性能结果。状态见 [任务清单](TASKS_v4.md)，实际版本与 expected/actual/pass 见 [T0.3 验收](docs/t03_validation.md)。
 
 仓库目标为 `CC-GATESBY/ecommerce-experiment-diagnostics`，可见性保持 **private**。仓库同步只包含审查过的文件，不表示全部本地文件、数据或运行环境已经上传。
 
@@ -19,7 +19,7 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 1. [本地范围补充](docs/local_scope.md)：当前小批量边界与扩量条件。
 2. [项目简介](docs/project_brief.md)与[岗位证据映射](docs/jd_mapping.md)：项目问题、优先级和证据边界。
 3. [规划 v4](plan_v4.md)、[执行约束](CODEX_START_v4.md)、[任务清单](TASKS_v4.md)：任务依赖、统计与质量要求、实际状态。
-4. [环境摘要](docs/environment.md)：上一轮实际检查结果，未证明 Spark 已可运行。
+4. [环境摘要](docs/environment.md)：保留原 T0.2 检查结果；新专用环境以 [T0.3 验收](docs/t03_validation.md) 为准。
 
 环境摘要引用的 `runs/environment_snapshot.txt` 以及任务中提到的原始收据仅保留在本机，GitHub 上不提供这些文件。T0.1、T0.2 文档保留原始检查日期和内容，本轮没有重新生成。
 
@@ -29,4 +29,16 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 
 `.gitignore` 排除原始数据、抽样明细、数据库、模型、原始运行日志、环境快照、本机配置、凭据及旧参考资料；安全元数据与小型汇总结果逐文件审核，不统一排除所有 CSV。忽略规则不替代提交内容检查，也不会移除已经被跟踪的文件。
 
-下一轮最小建议是由用户明确启动 T0.3 剩余部分，确认专用版本组合与安装范围后，再做小型 Spark 写入、读回和配置检查。本轮在 S0 完成后停止。
+## 复跑人工数据 smoke
+
+从实际项目根目录执行，保留目录名末尾空格。需要项目 `.venv` 中的 Python 3.11、PySpark 3.5.8，以及已填写的 `config/local.yaml`；未填写模板会直接报错。首次准备方法见 [T0.3 验收](docs/t03_validation.md)。
+
+```sh
+".venv/bin/python" -m pip --isolated --no-cache-dir check
+".venv/bin/python" -m unittest discover -s tests -v
+".venv/bin/python" "scripts/run_smoke.py" --config "config/local.yaml"
+```
+
+启动器在创建 Spark JVM 前设置专用 Python、JAVA_HOME、`local[4]`、Driver `4g`、32 个 shuffle 分区和 UTC。临时目录及输出目录均来自配置，必须位于被忽略的 `.local/` 内。每次自动生成独立 run ID，原始日志、收据和 Parquet 留在本机；不覆盖旧运行，不启用 Hive。
+
+下一轮须由用户明确指定任务。本轮在 T0.3 验收与同步后停止，T0.4 及后续处理尚未执行。

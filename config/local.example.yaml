@@ -1,0 +1,17 @@
+# Copy to local.yaml and fill every null path before running.
+profile: local
+runtime:
+  python_executable: null
+  java_home: null
+compute:
+  mode: local
+  master: "local[4]"
+  driver_memory: "4g"
+  shuffle_partitions: 32
+storage:
+  backend: local
+  temp_root: null
+  warehouse_root: null
+metrics:
+  version: "v4.0"
+  session_timezone: "UTC"

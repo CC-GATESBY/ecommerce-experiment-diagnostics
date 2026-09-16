@@ -1,0 +1,5 @@
+pip==26.1.2
+py4j==0.10.9.9
+pyspark==3.5.8
+PyYAML==6.0.3
+setuptools==82.0.1
