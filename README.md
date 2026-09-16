@@ -8,7 +8,7 @@ S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两�
 
 仓库目标为 `CC-GATESBY/ecommerce-experiment-diagnostics`，可见性保持 **private**。仓库同步只包含审查过的文件，不表示全部本地文件、数据或运行环境已经上传。
 
-T1.1 的旧 100,000 条工程样本子任务已通过：39 列事实 Parquet 保留原始字段及质量标记，标准库独立核验与两个独立 run 重跑一致。范围仅为 2019-10-01 00:00:00–04:28:27 UTC；整月候选未解析，T1.1 整体仍为 `in_progress`。见 [工程验收摘要](docs/t11_engineering_validation.md)与[质量表](reports/data_quality_engineering.csv)。
+T1.1 的旧 100,000 条工程样本子任务已通过：39 列事实 Parquet 保留原始字段及质量标记，标准库独立核验与两个独立 run 重跑一致。范围仅为 2019-10-01 00:00:00–04:28:27 UTC；这是此前工程阶段验收，旧报告和输出保留。T1.1 整体状态及本轮整月子任务以任务清单为准。见 [工程验收摘要](docs/t11_engineering_validation.md)与[质量表](reports/data_quality_engineering.csv)。
 
 ## 范围与证据
 
@@ -51,14 +51,14 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 
 首次下载的是完整单月压缩包（1,741,928,540 bytes），解压为 5,668,612,855 bytes，再提取头部工程样本。T0.4 补充阶段复用该 CSV 完成覆盖核验，没有再次下载或解压。按[冻结规则](docs/analysis_sampling.md)以原始用户 ID 选择约 5%，保留选中用户在本源文件中的全部记录；实际事件比例为 4.980312%，不是实测用户比例。新产物标为 `user_sample_candidate`，原样本不覆盖、不拼接；每日覆盖见[源](reports/source_daily_coverage.csv)与[候选](reports/sample_daily_coverage.csv)。
 
-按已授权的顺序调整，Criteo 暂后移，REES46 工程解析按该数据线独立验收。T1.1 工程子任务的实际结果见下；整月候选继续等待明确授权。T1.1 整体、T1.5 与总 G0/G1 不提前完成。
+按已授权的顺序调整，Criteo 暂后移，REES46 工程解析按该数据线独立验收。T1.1 工程子任务的实际结果见下；本轮已获准在边界修复和工程回归通过后解析唯一登记的整月候选。T1.1 整体、T1.5 与总 G0/G1 不提前完成。
 
 
 ## T1.1 工程样本事实层
 
 仅使用第一份旧 100,000 条工程样本（约四小时），解析契约见 [event_parsing_contract.md](docs/event_parsing_contract.md)，schema 见 [events.sql](sql/ddl/events.sql)，实际结果见 [T1.1 工程验收](docs/t11_engineering_validation.md)。原始九字段保留为字符串；UTC 时间、Decimal(18,2) 和质量标记是新增列。不得用此范围推断整日或整月业务表现。
 
-保留原有 `config/local.yaml` 环境绑定，单独填写 `config/events.example.yaml` 并保存为被忽略的 `config/events.local.yaml`。输入从 `data/manifest.json` 第一份工程样本定位；创建 `.local/t11/runs` 后填写输出根目录。模板不能直接运行，入口拒绝其他样本、目录通配符和整月候选。以下命令从实际项目根目录执行，两个 run ID 必须从未使用：
+保留原有 `config/local.yaml` 环境绑定，单独填写 `config/events.example.yaml` 并保存为被忽略的 `config/events.local.yaml`。输入从 `data/manifest.json` 第一份工程样本定位；创建 `.local/t11/runs` 后填写输出根目录。模板不能直接运行，该工程模板拒绝其他样本和目录通配符；本轮唯一获准的整月候选使用下述独立模板和回归门槛。以下命令从实际项目根目录执行，两个 run ID 必须从未使用：
 
 ```sh
 ".venv/bin/python" -m unittest discover -s tests -v
@@ -67,3 +67,19 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 ```
 
 测试含一个人工小文件 Spark 集成测试，需要允许本机 Python/JVM 回环端口通信。启动脚本沿用专用 `.venv` 和 JDK 17，以 local[4]、Driver 4g、32 个 shuffle 分区和 UTC 运行，不启用 Hive。独立标准库预期在启动 Spark 前计算；全部字段及重复重数、schema、聚合与金额精确核验通过且 Spark 正常停止后才发布 `complete`。两次输出独立保存；已有 run ID 会报错。原始字段、Parquet、期望侧文件、真实配置和收据仅留 `.local/`。该核验不替代 T1.4 DuckDB 验收。
+
+
+## T1.1 整月候选解析与质量核对
+
+本轮工程回归及两个整月候选 run 均通过：各 2,114,081 条，31 天逐日覆盖一致，全字段与重复重数无差异。质量核对实算 151,121 名合格用户、17,121 名购买用户、37,019 条购买事件，观测购买金额 11598630.22（原 price 单位）。结果只限固定用户候选，T1.1 整体仍为 in_progress，日期放行与跨月追加验收尚未收口。
+
+边界补丁为 `rees46-events-v1.0.1`：非有限字面值最多一个符号；Java 正则完整输入匹配；CSV 内 LF/CR/CRLF 保持原样。旧工程契约及验收不覆盖，补丁原因见[契约附录](docs/event_parsing_contract.md)。整月子任务结果见[独立验收](docs/t11_month_validation.md)，[全月质量](reports/data_quality_month.csv)、[逐日质量](reports/data_quality_daily.csv)、[逐项检查](reports/month_parsing_checks.csv)只用于工程核对。
+
+整月配置使用 `config/events_month.example.yaml`，填入 manifest 的唯一候选相对路径，保存到被忽略的 `config/events_month.local.yaml`。源文件大小、哈希、完成收据及 scope/类型/行数须全部匹配，原始整月源和其他输入仍不允许。先使用工程配置在新 run 回归历史 Parquet；同一实现的通过收据才能作为 `--engineering-gate`。下例为本轮实际路径，复跑须使用新的 run ID，累计预算不得重置以掩盖旧输出：
+
+```sh
+".venv/bin/python" "scripts/run_events.py" --config "config/events_regression.local.yaml" --runtime-config "config/local.yaml" --run-id "engineering-regression-new" --regression-against ".local/t11/runs/rees46_oct_head_d50b23d8c05613dfd1eb/engineering-20260916-03" --budget ".local/t11/month-20260916/budget.json"
+".venv/bin/python" "scripts/run_events.py" --config "config/events_month.local.yaml" --runtime-config "config/local.yaml" --run-id "month-new-01" --engineering-gate ".local/t11/month-20260916/runs/rees46_oct_head_d50b23d8c05613dfd1eb/engineering-regression-new" --budget ".local/t11/month-20260916/budget.json"
+```
+
+预算文件仅本机使用，记录本轮开始前 `.local/t11/` 的 `initial_bytes`、`max_new_bytes=21474836480`、`minimum_free_bytes=161061273600`；初次设置必须基于实测基线，后续同轮运行复用。运行中持续计入独立 JSONL、SQLite、Parquet、临时文件与日志，超限保留失败记录并停止。必要重跑使用新 run ID 并加 `--compare-run-id` 指向首轮；不覆盖、不为性能数字反复运行。独立核验覆盖全部记录及重复重数，SQLite 以有界批次完成用户去重；金额按日期附状态，解析完成不等于正式分析范围或全部日期自动放行。

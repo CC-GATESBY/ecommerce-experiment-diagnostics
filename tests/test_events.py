@@ -32,6 +32,8 @@ def synthetic_rows():
     rows += [row(brand='a,"b"\nc', category_code='', user_session='s,1'), row(event_type='remove_from_cart'),
              row(brand='null', category_code='NULL', user_session='__T11_RESERVED_NULL_7f0b79e9__'),
              row(brand='a\x00b', category_code=''), row(brand=' "a" ', category_code=' ') ]
+    from test_event_boundaries import literal_cases, raw_row
+    rows += [raw_row(field, value) for field, value, _ in literal_cases()]
     return rows
 
 

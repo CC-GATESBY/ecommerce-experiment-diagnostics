@@ -1,0 +1,8 @@
+# Fill from the registered candidate; no arbitrary monthly inputs are accepted.
+kind: user_sample_candidate
+input_path: <registered candidate local_relative_path from data/manifest.json>
+input_sha256: 5bfc34f9c683a81ecb5eef6853a62ed454a76eca3244c9b7d80a426b8100055b
+scope_id: rees46_2019_oct_user5_fedd938409b5f836_20260916_v1
+source_id: rees46_multicategory_2019_oct
+expected_records: 2114081
+output_root: .local/t11/month-20260916/runs
