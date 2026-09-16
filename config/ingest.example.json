@@ -1,0 +1,13 @@
+{
+  "source_id": "rees46_multicategory_2019_oct",
+  "dataset_ref": "mkechinov/ecommerce-behavior-data-from-multi-category-store",
+  "catalog_version": 8,
+  "archive_url": "https://data.rees46.com/datasets/marketplace/2019-Oct.csv.gz",
+  "archive_bytes": 1741928540,
+  "csv_expected_bytes": 5668612855,
+  "archive_etag": "\"646b587b-67d3b85c\"",
+  "staging_root": null,
+  "raw_root": null,
+  "sample_root": null,
+  "max_records": 100000
+}

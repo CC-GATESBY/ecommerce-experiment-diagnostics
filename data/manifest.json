@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "task_id": "T0.4",
+  "task_status": "in_progress",
+  "subtasks": {
+    "rees46_2019_oct": "done",
+    "criteo_source_acceptance": "not_started"
+  },
+  "run_id": "rees46-oct-20260916T104053Z-4e081494",
+  "source_checked_at_utc": "2026-09-16T10:37:36.597952+00:00",
+  "license": {
+    "catalog_label": "Data files © Original Authors",
+    "publisher_usage_statement": "Free use with attribution to the Kaggle dataset page and REES46; raw/sample redistribution not performed.",
+    "publisher_sha256": "not_published_or_not_found"
+  },
+  "version_evidence": {
+    "catalog_current_version": 8,
+    "catalog_version_created_at_utc": "2019-12-09T20:43:39.273Z",
+    "publisher_archive_version": "not_provided",
+    "archive_http_metadata": {
+      "Content-Length": "1741928540",
+      "Content-Type": "application/octet-stream",
+      "Content-Encoding": null,
+      "Last-Modified": "Mon, 22 May 2023 11:56:43 GMT",
+      "ETag": "\"646b587b-67d3b85c\"",
+      "Accept-Ranges": "bytes"
+    },
+    "cross_host_byte_identity": "not_verified"
+  },
+  "measurements": {
+    "source_payload_download_bytes": 1741928540,
+    "download_attempts": 1,
+    "source_file_downloads": 1,
+    "network_protocol_overhead_bytes": "not_measured",
+    "raw_and_two_sample_content_bytes": 7437247313,
+    "free_disk_after_validation_bytes": 573679390720
+  },
+  "files": [
+    {
+      "source_id": "rees46_multicategory_2019_oct",
+      "publisher_entry": "https://rees46.com/en/datasets",
+      "catalog_entry": "https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store",
+      "dataset_ref": "mkechinov/ecommerce-behavior-data-from-multi-category-store",
+      "catalog_version": 8,
+      "version": "publisher_unversioned_object; catalog_v8_context_only",
+      "source_url": "https://data.rees46.com/datasets/marketplace/2019-Oct.csv.gz",
+      "format": "gzip",
+      "header": "not_applicable",
+      "parsing_status": "gzip_crc_verified",
+      "authenticity": "original_publisher_link_and_https; SHA256_is_content_tracking_only",
+      "filename": "2019-Oct.csv.gz",
+      "observed_filenames": [
+        "2019-Oct.csv.gz"
+      ],
+      "bytes": 1741928540,
+      "sha256": "8ebca1ad741295297368f2cf0315e3f36853a1a11768fb16babf8c9b83838147",
+      "acquired_at_utc": "2026-09-16T10:46:27.198947+00:00",
+      "status": "complete",
+      "full_record_count": "not_measured",
+      "full_time_range": "not_measured",
+      "extracted_csv_sha256": "fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80",
+      "local_relative_path": ".local/t04/raw/8ebca1ad741295297368f2cf0315e3f36853a1a11768fb16babf8c9b83838147/2019-Oct.csv.gz"
+    },
+    {
+      "source_id": "rees46_multicategory_2019_oct",
+      "publisher_entry": "https://rees46.com/en/datasets",
+      "catalog_entry": "https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store",
+      "dataset_ref": "mkechinov/ecommerce-behavior-data-from-multi-category-store",
+      "catalog_version": 8,
+      "version": "publisher_unversioned_object; catalog_v8_context_only",
+      "source_url": "https://data.rees46.com/datasets/marketplace/2019-Oct.csv.gz",
+      "format": "csv",
+      "header": [
+        "event_time",
+        "event_type",
+        "product_id",
+        "category_id",
+        "category_code",
+        "brand",
+        "price",
+        "user_id",
+        "user_session"
+      ],
+      "parsing_status": "header_parsed_only",
+      "authenticity": "original_publisher_link_and_https; SHA256_is_content_tracking_only",
+      "filename": "2019-Oct.csv",
+      "observed_filenames": [
+        "2019-Oct.csv"
+      ],
+      "bytes": 5668612855,
+      "sha256": "fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80",
+      "acquired_at_utc": "2026-09-16T10:46:38.773774+00:00",
+      "status": "complete",
+      "full_record_count": "not_measured",
+      "full_time_range": "not_measured",
+      "parent_archive_sha256": "8ebca1ad741295297368f2cf0315e3f36853a1a11768fb16babf8c9b83838147",
+      "local_relative_path": ".local/t04/raw/fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80/2019-Oct.csv"
+    }
+  ],
+  "engineering_samples": [
+    {
+      "kind": "engineering_sample",
+      "scope_id": "rees46_oct_head_d50b23d8c05613dfd1eb",
+      "parent_sha256": "fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80",
+      "extraction_rule": "head_csv_records_v1;utf8;csv_strict;strings;header_once;LF;QUOTE_MINIMAL;max_records=100000",
+      "script_sha256": "1e257db68b05b63e5e6cb7ef04b8a66ca823112244728250be9fa6fe0dc0441e",
+      "random_seed": "not_applicable_ordered_prefix",
+      "record_count": 100000,
+      "header": [
+        "event_time",
+        "event_type",
+        "product_id",
+        "category_id",
+        "category_code",
+        "brand",
+        "price",
+        "user_id",
+        "user_session"
+      ],
+      "bytes": 13352959,
+      "sha256": "fe2cd808172c853217201660a98a8c8600fb0230f5c89efda45a9a1a2fdae754",
+      "created_at_utc": "2026-09-16T10:47:00.709570+00:00",
+      "sample_time_range_utc": {
+        "min": "2019-10-01T00:00:00+00:00",
+        "max": "2019-10-01T04:28:27+00:00"
+      },
+      "time_parse_failures": 0,
+      "parsing_status": "sample_records_parsed",
+      "limitations": "ordered prefix; no population, retention, long-window or CUPED claims",
+      "local_relative_path": ".local/t04/samples/rees46-oct-head-01/engineering_sample.csv"
+    },
+    {
+      "kind": "engineering_sample",
+      "scope_id": "rees46_oct_head_d50b23d8c05613dfd1eb",
+      "parent_sha256": "fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80",
+      "extraction_rule": "head_csv_records_v1;utf8;csv_strict;strings;header_once;LF;QUOTE_MINIMAL;max_records=100000",
+      "script_sha256": "1e257db68b05b63e5e6cb7ef04b8a66ca823112244728250be9fa6fe0dc0441e",
+      "random_seed": "not_applicable_ordered_prefix",
+      "record_count": 100000,
+      "header": [
+        "event_time",
+        "event_type",
+        "product_id",
+        "category_id",
+        "category_code",
+        "brand",
+        "price",
+        "user_id",
+        "user_session"
+      ],
+      "bytes": 13352959,
+      "sha256": "fe2cd808172c853217201660a98a8c8600fb0230f5c89efda45a9a1a2fdae754",
+      "created_at_utc": "2026-09-16T10:47:04.727650+00:00",
+      "sample_time_range_utc": {
+        "min": "2019-10-01T00:00:00+00:00",
+        "max": "2019-10-01T04:28:27+00:00"
+      },
+      "time_parse_failures": 0,
+      "parsing_status": "sample_records_parsed",
+      "limitations": "ordered prefix; no population, retention, long-window or CUPED claims",
+      "local_relative_path": ".local/t04/samples/rees46-oct-head-02/engineering_sample.csv"
+    }
+  ],
+  "validation": {
+    "synthetic_ingest_tests_passed": 20,
+    "existing_config_tests_passed": 17,
+    "independent_checks_passed": 34,
+    "two_samples_identical": true,
+    "existing_raw_reuse_without_download": "pass",
+    "full_csv_business_parsing": "not_run",
+    "g0": "not_complete"
+  },
+  "limitations": [
+    "The external publisher object has no independent version number; Kaggle v8 is catalog context, not verified byte identity.",
+    "SHA256 identifies content, not publisher authenticity.",
+    "Samples are ordered prefixes, not random or representative samples.",
+    "Full-file row count and time coverage remain not_measured.",
+    "No monthly ETL, fact Parquet, business metrics or Criteo download."
+  ]
+}
