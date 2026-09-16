@@ -2,7 +2,7 @@
 
 配套：`plan_v4.md`（完整规格）与 `CODEX_START_v4.md`（协作约束）。
 
-**本轮更新：T0.1、T0.2 的既有结果保留；S0 已恢复，独立 Git 初始化完成，正在审核首次提交与同步。** 勾选只表示已检查的对应产物，不表示后续代码或分析已运行。本人独立解释项保留未勾选，未替用户声明通过。
+**本轮更新：T0.1、T0.2 的既有结果保留；S0 已完成独立 Git 初始化、private 仓库创建、首次 push 与 SHA 核验。** 勾选只表示已检查的对应产物，不表示后续代码或分析已运行。本人独立解释项保留未勾选，未替用户声明通过。
 
 P0＝投递核心；P1＝完整增强；P2＝延后扩展。完整目标=P0+P1。MRC尚未确认不阻塞本地；Hadoop尚未跑通不得填入实践成果。
 
@@ -13,12 +13,14 @@ P0＝投递核心；P1＝完整增强；P2＝延后扩展。完整目标=P0+P1�
 - [x] 已重新核验活动 GitHub 账号为 `CC-GATESBY`；目标仓库 API 返回 404，账号仓库列表无同名目标。
 - [x] 已读取本地 `CODEX_LOCAL_GITHUB_BOOTSTRAP.md`；旧路径按用户本轮说明纠正，文件本身不提交。
 - [x] 已建立 `.gitignore`、README、AGENTS 与 `docs/local_scope.md`；T0.1、T0.2 产物未重新生成。
-- [ ] 完成忽略规则与暂存审查，创建首个安全提交。
-- [ ] 创建 private 仓库、首次 push、核对本地与远程 commit SHA。
+- [x] 完成忽略规则与暂存审查，创建首个安全提交；27 个排除路径与 15 个允许路径检查通过。
+- [x] 创建 private 仓库、首次 push 成功；本地、远程 main 与 GitHub API 的 SHA 一致，10 个文件的远程 Git 对象与本地一致。
 
-状态：`in_progress`　run_id：`s0-resume-20260916T094342Z`　阻塞：`无；首次提交及远程同步待执行`
+状态：`done`　run_id：`s0-resume-20260916T094342Z`　实际完成日期：`2026-09-16`　阻塞：`无`
 
-上一轮 `runs/bootstrap_receipt.md` 原样保留为历史记录；本次收尾记录将写入本地 `runs/s0_receipt.json`。这些原始记录不提交。T0.1、T0.2 段落保留上一轮验收内容，其中当时的 S0 缺文件情况已解决。
+上一轮 `runs/bootstrap_receipt.md` 原样保留为历史记录；本次收尾记录保存在本地 `runs/s0_receipt.json`。这些原始记录不提交。T0.1、T0.2 段落保留上一轮验收内容，其中当时的 S0 缺文件情况已解决。
+
+首次同步的提交为 `9071c17cc2f7b71a3f3fcad9ddc08fc2bc219af4`，核验时间为 2026-09-16 09:50:05 UTC。仓库：[CC-GATESBY/ecommerce-experiment-diagnostics](https://github.com/CC-GATESBY/ecommerce-experiment-diagnostics)，可见性 private，分支 main。此状态更新提交后的最终 HEAD 与远程 SHA 记录在本地收尾收据及交付回复中。
 
 ## 今晚先执行
 
@@ -102,7 +104,7 @@ P0＝投递核心；P1＝完整增强；P2＝延后扩展。完整目标=P0+P1�
 
 状态：`in_progress`（仅 Git 子项）　run_id：`s0-resume-20260916T094342Z`　实际完成日期：`未完成`　阻塞：`无；依赖安装和 Spark 验证不在本轮范围`
 
-Git 子项记录：完成恢复前的本地和远程核查，已初始化独立 `main` 分支并建立忽略规则；首次提交及 push 待执行。T0.3 整体未完成，依赖安装、版本锁、配置与 Spark 验证均 `not_run`；上方完整验收框保持未勾选。
+Git 子项记录：已完成独立 `main` 分支初始化、忽略规则与提交审查、private 远程仓库创建、首次提交及 push，并通过 SHA 和远程文件树核验。T0.3 整体未完成，依赖安装、版本锁、配置与 Spark 验证均 `not_run`；上方完整验收框保持未勾选。
 
 ### T0.4 数据来源验收与不可变原始区（P0）
 
