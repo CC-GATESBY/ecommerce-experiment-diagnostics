@@ -1,0 +1,16 @@
+{
+  "manifest": "data/manifest.json",
+  "ingest_config": "config/ingest.local.json",
+  "source_id": "rees46_multicategory_2019_oct",
+  "parent_sha256": "fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80",
+  "algorithm_version": "rees46-user-sample-v1",
+  "seed": "20260916",
+  "target_percent": 5,
+  "expected_start_utc": "2019-10-01T00:00:00+00:00",
+  "expected_end_utc": "2019-11-01T00:00:00+00:00",
+  "staging_root": null,
+  "output_root": null,
+  "max_new_bytes": 10737418240,
+  "minimum_free_bytes": 161061273600,
+  "progress_every_records": 1000000
+}

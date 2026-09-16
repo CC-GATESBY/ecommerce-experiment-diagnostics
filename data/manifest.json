@@ -4,7 +4,9 @@
   "task_status": "in_progress",
   "subtasks": {
     "rees46_2019_oct": "done",
-    "criteo_source_acceptance": "not_started"
+    "criteo_source_acceptance": "not_started",
+    "rees46_month_coverage": "done",
+    "rees46_fixed_user_candidate": "done_input_preparation_only"
   },
   "run_id": "rees46-oct-20260916T104053Z-4e081494",
   "source_checked_at_utc": "2026-09-16T10:37:36.597952+00:00",
@@ -81,7 +83,7 @@
         "user_id",
         "user_session"
       ],
-      "parsing_status": "header_parsed_only",
+      "parsing_status": "complete_csv_structure_and_coverage_scan; business_quality_not_accepted",
       "authenticity": "original_publisher_link_and_https; SHA256_is_content_tracking_only",
       "filename": "2019-Oct.csv",
       "observed_filenames": [
@@ -91,10 +93,14 @@
       "sha256": "fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80",
       "acquired_at_utc": "2026-09-16T10:46:38.773774+00:00",
       "status": "complete",
-      "full_record_count": "not_measured",
-      "full_time_range": "not_measured",
+      "full_record_count": 42448764,
+      "full_time_range": {
+        "min": "2019-10-01T00:00:00+00:00",
+        "max": "2019-10-31T23:59:59+00:00"
+      },
       "parent_archive_sha256": "8ebca1ad741295297368f2cf0315e3f36853a1a11768fb16babf8c9b83838147",
-      "local_relative_path": ".local/t04/raw/fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80/2019-Oct.csv"
+      "local_relative_path": ".local/t04/raw/fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80/2019-Oct.csv",
+      "coverage_validation": "docs/t04_rees46_month_validation.md"
     }
   ],
   "engineering_samples": [
@@ -173,8 +179,189 @@
   "limitations": [
     "The external publisher object has no independent version number; Kaggle v8 is catalog context, not verified byte identity.",
     "SHA256 identifies content, not publisher authenticity.",
-    "Samples are ordered prefixes, not random or representative samples.",
-    "Full-file row count and time coverage remain not_measured.",
-    "No monthly ETL, fact Parquet, business metrics or Criteo download."
+    "Engineering samples are ordered prefixes, not random or representative samples.",
+    "No monthly ETL, fact Parquet, business metrics or Criteo download.",
+    "Original engineering samples remain ordered prefixes. The user_sample_candidate covers observed October dates but has not passed T1.1/T1.5 business quality gates.",
+    "Full source distinct-user count remains not_measured; daily coverage does not prove upstream completeness."
+  ],
+  "user_sample_candidates": [
+    {
+      "status": "validated",
+      "kind": "user_sample_candidate",
+      "run_id": "rees46-oct-user5-20260916",
+      "scope_id": "rees46_2019_oct_user5_fedd938409b5f836_20260916_v1",
+      "parent_sha256": "fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80",
+      "algorithm_version": "rees46-user-sample-v1",
+      "seed": "20260916",
+      "target_user_sampling_percent": 5,
+      "selection_payload_prefix": "rees46-user-sample-v1|20260916|",
+      "selection_threshold_uint64": 922337203685477580,
+      "serialization": "csv-v1;UTF-8;LF;QUOTE_MINIMAL;header-once;original-field-strings;source-order",
+      "script_sha256": "bac336012933d2f3cc2da4de826462f5fc52e77363f83ba15e08a2049ee39010",
+      "helper_script_sha256": "1e257db68b05b63e5e6cb7ef04b8a66ca823112244728250be9fa6fe0dc0441e",
+      "started_at_utc": "2026-09-16T11:30:04.284819+00:00",
+      "validated_at_utc": "2026-09-16T11:32:45.959977+00:00",
+      "expected_month_window": {
+        "start_inclusive": "2019-10-01T00:00:00+00:00",
+        "end_exclusive": "2019-11-01T00:00:00+00:00"
+      },
+      "source_scan": {
+        "status": "complete",
+        "record_count": 42448764,
+        "header": [
+          "event_time",
+          "event_type",
+          "product_id",
+          "category_id",
+          "category_code",
+          "brand",
+          "price",
+          "user_id",
+          "user_session"
+        ],
+        "field_count_anomaly_records": 0,
+        "time_range_utc": {
+          "min": "2019-10-01T00:00:00+00:00",
+          "max": "2019-10-31T23:59:59+00:00"
+        },
+        "time_missing_records": 0,
+        "time_parse_failure_records": 0,
+        "outside_expected_month_records": 0,
+        "event_type_counts": {
+          "cart": 926516,
+          "purchase": 742849,
+          "view": 40779399
+        },
+        "empty_field_records": {
+          "event_time": 0,
+          "event_type": 0,
+          "product_id": 0,
+          "category_id": 0,
+          "category_code": 13515609,
+          "brand": 6113008,
+          "price": 0,
+          "user_id": 0,
+          "user_session": 2
+        },
+        "user_id_missing_or_unusable_records": 0,
+        "user_id_empty_records": 0,
+        "user_id_whitespace_only_records": 0,
+        "user_id_non_ascii_digit_string_records": 0,
+        "user_id_leading_zero_records": 0,
+        "expected_dates_without_records": [],
+        "distinct_user_count": "not_measured",
+        "bytes": 5668612855,
+        "sha256": "fedd938409b5f836ec89b39c861b13dad99fc7cd9beb1fddd97a2d50488b5b80",
+        "daily_records_report": "reports/source_daily_coverage.csv",
+        "hourly_records_report": "reports/source_hourly_coverage.csv",
+        "observed_utc_hour_count": 744
+      },
+      "sample": {
+        "profile": {
+          "record_count": 2114081,
+          "header": [
+            "event_time",
+            "event_type",
+            "product_id",
+            "category_id",
+            "category_code",
+            "brand",
+            "price",
+            "user_id",
+            "user_session"
+          ],
+          "field_count_anomaly_records": 0,
+          "time_range_utc": {
+            "min": "2019-10-01T00:00:23+00:00",
+            "max": "2019-10-31T23:59:56+00:00"
+          },
+          "time_missing_records": 0,
+          "time_parse_failure_records": 0,
+          "outside_expected_month_records": 0,
+          "event_type_counts": {
+            "cart": 46472,
+            "purchase": 37019,
+            "view": 2030590
+          },
+          "empty_field_records": {
+            "event_time": 0,
+            "event_type": 0,
+            "product_id": 0,
+            "category_id": 0,
+            "category_code": 669421,
+            "brand": 299547,
+            "price": 0,
+            "user_id": 0,
+            "user_session": 0
+          },
+          "user_id_missing_or_unusable_records": 0,
+          "user_id_empty_records": 0,
+          "user_id_whitespace_only_records": 0,
+          "user_id_non_ascii_digit_string_records": 0,
+          "user_id_leading_zero_records": 0,
+          "expected_dates_without_records": [],
+          "daily_records_report": "reports/sample_daily_coverage.csv",
+          "observed_utc_hour_count": 744
+        },
+        "distinct_user_count": 151121,
+        "all_user_hash_conditions": "pass",
+        "field_values_and_order": "pass",
+        "serialization_and_sha256": "pass",
+        "profile_matches_extraction": "pass",
+        "distinct_count_method": "SQLite BINARY primary key; bounded 4096-row batches",
+        "bytes": 282405091,
+        "sha256": "5bfc34f9c683a81ecb5eef6853a62ed454a76eca3244c9b7d80a426b8100055b",
+        "field_sequence_sha256": "9440e026433f092d2d462801e239d832716c63ae29e1642605de54dd7e2562b1",
+        "actual_event_extraction_ratio": 0.0498031226539364,
+        "local_relative_path": ".local/t04/user-samples/rees46-oct-user5-20260916/user_sample_candidate.csv"
+      },
+      "source_dates_without_sample_records": [],
+      "timing_seconds": {
+        "source_scan_and_extract": 147.445,
+        "sample_reread_validation": 11.351,
+        "total_before_publish": 161.674
+      },
+      "resources": {
+        "max_new_bytes": 10737418240,
+        "minimum_free_bytes": 161061273600,
+        "new_data_and_sqlite_bytes": 284764387,
+        "free_before_bytes": 573703041024,
+        "free_after_bytes": 573412212736,
+        "source_full_csv_parse_passes": 1,
+        "source_full_binary_precheck_passes": 1,
+        "sample_copies_written": 1,
+        "sample_reread_passes": 1,
+        "python_event_buffer_limit": 4096,
+        "sqlite_cache_kib": 4096,
+        "peak_memory_bytes": "not_measured",
+        "resource_wrapper_status": "time_l_sysctl_permission_error_after_successful_processing",
+        "post_validation_binary_hash_passes": 1,
+        "post_validation_seconds": 3.018
+      },
+      "limitations": [
+        "Input preparation only; business quality gates have not been passed.",
+        "Observed daily coverage does not prove upstream completeness.",
+        "Trajectories include this source file only, not a user's entire platform history.",
+        "5% is a target probability for user IDs, not an event share or measured full-population user share."
+      ],
+      "registration_status": "validated_input_candidate_not_business_accepted",
+      "tests": {
+        "existing_tests_passed": 37,
+        "new_synthetic_tests_passed": 15,
+        "post_validation_checks_passed": 25,
+        "cross_process_reproducibility": "synthetic_pass",
+        "full_size_second_copy": "not_created"
+      },
+      "coverage_reports_sha256": {
+        "reports/source_daily_coverage.csv": "941910b67827f09c6ae4a5d713a52360f6735ecc624898904834551e24c6a54e",
+        "reports/sample_daily_coverage.csv": "a8b79ce22aacec8d2c09acc1bfe131519fc07610f74e4495930442d1586c0c52",
+        "reports/source_hourly_coverage.csv": "34b07554197ca994ea68a31ff42ef33b3409853d553d22e0e8f2f6c9aa81492e"
+      },
+      "prior_source_profile_state": {
+        "full_record_count": "not_measured",
+        "full_time_range": "not_measured",
+        "parsing_status": "header_parsed_only"
+      }
+    }
   ]
 }
