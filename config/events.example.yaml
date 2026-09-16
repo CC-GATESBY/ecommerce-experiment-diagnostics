@@ -1,0 +1,9 @@
+# Relative paths preserve the actual project directory name, including its final space.
+# This template is intentionally incomplete and fails validation until filled.
+kind: engineering_sample
+input_path: <first engineering sample path from data/manifest.json>
+input_sha256: fe2cd808172c853217201660a98a8c8600fb0230f5c89efda45a9a1a2fdae754
+scope_id: rees46_oct_head_d50b23d8c05613dfd1eb
+source_id: rees46_multicategory_2019_oct
+expected_records: 100000
+output_root: .local/t11/runs

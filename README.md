@@ -8,6 +8,8 @@ S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两�
 
 仓库目标为 `CC-GATESBY/ecommerce-experiment-diagnostics`，可见性保持 **private**。仓库同步只包含审查过的文件，不表示全部本地文件、数据或运行环境已经上传。
 
+T1.1 的旧 100,000 条工程样本子任务已通过：39 列事实 Parquet 保留原始字段及质量标记，标准库独立核验与两个独立 run 重跑一致。范围仅为 2019-10-01 00:00:00–04:28:27 UTC；整月候选未解析，T1.1 整体仍为 `in_progress`。见 [工程验收摘要](docs/t11_engineering_validation.md)与[质量表](reports/data_quality_engineering.csv)。
+
 ## 范围与证据
 
 唯一主环境为本地，先做工程小样本，再做满足完整观察窗口要求的分析样本。全量双月或七个月处理是可选扩展，须由用户在小批量验收后明确决定，不作为首版完成条件。MRC、Nectar 和 Spartan 不作为当前依赖。
@@ -47,6 +49,21 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 
 接入只使用现有专用环境中的 Python 标准库。独立配置模板为 `config/ingest.example.json`，填写后保存到被忽略的 `config/ingest.local.json`；不改动 T0.3 的配置校验。模板的空路径不可直接运行。复跑说明见 [数据清单](data/MANIFEST.md#安全复跑)：已有 raw 先校验哈希再复用，样本使用新的 run ID，不覆盖既有产物。
 
-首次下载的是完整单月压缩包（1,741,928,540 bytes），解压为 5,668,612,855 bytes，再提取头部工程样本。本轮复用该 CSV 完成覆盖核验，没有再次下载或解压。按[冻结规则](docs/analysis_sampling.md)以原始用户 ID 选择约 5%，保留选中用户在本源文件中的全部记录；实际事件比例为 4.980312%，不是实测用户比例。新产物标为 `user_sample_candidate`，原样本不覆盖、不拼接；每日覆盖见[源](reports/source_daily_coverage.csv)与[候选](reports/sample_daily_coverage.csv)。
+首次下载的是完整单月压缩包（1,741,928,540 bytes），解压为 5,668,612,855 bytes，再提取头部工程样本。T0.4 补充阶段复用该 CSV 完成覆盖核验，没有再次下载或解压。按[冻结规则](docs/analysis_sampling.md)以原始用户 ID 选择约 5%，保留选中用户在本源文件中的全部记录；实际事件比例为 4.980312%，不是实测用户比例。新产物标为 `user_sample_candidate`，原样本不覆盖、不拼接；每日覆盖见[源](reports/source_daily_coverage.csv)与[候选](reports/sample_daily_coverage.csv)。
 
-按用户本轮顺序调整，Criteo 暂后移，后续 REES46 工程解析可按该数据线独立验收。下一步先用旧 100,000 条工程样本验证 T1.1，通过后再获授权处理整月候选。本轮同步后停止，不提前标记 T1.1、T1.5 或总 G0 完成。
+按已授权的顺序调整，Criteo 暂后移，REES46 工程解析按该数据线独立验收。T1.1 工程子任务的实际结果见下；整月候选继续等待明确授权。T1.1 整体、T1.5 与总 G0/G1 不提前完成。
+
+
+## T1.1 工程样本事实层
+
+仅使用第一份旧 100,000 条工程样本（约四小时），解析契约见 [event_parsing_contract.md](docs/event_parsing_contract.md)，schema 见 [events.sql](sql/ddl/events.sql)，实际结果见 [T1.1 工程验收](docs/t11_engineering_validation.md)。原始九字段保留为字符串；UTC 时间、Decimal(18,2) 和质量标记是新增列。不得用此范围推断整日或整月业务表现。
+
+保留原有 `config/local.yaml` 环境绑定，单独填写 `config/events.example.yaml` 并保存为被忽略的 `config/events.local.yaml`。输入从 `data/manifest.json` 第一份工程样本定位；创建 `.local/t11/runs` 后填写输出根目录。模板不能直接运行，入口拒绝其他样本、目录通配符和整月候选。以下命令从实际项目根目录执行，两个 run ID 必须从未使用：
+
+```sh
+".venv/bin/python" -m unittest discover -s tests -v
+".venv/bin/python" "scripts/run_events.py" --config "config/events.local.yaml" --runtime-config "config/local.yaml" --run-id "engineering-new-01"
+".venv/bin/python" "scripts/run_events.py" --config "config/events.local.yaml" --runtime-config "config/local.yaml" --run-id "engineering-new-02" --compare-run-id "engineering-new-01"
+```
+
+测试含一个人工小文件 Spark 集成测试，需要允许本机 Python/JVM 回环端口通信。启动脚本沿用专用 `.venv` 和 JDK 17，以 local[4]、Driver 4g、32 个 shuffle 分区和 UTC 运行，不启用 Hive。独立标准库预期在启动 Spark 前计算；全部字段及重复重数、schema、聚合与金额精确核验通过且 Spark 正常停止后才发布 `complete`。两次输出独立保存；已有 run ID 会报错。原始字段、Parquet、期望侧文件、真实配置和收据仅留 `.local/`。该核验不替代 T1.4 DuckDB 验收。
