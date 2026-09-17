@@ -8,7 +8,9 @@ S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两�
 
 仓库目标为 `CC-GATESBY/ecommerce-experiment-diagnostics`，可见性保持 **private**。仓库同步只包含审查过的文件，不表示全部本地文件、数据或运行环境已经上传。
 
-T1.1 已完成工程验收，本人解释未代验。旧 100,000 条工程样本、整月候选解析及重跑证据保留；本轮只完成日期用途规则和人工跨月追加，以 `month-v101-01` 为唯一真实下游，未重建事实表。见 [收尾验收](docs/t11_closeout_validation.md)、[旧工程验收](docs/t11_engineering_validation.md)与[整月验收](docs/t11_month_validation.md)。
+T1.1 已完成工程验收，本人解释未代验。旧 100,000 条工程样本、整月候选解析及重跑证据保留；该收尾阶段完成日期用途规则和人工跨月追加，以 `month-v101-01` 为唯一真实下游，未重建事实表。见 [收尾验收](docs/t11_closeout_validation.md)、[旧工程验收](docs/t11_engineering_validation.md)与[整月验收](docs/t11_month_validation.md)。
+
+T1.2 已完成工程验收，本人解释未代验。该候选范围内识别892个重复候选组；每组留一条的假设会减少1,433条事件及1427.11观测购买金额，用户/购买用户不变。有效会话460,550个，最多350条事件，未命中>5000探索阈值。主事实保留全部合格事件，结果不等于清洗真值或业务收益。见 [T1.2 验收](docs/t12_validation.md)。
 
 ## 范围与证据
 
@@ -90,4 +92,12 @@ T1.1 已达工程完成条件，本人解释未代验。固定 `month-v101-01` �
 
 复用接口为 `etl.fact_registry.FactReader`，必须传入本地登记文件、分析序列、明确日期、用途及预期 scope；任一日期缺失或阻断则拒绝整个请求。amount 用途仍返回全部合格行为，保留两个 eligibility 标记，不提前改变分母。登记按逻辑输入身份识别重跑，拒绝同序列日期重叠；只保证本地串行追加。
 
-配置模板为 `config/fact_access.example.json`，填写后保存至被忽略的 `config/fact_access.local.json`。人工集成测试先于真实读取；只读事实不重跑解析。独立 run、预算、运行命令及 expected/actual/pass 见 [收尾验收](docs/t11_closeout_validation.md)。本轮预算 2 GiB/保留 150 GiB，原始收据、文件清单与人工数据仅留本机。下一项只建议 T1.2 重复候选和会话核验，须另行授权。
+配置模板为 `config/fact_access.example.json`，填写后保存至被忽略的 `config/fact_access.local.json`。人工集成测试先于真实读取；只读事实不重跑解析。独立 run、预算、运行命令及 expected/actual/pass 见 [收尾验收](docs/t11_closeout_validation.md)。该阶段预算 2 GiB/保留 150 GiB，原始收据、文件清单与人工数据仅留本机。
+
+## T1.2 重复候选与会话核验
+
+[质量定义](reports/quality_policy.md)在真实运行前冻结：完整九字段规范化键包含Decimal价格，另算原始字符串完全相同的对照；会话按有效用户/session复合键，空session不成组，跨日不重切，观察跨度不解释为停留时长。真实阈值始终为>5000。
+
+Spark SQL 实现在 [重复候选](sql/quality/duplicate_candidates.sql)和[会话统计](sql/quality/session_profile.sql)。运行入口 `scripts/run_quality.py` 使用原 FactReader 和独立新目录；主口径保持全部事件，B/C只作三场景敏感性对照。配置由 `config/quality.example.json` 填写为被忽略的 `config/quality.local.json`；真实运行必须先有同一代码版本的人工通过收据，不能传入人工低阈值。
+
+结果见 [重复汇总](reports/duplicate_summary.csv)、[会话汇总](reports/session_summary.csv)、[全月及逐日敏感性](reports/quality_sensitivity.csv)。用户级明细、实际配置和原始日志不提交。预算、复跑命令、失败修复与守恒证据见 [验收文档](docs/t12_validation.md)。下一项仅建议T1.3正式指标层，须另行授权。
