@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "task_id": "T3.1",
+  "status": "done_engineering_user_explanation_pending",
+  "run_id": "criteo-split-v1-01",
+  "source": {
+    "source_id": "criteo_uplift_v2_1_corrected",
+    "version": "corrected_v2.1",
+    "manifest_reference": "data/manifest.json#additional_sources.criteo_uplift_v2_1_corrected",
+    "csv_sha256": "e4d7c710ca1f38e523309d0f8a0745d1b53e7392d51f20d1088b6cfeaef222ef",
+    "csv_bytes": 3248115221,
+    "record_count": 13979592,
+    "header": [
+      "f0",
+      "f1",
+      "f2",
+      "f3",
+      "f4",
+      "f5",
+      "f6",
+      "f7",
+      "f8",
+      "f9",
+      "f10",
+      "f11",
+      "treatment",
+      "conversion",
+      "visit",
+      "exposure"
+    ]
+  },
+  "row_identity": {
+    "version": "criteo-row-id-v1",
+    "ordinal": "zero-based logical CSV data record order; header excluded; duplicate content retained",
+    "formula": "SHA256(UTF8(\"criteo-row-v1|\" + source_csv_sha256 + \"|\" + decimal(source_record_ordinal))).hexdigest()"
+  },
+  "split_rule": {
+    "version": "criteo-stratified-hash-split-v1",
+    "seed": 20260917,
+    "payload": "criteo-split-v1|20260917|t={treatment}|{row_id}",
+    "hash_integer": "first 8 SHA256 digest bytes; unsigned big-endian uint64",
+    "train_threshold": 11068046444225730969,
+    "valid_threshold": 14757395258967641292,
+    "intervals": {
+      "train": "[0, TRAIN_THRESHOLD)",
+      "valid": "[TRAIN_THRESHOLD, VALID_THRESHOLD)",
+      "test": "[VALID_THRESHOLD, 2**64)"
+    },
+    "target_probabilities": {
+      "train": "0.6",
+      "valid": "0.2",
+      "test": "0.2"
+    },
+    "sanity_guard_max_absolute_share_deviation": "0.005; code error investigation only; never reseed; not SRM"
+  },
+  "membership": {
+    "local_relative_path": ".local/t31/criteo-split-v1-01/complete/split_membership.tsv.gz",
+    "columns": [
+      "source_record_ordinal",
+      "row_id",
+      "treatment",
+      "split"
+    ],
+    "gzip": {
+      "mtime": 0,
+      "compresslevel": 6,
+      "filename": ""
+    },
+    "encoding": "UTF-8",
+    "line_ending": "LF",
+    "ordinal_min": 0,
+    "ordinal_max": 13979591,
+    "logical_bytes": 1132420922,
+    "logical_sha256": "cd2be515cf162a69e3483a3c353186f52f2d9da7fdcdc4c41830b741dd410cb2",
+    "compressed_bytes": 576697968,
+    "compressed_sha256": "a03f1ba4e8a1465dd0998f295e1a190e2e61d25e82c605f340af5bbc7549e7e1",
+    "logical_digest_rule": "SHA256 of uncompressed TSV including header; source ordinal order",
+    "row_id_sequence_digest_rule": "SHA256 of UTF8(row_id + LF) in source ordinal order; no header",
+    "sequence_sha256": {
+      "train": "162949a23b198404a702f7d2b1e554e4f8b006e285737d3c9a0930c4f750ab50",
+      "valid": "5acfe20ce5efabf2037077a05ce835d74b3f9763b7551059c1f05956f2f41a39",
+      "test": "f6e5709a08cf998a8284de6043949e12cdf1b27ed7867a86b79281bb0caffb9b",
+      "0/train": "8764b041cbc634374a0cd9e244a987669a9b266e182764e75784ffd33d09ff53",
+      "0/valid": "d06b88a6e81f6456276e1bf34067ae226a6be41e422777e6891040b6b2906818",
+      "0/test": "c6d69c1e004a469d5f84e31eb15944c14d695b6818326e9aba74ed73f1e3884e",
+      "1/train": "e63c4bf753a3653cd1be57f3c80b7a347b186239b9ef69b3ed61c52ce2422031",
+      "1/valid": "bf4e0aae6f5bf7a978f340753764199d4501f751f0011cc8d95795c883c876d3",
+      "1/test": "d16e37e91ae4ccf5335d601ae53853fb8411ff50f2ac0b0d934f7ea904c09c50"
+    }
+  },
+  "qc": {
+    "statement": "label rates are predeclared split-QC summaries, not split optimization targets.",
+    "source_binary_counts": {
+      "treatment": {
+        "0": 2096937,
+        "1": 11882655
+      },
+      "conversion": {
+        "0": 13938818,
+        "1": 40774
+      },
+      "visit": {
+        "0": 13322663,
+        "1": 656929
+      },
+      "exposure": {
+        "0": 13551380,
+        "1": 428212
+      }
+    },
+    "groups": [
+      {
+        "treatment": "all",
+        "split": "train",
+        "n": 8387273,
+        "conversion": 24405,
+        "visit": 393985,
+        "exposure": 256538,
+        "split_share_within_treatment": "0.5999655068617167081843304154",
+        "conversion_rate": "0.002909765784421229641624876167",
+        "visit_rate": "0.04697414761627527803136967164",
+        "exposure_rate": "0.03058658040581247325561001770"
+      },
+      {
+        "treatment": "all",
+        "split": "valid",
+        "n": 2797762,
+        "conversion": 8261,
+        "visit": 131450,
+        "exposure": 85669,
+        "split_share_within_treatment": "0.2001318779546641990696151933",
+        "conversion_rate": "0.002952717207539454749903673007",
+        "visit_rate": "0.04698398219719904695252848527",
+        "exposure_rate": "0.03062054599354769991157217805"
+      },
+      {
+        "treatment": "all",
+        "split": "test",
+        "n": 2794557,
+        "conversion": 8108,
+        "visit": 131494,
+        "exposure": 86005,
+        "split_share_within_treatment": "0.1999026151836190927460543913",
+        "conversion_rate": "0.002901354311255773276408389594",
+        "visit_rate": "0.04705361171734911830390290840",
+        "exposure_rate": "0.03077589757517917866767433980"
+      },
+      {
+        "treatment": "0",
+        "split": "train",
+        "n": 1257688,
+        "conversion": 2413,
+        "visit": 48184,
+        "exposure": 0,
+        "split_share_within_treatment": "0.5997738606357749422133330663",
+        "conversion_rate": "0.001918599843522399832072819332",
+        "visit_rate": "0.03831156852891973207981629784",
+        "exposure_rate": "0"
+      },
+      {
+        "treatment": "0",
+        "split": "valid",
+        "n": 419883,
+        "conversion": 837,
+        "visit": 15853,
+        "exposure": 0,
+        "split_share_within_treatment": "0.2002363447256641472776721475",
+        "conversion_rate": "0.001993412450611241703045848486",
+        "visit_rate": "0.03775575577005975474120171572",
+        "exposure_rate": "0"
+      },
+      {
+        "treatment": "0",
+        "split": "test",
+        "n": 419366,
+        "conversion": 813,
+        "visit": 16068,
+        "exposure": 0,
+        "split_share_within_treatment": "0.1999897946385609105089947862",
+        "conversion_rate": "0.001938640710024179356457128141",
+        "visit_rate": "0.03831498023206459274237777979",
+        "exposure_rate": "0"
+      },
+      {
+        "treatment": "1",
+        "split": "train",
+        "n": 7129585,
+        "conversion": 21992,
+        "visit": 345801,
+        "exposure": 256538,
+        "split_share_within_treatment": "0.5999993267497878209878179582",
+        "conversion_rate": "0.003084611516659104281665763155",
+        "visit_rate": "0.04850226205312090395163252840",
+        "exposure_rate": "0.03598217848584454775418204566"
+      },
+      {
+        "treatment": "1",
+        "split": "valid",
+        "n": 2377879,
+        "conversion": 7424,
+        "visit": 115597,
+        "exposure": 85669,
+        "split_share_within_treatment": "0.2001134426607521635526740446",
+        "conversion_rate": "0.003122110082136223079475448498",
+        "visit_rate": "0.04861349126679700691246274516",
+        "exposure_rate": "0.03602748499818535762332734340"
+      },
+      {
+        "treatment": "1",
+        "split": "test",
+        "n": 2375191,
+        "conversion": 7295,
+        "visit": 115426,
+        "exposure": 86005,
+        "split_share_within_treatment": "0.1998872305894600154595079972",
+        "conversion_rate": "0.003071331947620212437652382482",
+        "visit_rate": "0.04859651286991235652206496235",
+        "exposure_rate": "0.03620971955518524615494080266"
+      }
+    ],
+    "rates_denominator": "all records in the corresponding split or treatment x split",
+    "treatment_ratio_interpretation": "observed corrected-file share, not original RCT assignment probability; no SRM claim"
+  },
+  "test_sealing": {
+    "train": "future authorized training and exploration",
+    "valid": "future authorized model/rule selection",
+    "test": "predeclared final evaluation only; no feature/model/slice selection, tuning or seed choice",
+    "t32_predeclared_exception": "Future authorized T3.2 may use full-source conversion/visit for the fixed overall treatment-control aggregate evaluation. No test-slice-driven feature or model selection for T3.3 or later.",
+    "physical_scope": "immutable membership and analysis discipline; raw labels not deleted; local file access is not technically prevented"
+  },
+  "validation": {
+    "status": "pass",
+    "checks": 25,
+    "full_independent_records": 13979592,
+    "full_membership_readback_records": 13979592,
+    "matched_fields": [
+      "n",
+      "ordinal bounds",
+      "all split/treatment counts and predeclared QC",
+      "overall logical SHA",
+      "all 9 row ID sequence digests"
+    ],
+    "raw_unchanged": true,
+    "source_manifest_unchanged": true,
+    "t04_registry_unchanged": true,
+    "synthetic_and_source_regression_tests": 45,
+    "initial_publication_failure": "PermissionError renaming a directory already chmod 0555; fully validated staged data retained",
+    "recovery": "changed publication permission order; rechecked raw/receipts/membership SHA; published existing bytes without a new split"
+  },
+  "execution": {
+    "python": "3.11.15",
+    "zlib_runtime": "1.2.12",
+    "contract_sha256": "2e000f009c20fd31f85e09223daf0e9cd38acd0ab953956a8a1c847db5a23e03",
+    "generation_script_sha256": "77024b41742d76fff5cd14ce8ac3ebf3b9e1c40e6fdfae2d873ca3cacbd65992",
+    "ingest_script_sha256": "a6871a3ecaed1da03d60a76539f557fcd64a94cab7bf60ff62808a635aa31f17",
+    "publication_script_sha256": "059c308d4cc6805dc0f12137f1d76182e6fbe0d5293a99475bf1c6d94ab5b71b",
+    "primary_seconds": 134.586,
+    "independent_seconds": 61.354,
+    "initial_run_before_publication_seconds": 200.165,
+    "recovery_recheck_seconds": 2.032,
+    "timing_limit": "initial run and later recovery are separate timings; no continuous end-to-end performance claim",
+    "peak_memory": "not_measured",
+    "minimum_free_sampled_bytes": 558789193728,
+    "budget_bytes": 4294967296,
+    "minimum_free_required_bytes": 161061273600
+  },
+  "boundaries": [
+    "No T3.2 ATE; no effects, lift, CI or p-values.",
+    "No feature exploration, heterogeneous effects or modeling.",
+    "No source data download, dependency installation, or original evidence mutation.",
+    "G0/G1 and user explanation not checked."
+  ]
+}

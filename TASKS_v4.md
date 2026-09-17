@@ -2,7 +2,7 @@
 
 配套：`plan_v4.md`（完整规格）与 `CODEX_START_v4.md`（协作约束）。
 
-**本轮更新（2026-09-17）：T0.4 done（工程验收，本人解释未代验）。Criteo corrected v2.1已从官方HF固定commit取得，完整gzip/CSV校验、13,979,592条结构/domain及独立计数、不可变raw和重复导入保护通过；REES46历史证据保持。T3.1 split、T3.2 ATE未执行，总G0/G1另行审核。**
+**本轮更新（2026-09-17）：T3.1 done（工程验收，本人解释未代验）。corrected Criteo全13,979,592条按源SHA＋逻辑ordinal固定身份、seed 20260917分层60/20/20封存；单份membership、独立全量核验及45项测试通过。目录发布权限顺序失败已留痕并恢复同一产物，未重划。T3.2–T3.4仍not_started，G0/G1不自动勾选。**
 
 P0＝投递核心；P1＝完整增强；P2＝延后扩展。完整目标=P0+P1。MRC尚未确认不阻塞本地；Hadoop尚未跑通不得填入实践成果。
 
@@ -48,7 +48,7 @@ P0＝投递核心；P1＝完整增强；P2＝延后扩展。完整目标=P0+P1�
 | [x] | T2.1 | P0 | 区分行为覆盖与顺序漏斗（工程验收，本人解释未代验） | T1.5 |
 | [x] | T2.2 | P0 | 行为分析与阶段业务总结（工程验收，本人解释未代验） | T2.1 |
 | [x] | T2.3 | P0 | 完成一页业务决策备忘录（工程验收，本人解释未代验） | T2.2 |
-| [ ] | T3.1 | P0 | Criteo 验收并提前封存划分 | T0.4、T0.3 |
+| [x] | T3.1 | P0 | Criteo 稳定身份与封存划分（工程验收，本人解释未代验） | T0.4、T0.3 |
 | [ ] | T3.2 | P0 | 先完成真实实验来源数据的总体评估 | T3.1 |
 | [ ] | T3.3 | P1 | 有限的描述性异质性分析 | T3.2 |
 | [ ] | T3.4 | P0 | 编写下一轮业务实验设计 | T2.3、T3.2 |
@@ -268,12 +268,15 @@ closeout证据：8项新单元、18项报告/旧汇总回归、88项实际运行
 
 ### T3.1 Criteo 验收并提前封存划分（P0）
 
-- [ ] 已实现并记录实际输入范围。
-- [ ] 三份记录身份不交叉，固定输入/种子重跑相同；核对每份样本量和标签率；约0.85仅是官方舍入后的比例参考，不视为精确分流配置来硬做 SRM。
-- [ ] 证据已保存：`uplift/ingest_criteo.py`；`uplift/split.py`；`reports/criteo_manifest.md`；`data/criteo_split_manifest.json`
+- [x] 唯一corrected v2.1 raw身份重新核实：13,979,592条、3,248,115,221 bytes，CSV SHA/header不变；T0.4 manifest/registry不改。
+- [x] 先冻结源SHA＋逻辑ordinal身份及treatment分层整数hash阈值；seed 20260917，不使用outcome/exposure/features，不改变原treatment。
+- [x] 单份确定性gzip membership全量生成并逐条独立核验：train 8,387,273、valid 2,797,762、test 2,794,557；两个arm及source四字段守恒，整体与9个序列digest一致，6个占比保护线通过。
+- [x] 45项人工/来源回归及25项真实检查通过；跨进程复现、拒绝覆盖及失败隔离通过。首次发布权限顺序错误保留失败记录，修正后核对原产物并发布，未重划/改seed。
+- [x] test封存纪律、T3.2预声明全量总体aggregate例外和label-rate QC边界已记录；不把0.85当精确原实验分流概率，不做SRM声明。
+- [x] 证据：`uplift/ingest_criteo.py`；`uplift/split.py`；`tests/test_criteo_split.py`；`docs/criteo_split_contract.md`；`reports/criteo_manifest.md`；`reports/criteo_split_summary.csv`；`data/criteo_split_manifest.json`；`docs/t31_validation.md`。逐条membership仅留本地。
 - [ ] 能独立解释：为什么先封存测试集再探索特征？为什么Criteo不能和REES46按用户拼接？
 
-状态：`not_started`　run_id：`未运行`　实际完成日期：`未完成`　阻塞：`无已记录阻塞`
+状态：`done`（工程验收，本人解释未代验）　run_id：`criteo-split-v1-01`　实际完成日期：`2026-09-17`　未解决工程阻塞：`无`；T3.2–T3.4未执行，下一项仅建议T3.2，不自动开始。
 
 ### T3.2 先完成真实实验来源数据的总体评估（P0）
 

@@ -73,3 +73,14 @@
 13,979,592条、16字段，两套标准库流式实现计数一致，无空/非法/非有限字段。仅本地raw，代码/测试/脱敏profile与清单可提交。来源ID独立，REES46记录和既有工程产物不改；不安装依赖或修改锁，不下载其他数据、不启动Spark、不做T3.1 split/T3.2 ATE/特征探索。许可记录两处一致CC BY-NC-SA 4.0，本地非商业研究、raw不再分发；公开非均匀抽样不恢复原广告主增量，exposure不是RCT主分母筛选条件。
 
 T0.4更新done（工程验收，本人解释未代验），完整证据见docs/criteo_source_validation.md；历史“Criteo后移/待验收”文字保留为阶段记录。总G0/G1不自动勾选。下一项若获授权再执行T3.1稳定身份与60/20/20封存划分，本轮到此停止。
+
+
+## T3.1 稳定身份及封存划分（2026-09-17）
+
+仅授权读取T0.4既有corrected Criteo immutable CSV，以源SHA＋严格CSV逻辑ordinal生成row_id，seed 20260917固定treatment分层整数阈值60/20/20。先冻结docs/criteo_split_contract.md并人工验证；不以结果改seed，不用features/conversion/visit/exposure划分，也不重新分配treatment。
+
+唯一run criteo-split-v1-01生成一份四列gzip membership，实际train/valid/test 8,387,273 / 2,797,762 / 2,794,557，独立全量复核与逐条读回一致。原source bytes/SHA/header、T0.4 manifest/registry不变。原始发布尝试因目录权限设置顺序失败，失败收据保留，修正后验证原产物并继续发布；没有第二份membership或重新划分。45项测试与25项真实检查通过，T3.1 done（工程验收，本人解释未代验）。
+
+新增上限4 GiB、保留150 GiB；membership仅576,697,968 bytes，峰值内存not_measured。不安装、下载或启动Spark/DuckDB，不读取REES46，不计算ATE、lift、CI、p-value或特征统计。test仅作最终评价；后续获授权的T3.2固定全量总体aggregate评估是预声明例外，不能借test切片挑选T3.3变量或模型。label rates只用于固定QC。
+
+本轮只提交代码、contract、脱敏汇总/manifest与验收；实际membership、失败/恢复收据和日志在.local/t31。T3.2–T3.4仍not_started，G0/G1与本人解释不代勾。下一项唯一建议T3.2真实随机实验来源数据总体评估，本轮停止。

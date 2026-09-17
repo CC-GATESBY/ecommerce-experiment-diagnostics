@@ -1,6 +1,6 @@
 # 本地数据清单
 
-机器可读记录见 [manifest.json](manifest.json)，来源及条款见 [data_sources.md](../docs/data_sources.md)，首次获取历史见 [T0.4 REES46 验收](../docs/t04_rees46_validation.md)，本轮完整覆盖与固定用户候选见 [整月输入验收](../docs/t04_rees46_month_validation.md)。Git 只允许本目录的这两份清单，不收录原始文件或真实样本；没有解除整个 `data/` 的忽略规则。
+机器可读记录见 [manifest.json](manifest.json)，来源及条款见 [data_sources.md](../docs/data_sources.md)，首次获取历史见 [T0.4 REES46 验收](../docs/t04_rees46_validation.md)，本轮完整覆盖与固定用户候选见 [整月输入验收](../docs/t04_rees46_month_validation.md)。Git仅逐文件放行脱敏清单；T3.1另新增`criteo_split_manifest.json`，不收录原始文件、真实样本或membership；没有解除整个`data/`的忽略规则。
 
 ## 字段与状态
 
@@ -49,3 +49,10 @@ gzip 在完整解压并通过 CRC 后才可登记；CSV 首次获取的 `header_
 raw 位于 `.local/t04/criteo_v2_1/raw/<sha256>/`，文件0444、hash目录0555；本机完成收据另存registry与运行staging。仅全量CRC/结构/domain/独立核验通过才发布；失败保留`.part`和失败记录。相同内容换名不重复登记、同名不同内容拒绝；已登记源再执行只核对并复用，不重复下载或累计。
 
 `task_status`及Criteo子项现为`done_engineering_user_explanation_pending`，REES46原文件与样本记录未改；本人解释未代验，G0/G1不自动完成。Git只保留脱敏元数据和[完整验收说明](../docs/criteo_source_validation.md)，raw、真实样本、原日志、官方页面快照与本机收据仍被忽略。没有train/valid/test字段，T3.1未执行。
+
+
+## T3.1 稳定成员清单
+
+`criteo_split_manifest.json`独立引用上述corrected源身份；原`manifest.json`及T0.4 registry保持原字节。新清单只含固定算法、seed、计数/rates、序列digest、版本与本地相对定位，不含逐条row_id、features或标签明细。真实membership仅在`.local/t31/<run>/complete/`，四列ordinal/row_id/treatment/split，按源序排列，不复制三份raw。
+
+是否完成以新的T3.1 manifest及验收文档为准；T0.4原始获取记录中“没有split”是该阶段历史。test封存纪律与T3.2预声明的全量总体aggregate例外见`docs/criteo_split_contract.md`，不授权特征或test切片选择。

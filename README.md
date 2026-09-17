@@ -164,3 +164,14 @@ T2.3 done（工程验收，本人解释未代验）。[20条证据登记](report
 已验收官方 corrected uplift v2.1（13,979,592条，16字段），只做来源质量profile与按内容hash的只读raw登记。历史入口HEAD 404、Range GET 206响应不一致，本次完整文件仅从Criteo官方HF固定commit取得。条款两处一致为CC BY-NC-SA 4.0；本地非商业研究、raw不再分发。详见 [来源验收](docs/criteo_source_validation.md)、[脱敏字段profile](reports/criteo_source_profile.csv)及独立manifest条目。
 
 人工与原接入回归：`.venv/bin/python -m unittest tests.test_criteo_source tests.test_ingest -v`。入口：`.venv/bin/python -m ingest.ingest_criteo_source --execute`，已有registry时验证后复用；未登记时才会在授权范围内下载固定文件。原REES46产物和依赖锁未改，不运行Spark。T0.4工程完成不等于全项目G0/G1已通过；下一项仅建议T3.1稳定身份与60/20/20封存划分，本轮没有split、ATE或特征探索。
+
+
+## T3.1 Criteo 稳定身份与封存划分
+
+T3.1 done（工程验收，本人解释未代验）。corrected v2.1全13,979,592条按源SHA＋从0开始的逻辑记录ordinal生成身份，重复内容仍是独立记录；seed 20260917，treatment各arm分别用固定整数hash阈值按60/20/20概率划分，不改变原treatment、不用结果或特征决定split。
+
+实际train/valid/test为8,387,273 / 2,797,762 / 2,794,557。只生成一份四列gzip membership（576,697,968 bytes），两套全量实现和逐条读回一致，source四字段计数守恒。标签率只作预声明QC，不优化seed；不是ATE或SRM验证。首次目录发布失败已修复并留痕，复用同一产物，未重划。
+
+[冻结契约](docs/criteo_split_contract.md) · [脱敏结果与digest](reports/criteo_manifest.md) · [QC CSV](reports/criteo_split_summary.csv) · [机器清单](data/criteo_split_manifest.json) · [验收与资源](docs/t31_validation.md)。单测：`.venv/bin/python -m unittest tests.test_criteo_split tests.test_criteo_source -v`。实际运行入口：`.venv/bin/python -m uplift.split --run-id criteo-split-v1-01`；已有run拒绝覆盖。
+
+train供后续训练/探索，valid供选择，test封存作预定最终评价。以后T3.2按固定协议进行全量总体aggregate evaluation是预声明例外，不授权利用test切片选变量或调模型。raw标签不删除，membership与日志只留本机。T3.2–T3.4保持未开始，G0/G1和本人解释项不自动勾选；下一项仅建议T3.2。
