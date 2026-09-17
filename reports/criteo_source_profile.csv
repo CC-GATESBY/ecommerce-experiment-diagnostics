@@ -1,0 +1,17 @@
+field,zero_count,one_count,invalid_binary_count,empty_count,whitespace_only_count,nonfinite_or_invalid_numeric_count,one_rate,denominator
+f0,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f1,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f2,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f3,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f4,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f5,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f6,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f7,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f8,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f9,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f10,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+f11,not_applicable,not_applicable,not_applicable,0,0,0,not_applicable,13979592
+treatment,2096937,11882655,0,0,0,not_applicable,0.8500001287591225838350647143,13979592
+conversion,13938818,40774,0,0,0,not_applicable,0.002916680257907383849256830958,13979592
+visit,13322663,656929,0,0,0,not_applicable,0.04699200091104232512651299122,13979592
+exposure,13551380,428212,0,0,0,not_applicable,0.03063122299992732262858601310,13979592

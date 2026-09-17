@@ -37,4 +37,15 @@ gzip 在完整解压并通过 CRC 后才可登记；CSV 首次获取的 `header_
 
 整月候选与收据位于 `.local/t04/user-samples/rees46-oct-user5-20260916/`，配置为被忽略的 `config/user_sampling.local.json`。规则、失败处理和模块启动方法见 [analysis_sampling.md](../docs/analysis_sampling.md)。用户级 SQLite 校验索引、样本与日志均留本机；公开覆盖表只含日期、小时和计数。
 
-Criteo 来源验收暂后移未取消，整个 T0.4 和 G0 不得提前勾选。下一步先用旧头部工程样本验证 T1.1，通过后再获授权处理整月用户候选，尚不执行 T1.5 正式扩量。
+历史（REES46候选准备阶段）：Criteo 来源验收暂后移未取消，整个 T0.4 和 G0 不得提前勾选。下一步先用旧头部工程样本验证 T1.1，通过后再获授权处理整月用户候选，尚不执行 T1.5 正式扩量。
+
+
+## 独立 Criteo corrected v2.1 登记
+
+新增 `additional_sources.criteo_uplift_v2_1_corrected`，不并入旧REES46的 `files`、`source_id` 或样本数组。顶层旧run/来源/measurements仍描述REES46历史获取；新增对象单独记录Criteo的run、版本、源URL、官方commit、许可证据、gzip/CSV关系及全文件实测profile。
+
+两份raw为同一官方内容的压缩/解压对象，分别登记精确bytes/SHA，`parent_archive_sha256` 与 `extracted_csv_sha256` 双向关联。CSV的13,979,592条不含header；16列是实际核验值。没有时间字段，时间覆盖为 `not_applicable_no_timestamp_field`。HF SHA是官方对象一致性线索，本机 SHA 均独立重算，不是发布方签名证明。
+
+raw 位于 `.local/t04/criteo_v2_1/raw/<sha256>/`，文件0444、hash目录0555；本机完成收据另存registry与运行staging。仅全量CRC/结构/domain/独立核验通过才发布；失败保留`.part`和失败记录。相同内容换名不重复登记、同名不同内容拒绝；已登记源再执行只核对并复用，不重复下载或累计。
+
+`task_status`及Criteo子项现为`done_engineering_user_explanation_pending`，REES46原文件与样本记录未改；本人解释未代验，G0/G1不自动完成。Git只保留脱敏元数据和[完整验收说明](../docs/criteo_source_validation.md)，raw、真实样本、原日志、官方页面快照与本机收据仍被忽略。没有train/valid/test字段，T3.1未执行。

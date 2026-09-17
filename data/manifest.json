@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "task_id": "T0.4",
-  "task_status": "in_progress",
+  "task_status": "done_engineering_user_explanation_pending",
   "subtasks": {
     "rees46_2019_oct": "done",
-    "criteo_source_acceptance": "not_started",
+    "criteo_source_acceptance": "done_engineering_user_explanation_pending",
     "rees46_month_coverage": "done",
     "rees46_fixed_user_candidate": "done_input_preparation_only"
   },
@@ -363,5 +363,320 @@
         "parsing_status": "header_parsed_only"
       }
     }
-  ]
+  ],
+  "additional_sources": {
+    "criteo_uplift_v2_1_corrected": {
+      "source_id": "criteo_uplift_v2_1_corrected",
+      "version": "corrected_v2.1",
+      "script_version": "criteo-source-v1",
+      "script_sha256": "68c11855bab18ca0f926e9b527a4514ee9c80c29e51f533b637e377934f95862",
+      "run_id": "criteo-v21-2026-09-17T095629.361727_0000",
+      "acquired_at_utc": "2026-09-17T09:56:51.387219+00:00",
+      "source_channel": "official_criteo_huggingface",
+      "source_url": "https://huggingface.co/datasets/criteo/criteo-uplift/resolve/2424920019e49d52d72c13ac1143ec5d53af276b/criteo-research-uplift-v2.1.csv.gz",
+      "hf_commit": "2424920019e49d52d72c13ac1143ec5d53af276b",
+      "files": [
+        {
+          "source_id": "criteo_uplift_v2_1_corrected",
+          "kind": "raw",
+          "format": "gzip",
+          "filename": "criteo-research-uplift-v2.1.csv.gz",
+          "observed_filenames": [
+            "criteo-research-uplift-v2.1.csv.gz"
+          ],
+          "bytes": 311422618,
+          "sha256": "2716e1bf0fd157a93b5bf86924d9088419dfbac2022c6cd90030220634f616dc",
+          "acquired_at_utc": "2026-09-17T09:56:51.387219+00:00",
+          "status": "complete",
+          "full_record_count": 13979592,
+          "full_time_range": "not_applicable_no_timestamp_field",
+          "header": "not_applicable",
+          "extracted_csv_sha256": "e4d7c710ca1f38e523309d0f8a0745d1b53e7392d51f20d1088b6cfeaef222ef",
+          "local_relative_path": ".local/t04/criteo_v2_1/raw/2716e1bf0fd157a93b5bf86924d9088419dfbac2022c6cd90030220634f616dc/criteo-research-uplift-v2.1.csv.gz"
+        },
+        {
+          "source_id": "criteo_uplift_v2_1_corrected",
+          "kind": "raw",
+          "format": "csv",
+          "filename": "criteo-research-uplift-v2.1.csv",
+          "observed_filenames": [
+            "criteo-research-uplift-v2.1.csv"
+          ],
+          "bytes": 3248115221,
+          "sha256": "e4d7c710ca1f38e523309d0f8a0745d1b53e7392d51f20d1088b6cfeaef222ef",
+          "acquired_at_utc": "2026-09-17T09:56:55.325720+00:00",
+          "status": "complete",
+          "full_record_count": 13979592,
+          "full_time_range": "not_applicable_no_timestamp_field",
+          "header": [
+            "f0",
+            "f1",
+            "f2",
+            "f3",
+            "f4",
+            "f5",
+            "f6",
+            "f7",
+            "f8",
+            "f9",
+            "f10",
+            "f11",
+            "treatment",
+            "conversion",
+            "visit",
+            "exposure"
+          ],
+          "parent_archive_sha256": "2716e1bf0fd157a93b5bf86924d9088419dfbac2022c6cd90030220634f616dc",
+          "local_relative_path": ".local/t04/criteo_v2_1/raw/e4d7c710ca1f38e523309d0f8a0745d1b53e7392d51f20d1088b6cfeaef222ef/criteo-research-uplift-v2.1.csv"
+        }
+      ],
+      "profile": {
+        "header": [
+          "f0",
+          "f1",
+          "f2",
+          "f3",
+          "f4",
+          "f5",
+          "f6",
+          "f7",
+          "f8",
+          "f9",
+          "f10",
+          "f11",
+          "treatment",
+          "conversion",
+          "visit",
+          "exposure"
+        ],
+        "record_count": 13979592,
+        "field_width_counts": {
+          "16": 13979592
+        },
+        "csv_structure_errors": 0,
+        "binary_counts": {
+          "treatment": {
+            "0": 2096937,
+            "1": 11882655,
+            "invalid": 0
+          },
+          "conversion": {
+            "0": 13938818,
+            "1": 40774,
+            "invalid": 0
+          },
+          "visit": {
+            "0": 13322663,
+            "1": 656929,
+            "invalid": 0
+          },
+          "exposure": {
+            "0": 13551380,
+            "1": 428212,
+            "invalid": 0
+          }
+        },
+        "empty_counts": {
+          "f0": 0,
+          "f1": 0,
+          "f2": 0,
+          "f3": 0,
+          "f4": 0,
+          "f5": 0,
+          "f6": 0,
+          "f7": 0,
+          "f8": 0,
+          "f9": 0,
+          "f10": 0,
+          "f11": 0,
+          "treatment": 0,
+          "conversion": 0,
+          "visit": 0,
+          "exposure": 0
+        },
+        "whitespace_only_counts": {
+          "f0": 0,
+          "f1": 0,
+          "f2": 0,
+          "f3": 0,
+          "f4": 0,
+          "f5": 0,
+          "f6": 0,
+          "f7": 0,
+          "f8": 0,
+          "f9": 0,
+          "f10": 0,
+          "f11": 0,
+          "treatment": 0,
+          "conversion": 0,
+          "visit": 0,
+          "exposure": 0
+        },
+        "feature_nonfinite_or_invalid_counts": {
+          "f0": 0,
+          "f1": 0,
+          "f2": 0,
+          "f3": 0,
+          "f4": 0,
+          "f5": 0,
+          "f6": 0,
+          "f7": 0,
+          "f8": 0,
+          "f9": 0,
+          "f10": 0,
+          "f11": 0
+        },
+        "rates": {
+          "treatment": "0.8500001287591225838350647143",
+          "conversion": "0.002916680257907383849256830958",
+          "visit": "0.04699200091104232512651299122",
+          "exposure": "0.03063122299992732262858601310"
+        },
+        "status": "full_scan_complete",
+        "elapsed_seconds": 68.104
+      },
+      "independent": {
+        "header": [
+          "f0",
+          "f1",
+          "f2",
+          "f3",
+          "f4",
+          "f5",
+          "f6",
+          "f7",
+          "f8",
+          "f9",
+          "f10",
+          "f11",
+          "treatment",
+          "conversion",
+          "visit",
+          "exposure"
+        ],
+        "record_count": 13979592,
+        "field_width_counts": {
+          "16": 13979592
+        },
+        "csv_structure_errors": 0,
+        "binary_counts": {
+          "treatment": {
+            "0": 2096937,
+            "1": 11882655,
+            "invalid": 0
+          },
+          "conversion": {
+            "0": 13938818,
+            "1": 40774,
+            "invalid": 0
+          },
+          "visit": {
+            "0": 13322663,
+            "1": 656929,
+            "invalid": 0
+          },
+          "exposure": {
+            "0": 13551380,
+            "1": 428212,
+            "invalid": 0
+          }
+        },
+        "implementation": "independent streaming CSV state lexer / counters",
+        "elapsed_seconds": 19.586
+      },
+      "gzip_crc": "pass",
+      "independent_status": "pass",
+      "kind": "raw",
+      "validation_status": "passed_source_acceptance",
+      "publisher_entry": "https://ailab.criteo.com/criteo-uplift-prediction-dataset/",
+      "publisher_page_title": "Criteo Uplift Prediction Dataset",
+      "source_checked_at_utc": "2026-09-17T09:49:43.657721+00:00",
+      "version_evidence": {
+        "publisher_erratum": "first release leaked through advertiser-dependent feature distributions; corrected/unbiased release retains the fields",
+        "official_lfs_sha256_reference": "2716e1bf0fd157a93b5bf86924d9088419dfbac2022c6cd90030220634f616dc",
+        "official_file_bytes_reference": 311422618,
+        "historical_source_probes": [
+          {
+            "url": "http://go.criteo.net/criteo-research-uplift-v2.1.csv.gz",
+            "method": "HEAD",
+            "status": 404
+          },
+          {
+            "url": "https://go.criteo.net/criteo-research-uplift-v2.1.csv.gz",
+            "method": "HEAD",
+            "status": 404
+          },
+          {
+            "url": "http://go.criteo.net/criteo-research-uplift-v2.1.csv.gz",
+            "method": "GET",
+            "range": "bytes=0-1",
+            "status": 206,
+            "probe_bytes": 2,
+            "gzip_magic": true
+          },
+          {
+            "url": "https://go.criteo.net/criteo-research-uplift-v2.1.csv.gz",
+            "method": "GET",
+            "range": "bytes=0-1",
+            "status": 206,
+            "probe_bytes": 2,
+            "gzip_magic": true
+          }
+        ],
+        "download_http_metadata": {
+          "url": "https://huggingface.co/datasets/criteo/criteo-uplift/resolve/2424920019e49d52d72c13ac1143ec5d53af276b/criteo-research-uplift-v2.1.csv.gz",
+          "method": "HEAD",
+          "status": 200,
+          "final_host": "us.aws.cdn.hf.co",
+          "headers": {
+            "Content-Length": "311422618",
+            "Content-Type": "application/gzip",
+            "Content-Encoding": null,
+            "ETag": "\"c03b22001b199efd8d2ed5af5854d98f725ddefd8f46b15da71aaf1f890ca8ae\"",
+            "Last-Modified": null,
+            "Accept-Ranges": "bytes"
+          }
+        },
+        "official_page_snapshot_sha256": "bd1127c6592934e1e9baada9ee2c1c0fe9a4a43f7b9013580350670800e0acce",
+        "official_hf_card_snapshot_sha256": "2bc94b6aa8a2496b57ae430f146588ac970e0cf6de9ee874940eecbdd8dbae99",
+        "legacy_description_warning": "page/card intro still says 25M and 11 features; corrected key figures and the actual v2.1 file govern this acceptance"
+      },
+      "license": {
+        "status": "confirmed_consistent",
+        "ailab_terms_label": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International",
+        "hf_card_label": "cc-by-nc-sa-4.0",
+        "card_url": "https://huggingface.co/datasets/criteo/criteo-uplift/raw/2424920019e49d52d72c13ac1143ec5d53af276b/README.md",
+        "local_policy": "local noncommercial research; no raw or real-sample redistribution",
+        "citation": "Diemert, Betlei, Renaudin, Amini (2018). A Large Scale Benchmark for Uplift Modeling. AdKDD and TargetAd Workshop, KDD, ACM."
+      },
+      "measurements": {
+        "full_file_downloads": 1,
+        "archive_download_payload_bytes": 311422618,
+        "historical_magic_probe_payload_bytes": 4,
+        "total_source_file_payload_bytes": 311422622,
+        "network_protocol_and_metadata_overhead": "not_measured",
+        "raw_content_bytes": 3559537839,
+        "elapsed_seconds": 115.573,
+        "download_seconds": 20.369,
+        "budget": {
+          "network_payload_limit": 1073741824,
+          "output_limit": 8589934592,
+          "minimum_free": 161061273600,
+          "free_before": 563046313984,
+          "free_after": 559460749312,
+          "current_source_directory_bytes": 3559646388
+        },
+        "peak_memory": "not_measured"
+      },
+      "limitations": [
+        "No row identity or split prepared; T3.1 not_run.",
+        "No ATE or treatment/control effect comparison; T3.2 not_run.",
+        "Nonuniform public subsampling does not identify original advertiser incrementality.",
+        "Exposure is post-treatment actual-exposure related; do not filter the RCT main denominator by exposure.",
+        "Anonymous f0-f11 have no inferred business meaning.",
+        "No timestamp field; time coverage is not_applicable.",
+        "SHA256 tracks content and official object consistency; it is not an independent publisher signature."
+      ]
+    }
+  }
 }

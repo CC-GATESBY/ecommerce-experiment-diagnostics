@@ -1,6 +1,6 @@
 # 数据来源与本轮使用范围
 
-核对日期：2026-09-16。本页保留首次获取的来源与成本记录；随后完整源扫描及固定用户候选的新增实测见 [整月输入验收](t04_rees46_month_validation.md)。仅处理 REES46 多品类商店 2019 年 10 月。Criteo 来源验收尚未开始；没有获取其他月份，也不据此宣称整个 T0.4 完成。
+REES46 核对日期：2026-09-16；Criteo 补充验收：2026-09-17。本页保留 REES46 首次获取与成本记录；完整源扫描及固定用户候选实测见 [整月输入验收](t04_rees46_month_validation.md)。本轮仅新增独立 Criteo corrected v2.1 来源验收，T0.4 已达到工程完成条件，本人解释未代验；未获取 REES46 其他月份。
 
 ## 发布链与条款
 
@@ -42,3 +42,14 @@ Kaggle 原作者的说明直接链接到 [REES46 自有域名上的 2019-Oct.csv
 样本是 CSV 解析器按源顺序取出的前至多 100,000 条**数据记录**，不含表头，不是随机样本。所有字段保持字符串值，保留空字段、重复候选及源顺序；CSV 引号和换行按固定 UTF-8/LF 格式重新序列化，没有业务过滤、去重、价格浮点转换或时间清洗。时间解析只计算样本覆盖范围和失败数量，不回写原值。
 
 `engineering_sample` 仅用于后续获授权的工程调试。不能据此估计总体转化率、留存、长周期异动或 CUPED。首次获取阶段未进行完整 CSV 逐记录计数或全时间扫描，当时完整行数和时间范围为 `not_measured`；后续已授权补充扫描的实测另行登记，完整字节哈希与 gzip 校验本身仍不等于完整业务解析。
+
+
+## Criteo corrected uplift v2.1（2026-09-17）
+
+来源ID：`criteo_uplift_v2_1_corrected`。权威语义见 [Criteo AI Lab 官方页](https://ailab.criteo.com/criteo-uplift-prediction-dataset/)，实际文件来自 [Criteo 官方HF仓库固定commit](https://huggingface.co/datasets/criteo/criteo-uplift/blob/2424920019e49d52d72c13ac1143ec5d53af276b/criteo-research-uplift-v2.1.csv.gz)。历史go.criteo.net地址HEAD返回404，补充Range GET返回206及gzip开头；记录响应不一致，未下载其完整副本。HF无需认证或token，HEAD精确长度与仓库LFS相符。
+
+AI Lab erratum：初版advertiser-dependent feature distributions带来leakage，后发corrected/unbiased版本，字段保持一致；旧25M介绍不作为本次版本或实测。最终一份gzip实测311,422,618 bytes，CSV实测3,248,115,221 bytes；全文件13,979,592条、16字段，gzip CRC、SHA、双实现结构/domain核验通过。SHA与完整边际profile见 [本轮验收](criteo_source_validation.md) 和 `data/manifest.json` 的 `additional_sources.criteo_uplift_v2_1_corrected`。
+
+AI Lab条款及HF卡一致为CC BY-NC-SA 4.0，本地非商业研究、不再分发raw/真实样本。发布方要求引用Diemert、Betlei、Renaudin、Amini的 *A Large Scale Benchmark for Uplift Modeling*（AdKDD/TargetAd，KDD 2018）。原页面和固定版本卡保存在被忽略的本地evidence，提交只含标签、引用与摘要。
+
+来源为广告incrementality tests，公开文件非均匀subsampling不能恢复原广告主真实incrementality。f0–f11保持匿名；exposure是处理后的实际曝光相关字段，不得用exposure=1定义RCT主分析分母。本次没有效果组间比较、ATE、split或特征探索；不与REES46拼接用户，不称为补贴业务效果。整个项目G0/G1另行审核，不自动勾选。

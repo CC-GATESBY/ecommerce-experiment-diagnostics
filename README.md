@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两份 100,000 条头部工程样本保留；完整源扫描实测 42,448,764 条，新增固定用户候选含 151,121 用户、2,114,081 条事件，源与候选均观察到 10 月全部 31 天。上述是可追溯输入准备；后续已完成的事实解析和指标工程验收见下文，实验分析与性能基准尚未运行。Criteo 来源验收后移未取消，整个 T0.4 与 G0 仍未完成。状态见 [任务清单](TASKS_v4.md)，完整结果见 [整月输入验收](docs/t04_rees46_month_validation.md)，原获取和环境证据见 [首次 REES46 验收](docs/t04_rees46_validation.md)及 [T0.3 验收](docs/t03_validation.md)。
+S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两份 100,000 条头部工程样本保留；完整源扫描实测 42,448,764 条，新增固定用户候选含 151,121 用户、2,114,081 条事件，源与候选均观察到 10 月全部 31 天。上述是可追溯输入准备；后续已完成的事实解析和指标工程验收见下文，实验分析与性能基准尚未运行。Criteo corrected v2.1来源验收现已补齐，T0.4 done（工程验收，本人解释未代验）；G0/G1仍需另行审核。状态见 [任务清单](TASKS_v4.md)，完整结果见 [整月输入验收](docs/t04_rees46_month_validation.md)，原获取和环境证据见 [首次 REES46 验收](docs/t04_rees46_validation.md)及 [T0.3 验收](docs/t03_validation.md)。
 
 仓库目标为 `CC-GATESBY/ecommerce-experiment-diagnostics`，可见性保持 **private**。仓库同步只包含审查过的文件，不表示全部本地文件、数据或运行环境已经上传。
 
@@ -157,3 +157,10 @@ T2.1 已通过工程验收，本人解释未代验。[预先冻结的定义](rep
 [备忘录首稿](reports/business_decision_memo.md)的决定是暂不调整electronics策略，先核查unknown与electronics的品类编码覆盖。其依据是金额集中与编码解释盲区，尚不能证明业务异常或策略效果。核查对象、操作、新证据和改变建议的条件均已写明；库存、履约、营销来源标为待采集。
 
 T2.3 done（工程验收，本人解释未代验）。[20条证据登记](reports/business_decision_memo_evidence.csv)可定位原CSV，[验收记录](docs/t23_validation.md)记录60项标准库检查及12项测试。未启动分析引擎或查询新切片，T2.2结果不变。T4.4未来修订应保留本稿和修订原因；后续进入T3、T4还是T5需按总体项目顺序另行决定，本轮未执行。
+
+
+## T0.4 Criteo 来源收尾
+
+已验收官方 corrected uplift v2.1（13,979,592条，16字段），只做来源质量profile与按内容hash的只读raw登记。历史入口HEAD 404、Range GET 206响应不一致，本次完整文件仅从Criteo官方HF固定commit取得。条款两处一致为CC BY-NC-SA 4.0；本地非商业研究、raw不再分发。详见 [来源验收](docs/criteo_source_validation.md)、[脱敏字段profile](reports/criteo_source_profile.csv)及独立manifest条目。
+
+人工与原接入回归：`.venv/bin/python -m unittest tests.test_criteo_source tests.test_ingest -v`。入口：`.venv/bin/python -m ingest.ingest_criteo_source --execute`，已有registry时验证后复用；未登记时才会在授权范围内下载固定文件。原REES46产物和依赖锁未改，不运行Spark。T0.4工程完成不等于全项目G0/G1已通过；下一项仅建议T3.1稳定身份与60/20/20封存划分，本轮没有split、ATE或特征探索。
