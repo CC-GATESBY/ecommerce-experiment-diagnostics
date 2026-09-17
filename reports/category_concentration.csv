@@ -1,0 +1,15 @@
+amount_rank,category_key,category_label,purchase_amount,purchase_events,user_days,buyer_user_days,users,buyers,monthly_distinct_status,amount_share,cumulative_amount_share,is_unknown,amount_status
+1,category:electronics,electronics,8750242.89,21184,156714,15196,,,not_measured_daily_counts_not_additive,0.7544203689597409,0.7544203689597409,False,complete_observed
+2,bucket:unknown,unknown,1209130.91,8720,131131,6886,,,not_measured_daily_counts_not_additive,0.10424773331552939,0.8586681022752702,True,complete_observed
+3,category:computers,computers,716624.99,1490,19217,1111,,,not_measured_daily_counts_not_additive,0.061785312265951346,0.9204534145412215,False,complete_observed
+4,category:appliances,appliances,637868.32,3515,41373,2923,,,not_measured_daily_counts_not_additive,0.05499514234880056,0.9754485568900222,False,complete_observed
+5,category:furniture,furniture,86128.03,401,13629,337,,,not_measured_daily_counts_not_additive,0.007425707033187924,0.9828742639232101,False,complete_observed
+6,category:auto,auto,58192.89,464,11046,399,,,not_measured_daily_counts_not_additive,0.005017220904211222,0.9878914848274213,False,complete_observed
+7,category:construction,construction,48659.98,416,6943,345,,,not_measured_daily_counts_not_additive,0.00419532126441048,0.9920868060918318,False,complete_observed
+8,category:kids,kids,34322.77,260,6421,215,,,not_measured_daily_counts_not_additive,0.0029592089194132444,0.995046015011245,False,complete_observed
+9,category:apparel,apparel,29677.05,386,16345,322,,,not_measured_daily_counts_not_additive,0.002558668518358886,0.9976046835296039,False,complete_observed
+10,category:sport,sport,24422.29,91,2496,63,,,not_measured_daily_counts_not_additive,0.002105618468453941,0.9997103019980579,False,complete_observed
+11,category:accessories,accessories,2027.64,60,3020,53,,,not_measured_daily_counts_not_additive,0.00017481719492217762,0.9998851191929801,False,complete_observed
+12,category:medicine,medicine,912.03,23,192,19,,,not_measured_daily_counts_not_additive,7.863256114738004e-05,0.9999637517541274,False,complete_observed
+13,category:country_yard,country_yard,339.99,3,188,2,,,not_measured_daily_counts_not_additive,2.9312944162470246e-05,0.9999930646982899,False,complete_observed
+14,category:stationery,stationery,80.44,6,126,5,,,not_measured_daily_counts_not_additive,6.935301710135906e-06,1.0,False,complete_observed

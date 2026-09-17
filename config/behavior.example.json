@@ -1,0 +1,8 @@
+{
+  "analysis_scope": "config/analysis_scope.yaml",
+  "scope_receipt": "REPLACE_WITH_T15_COMPLETE_RECEIPT",
+  "metrics_config": "REPLACE_WITH_METRICS_LOCAL_CONFIG",
+  "metrics_run": "REPLACE_WITH_METRICS_MONTH_01_DIRECTORY",
+  "funnel_run": "REPLACE_WITH_FUNNEL_MONTH_01_DIRECTORY",
+  "version": "rees46-behavior-report-v1"
+}
