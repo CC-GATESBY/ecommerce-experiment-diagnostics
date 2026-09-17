@@ -8,7 +8,7 @@ S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两�
 
 仓库目标为 `CC-GATESBY/ecommerce-experiment-diagnostics`，可见性保持 **private**。仓库同步只包含审查过的文件，不表示全部本地文件、数据或运行环境已经上传。
 
-T1.1 的旧 100,000 条工程样本子任务已通过：39 列事实 Parquet 保留原始字段及质量标记，标准库独立核验与两个独立 run 重跑一致。范围仅为 2019-10-01 00:00:00–04:28:27 UTC；这是此前工程阶段验收，旧报告和输出保留。T1.1 整体状态及本轮整月子任务以任务清单为准。见 [工程验收摘要](docs/t11_engineering_validation.md)与[质量表](reports/data_quality_engineering.csv)。
+T1.1 已完成工程验收，本人解释未代验。旧 100,000 条工程样本、整月候选解析及重跑证据保留；本轮只完成日期用途规则和人工跨月追加，以 `month-v101-01` 为唯一真实下游，未重建事实表。见 [收尾验收](docs/t11_closeout_validation.md)、[旧工程验收](docs/t11_engineering_validation.md)与[整月验收](docs/t11_month_validation.md)。
 
 ## 范围与证据
 
@@ -51,7 +51,7 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 
 首次下载的是完整单月压缩包（1,741,928,540 bytes），解压为 5,668,612,855 bytes，再提取头部工程样本。T0.4 补充阶段复用该 CSV 完成覆盖核验，没有再次下载或解压。按[冻结规则](docs/analysis_sampling.md)以原始用户 ID 选择约 5%，保留选中用户在本源文件中的全部记录；实际事件比例为 4.980312%，不是实测用户比例。新产物标为 `user_sample_candidate`，原样本不覆盖、不拼接；每日覆盖见[源](reports/source_daily_coverage.csv)与[候选](reports/sample_daily_coverage.csv)。
 
-按已授权的顺序调整，Criteo 暂后移，REES46 工程解析按该数据线独立验收。T1.1 工程子任务的实际结果见下；本轮已获准在边界修复和工程回归通过后解析唯一登记的整月候选。T1.1 整体、T1.5 与总 G0/G1 不提前完成。
+按已授权的顺序调整，Criteo 暂后移，REES46 工程解析按该数据线独立验收。T1.1 的工程样本、整月候选及收尾验收见下；T1.5 与总 G0/G1 不提前完成。
 
 
 ## T1.1 工程样本事实层
@@ -71,7 +71,7 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 
 ## T1.1 整月候选解析与质量核对
 
-本轮工程回归及两个整月候选 run 均通过：各 2,114,081 条，31 天逐日覆盖一致，全字段与重复重数无差异。质量核对实算 151,121 名合格用户、17,121 名购买用户、37,019 条购买事件，观测购买金额 11598630.22（原 price 单位）。结果只限固定用户候选，T1.1 整体仍为 in_progress，日期放行与跨月追加验收尚未收口。
+此前工程回归及两个整月候选 run 均通过：各 2,114,081 条，31 天逐日覆盖一致，全字段与重复重数无差异。质量核对实算 151,121 名合格用户、17,121 名购买用户、37,019 条购买事件，观测购买金额 11598630.22（原 price 单位）。结果只限固定用户候选；日期放行与人工跨月追加在下述收尾阶段验收。
 
 边界补丁为 `rees46-events-v1.0.1`：非有限字面值最多一个符号；Java 正则完整输入匹配；CSV 内 LF/CR/CRLF 保持原样。旧工程契约及验收不覆盖，补丁原因见[契约附录](docs/event_parsing_contract.md)。整月子任务结果见[独立验收](docs/t11_month_validation.md)，[全月质量](reports/data_quality_month.csv)、[逐日质量](reports/data_quality_daily.csv)、[逐项检查](reports/month_parsing_checks.csv)只用于工程核对。
 
@@ -83,3 +83,11 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 ```
 
 预算文件仅本机使用，记录本轮开始前 `.local/t11/` 的 `initial_bytes`、`max_new_bytes=21474836480`、`minimum_free_bytes=161061273600`；初次设置必须基于实测基线，后续同轮运行复用。运行中持续计入独立 JSONL、SQLite、Parquet、临时文件与日志，超限保留失败记录并停止。必要重跑使用新 run ID 并加 `--compare-run-id` 指向首轮；不覆盖、不为性能数字反复运行。独立核验覆盖全部记录及重复重数，SQLite 以有界批次完成用户去重；金额按日期附状态，解析完成不等于正式分析范围或全部日期自动放行。
+
+## T1.1 日期规则与受控读取
+
+T1.1 已达工程完成条件，本人解释未代验。固定 `month-v101-01` 为唯一真实下游批次，复验 run 不重复计入。[日期规则](docs/date_quality_policy.md)分别检查 count/amount 用途；[实际结果](reports/date_quality_gate.csv)为 31 天两类用途均放行、0 天阻断、31 天有维度缺失警告。这仅是 T1.1 使用条件，历史 formal_analysis_release 不改写，候选范围未升级，T1.3/T1.4 指标验收尚未进行。
+
+复用接口为 `etl.fact_registry.FactReader`，必须传入本地登记文件、分析序列、明确日期、用途及预期 scope；任一日期缺失或阻断则拒绝整个请求。amount 用途仍返回全部合格行为，保留两个 eligibility 标记，不提前改变分母。登记按逻辑输入身份识别重跑，拒绝同序列日期重叠；只保证本地串行追加。
+
+配置模板为 `config/fact_access.example.json`，填写后保存至被忽略的 `config/fact_access.local.json`。人工集成测试先于真实读取；只读事实不重跑解析。独立 run、预算、运行命令及 expected/actual/pass 见 [收尾验收](docs/t11_closeout_validation.md)。本轮预算 2 GiB/保留 150 GiB，原始收据、文件清单与人工数据仅留本机。下一项只建议 T1.2 重复候选和会话核验，须另行授权。
