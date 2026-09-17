@@ -132,4 +132,14 @@ T1.4 已达工程完成条件，本人解释未代验。DuckDB 1.5.5 从原始�
 
 [逐用途历史清单](reports/history_readiness.csv)、[分阶段规模和真实布局](reports/scale_baseline.md)、[配置测试与验收](docs/t15_validation.md)可核对。校验入口 `scripts/validate_analysis_scope.py`复用旧快照选择器，只查收据、元数据和31行日指标；共享配置不含机器路径，本机绑定保存在被忽略配置中。旧事实、指标、manifest与历史报告未改写。
 
-原v4双月扩展保留为后续选择，不自动下载或扩量。REES46分数据线已有T1.1–T1.4工程证据，Criteo/T0.4及全项目G0/G1仍有待办。下一项唯一建议：**T2.1 行为覆盖与顺序漏斗**。
+原v4双月扩展保留为后续选择，不自动下载或扩量。REES46分数据线已有T1.1–T1.4工程证据，Criteo/T0.4及全项目G0/G1仍有待办。该阶段下一项建议为T2.1；本轮单独授权的结果见下方。
+
+## T2.1 行为覆盖与24小时顺序漏斗
+
+T2.1 已通过工程验收，本人解释未代验。[预先冻结的定义](reports/funnel_definition.md)把31天行为覆盖与首次 view 起点的商品路径分开：一条路径是 `(scope_id,user_id,user_session,product_id)`，全月每键只有一个起点，后续共用24小时截止点。正式起点为10月1–30日；31日起点保留作观察不足审计，同秒不能判定的路径单列。价格桶只取首次 view，不用购买价。
+
+真实只读 `month-v101-01`，不合并复验 run、不去重、不排除高频会话。结果为1,382,516条路径，正式子集1,341,998条，观察不足40,426条，同秒不确定92条。四类、四个分母明确的比率、逐日/价格桶和购买事件对账见 [T2.1验收](docs/t21_validation.md)；[行为覆盖](reports/behavior_coverage.csv)、[漏斗汇总](reports/funnel_summary.csv)、[排除原因](reports/funnel_exclusions.csv)、[购买事件审计](reports/purchase_path_coverage.csv)均为脱敏汇总。CSV空值表示 null；unknown价格桶本次0条，不能解读为0转化率。
+
+入口为 `scripts/run_funnel.py`，复用 FactReader 和已有快照选择器。将 `config/funnel.example.json` 的占位路径填到被忽略的 `config/funnel.local.json`；占位符不能直接运行。复跑命令与本地预算/不可变证据基线见验收文档。只有同版本人工测试通过，才可运行真实范围；所有输出先写独立 staging，完成全内容读回且正常停止Spark后才发布 complete。路径明细、真实ID、配置、收据和日志只留 `.local/t21/`。
+
+本轮未读取CSV、重建事实/指标、扩量或安装依赖。比率仅适用于固定用户单月的可判定路径，不能称平台转化率、业务损失或价格因果效果。下一项仅建议T2.2，未执行。

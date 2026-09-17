@@ -1,0 +1,9 @@
+{
+  "analysis_scope": "config/analysis_scope.yaml",
+  "scope_receipt": "REPLACE_WITH_LOCAL_T15_COMPLETE_RECEIPT",
+  "metrics_config": "REPLACE_WITH_LOCAL_METRICS_CONFIG",
+  "metrics_run": "REPLACE_WITH_LOCAL_METRICS_MONTH_01_DIRECTORY",
+  "funnel_version": "rees46-funnel-v1",
+  "source_run": "month-v101-01",
+  "analysis_scope_version": "rees46_oct_user5_analysis_v1"
+}

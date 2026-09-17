@@ -1,0 +1,15 @@
+unit,reason,count,denominator,ratio,ratio_status
+event_key_flag_overlapping,invalid_product_id,0,2114081,0.0,defined
+event_key_flag_overlapping,invalid_user_id,0,2114081,0.0,defined
+event_key_flag_overlapping,missing_session,0,2114081,0.0,defined
+event_key_mutually_exclusive,invalid_product_id,0,2114081,0.0,defined
+event_key_mutually_exclusive,invalid_user_id,0,2114081,0.0,defined
+event_key_mutually_exclusive,missing_session,0,2114081,0.0,defined
+event_key_mutually_exclusive,valid_path_key,2114081,2114081,1.0,defined
+event_view_availability,valid_key_without_view,192,2114081,9.081960435763814e-05,defined
+path_flag_overlapping,order_uncertain,92,1382516,6.654534197072583e-05,defined
+path_flag_overlapping,right_censored,40426,1382516,0.029240891244658288,defined
+path_price,unique_valid,1382516,1382516,1.0,defined
+path_release,formal,1341998,1382516,0.970692563413371,defined
+path_release,order_uncertain,92,1382516,6.654534197072583e-05,defined
+path_release,right_censored,40426,1382516,0.029240891244658288,defined
