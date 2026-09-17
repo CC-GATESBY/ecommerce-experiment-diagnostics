@@ -130,7 +130,22 @@ category_l1共14个桶，金额分母为整月11,598,630.22，包含unknown。To
 
 unknown的观测金额为1,209,130.91（10.4248%），对应8,720条购买事件；这一金额没有删除或重分配。electronics占比说明本样本的日志金额结构集中，尚不能判断集中风险已经发生，也不能认为某品类有问题。
 
-用户可能跨日、跨品类出现。当前日维度表只能加总为user_days和buyer_user_days；[全类别CSV](category_concentration.csv)明确保留这两项，整月去重users/buyers为未测，未通过相加制造月人数。金额与事件可以加总，人数份额不能跨品类相加。
+收尾授权后，已直接从合格事实按整月重新去重；users/buyers为月内去重用户/购买用户，原user_days/buyer_user_days仍保留。各品类用户集合相互重叠，不能把品类users相加当全月151,121名用户，也不能把每日用户相加当月人数。金额与事件可加总，人数的粒度必须单独说明。
+
+| 金额排名 | 品类/桶 | 月去重users | 月去重buyers | 用户日user_days | 购买用户日buyer_user_days |
+|---|---|---|---|---|---|
+| 1 | electronics | 84,077 | 9,902 | 156,714 | 15,196 |
+| 2 | unknown | 75,652 | 5,201 | 131,131 | 6,886 |
+| 3 | computers | 12,261 | 816 | 19,217 | 1,111 |
+| 4 | appliances | 27,112 | 2,367 | 41,373 | 2,923 |
+| 5 | furniture | 9,983 | 272 | 13,629 | 337 |
+| 6 | auto | 7,950 | 331 | 11,046 | 399 |
+| 7 | construction | 5,033 | 276 | 6,943 | 345 |
+| 8 | kids | 4,945 | 173 | 6,421 | 215 |
+| 9 | apparel | 12,850 | 267 | 16,345 | 322 |
+| 10 | sport | 2,023 | 49 | 2,496 | 63 |
+
+unknown月去重用户75,652、月去重购买用户5,201，与其他品类一样参与去重。electronics的月用户84,077与逐日用户相加156,714不同，月买家9,902与逐日买家相加15,196也不同；差异体现跨日重叠，不是用户异常。完整14桶见[全类别CSV](category_concentration.csv)，金额排名及Top1/5/10份额保持原值。
 
 ![来源category_concentration.csv；整月category_l1金额；占比分母包含unknown；UTC固定样本。unknown排名第二，未移出Top10。](figures/category_purchase_amount_top10.png)
 

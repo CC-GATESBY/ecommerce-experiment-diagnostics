@@ -45,10 +45,16 @@
 
 新增数据仅在.local/t21，预算10GiB、保留150GiB；原事实、指标和绑定证据未修改。未读任何真实CSV、未重建事实/指标、未扩量或安装依赖。本轮未进入T2.2/T2.3、异动或实验；Criteo/T0.4及全项目G0/G1不提前完成。下一项唯一建议T2.2行为分析与阶段业务总结，不自动实施。
 
-## T2.2 本轮补充（2026-09-17）
+## T2.2 首次报告阶段（2026-09-17，历史）
 
 按本轮授权，复用唯一metrics-month-01的小型日/品类表和funnel-month-01汇总，先冻结reports/behavior_analysis_contract.md，只新增一次经FactReader的month-v101-01 UTC小时聚合。固定切片为日、首次view价格带、category_l1、UTC小时；不执行T2.3、T4归因/异常、实验或新切片。主口径baseline_keep_all，原输入、口径、范围与历史报告不改。
 
 已形成reports/behavior.md、period_summary.md、4份新脱敏CSV与8张独立Matplotlib图；先行39项单元/回归、2项报告补验、894项准备、97项小时及791项独立CSV检查通过，实际图逐张检查。整项T2.2仍in_progress：品类日users/buyers不可跨日相加为月人数，本轮事实授权只限小时，当前只提供user_days/buyer_user_days，月去重not_measured，待用户确认范围。不扩大读取来隐式填补缺口，也不降低验收标done。技术证据见docs/t22_validation.md。
 
 一次Spark、一次物理事实加载、24行小时结果；没有读源/候选/工程CSV、安装依赖、重跑旧ETL/指标/漏斗。绘图使用既有Matplotlib环境，只消费安全CSV；专用Spark环境和依赖锁未改。本地日志/配置/收据置于忽略目录，新增上限2GiB、保留150GiB，原始和用户级数据不提交。T2.3、T4.1–T4.4仍not_started；Criteo/T0.4和全项目G0/G1按原状态，本人解释不代验。下一项唯一建议T2.3一页业务决策备忘录，不自动执行。
+
+## T2.2 closeout（2026-09-17）
+
+本轮新授权仅为唯一month-v101-01的category_l1整月跨日去重；analysis_scope、metric/funnel run及baseline_keep_all保持不变。直接复用T1.3冻结category表达式，人工字面预期先行，再一次FactReader物理加载，只返回14桶users/buyers及事件/购买/金额对账。未查询其他真实切片、重跑小时/T1.3/T2.1或读取真实CSV。
+
+14桶均通过精确对账，CSV仅补users/buyers/monthly_distinct_status，原用户日、金额排名及份额不变。报告只补品类人数与粒度说明，阶段总结三条观察不改，八张PNG不重绘；旧事实、指标、漏斗与收据不变。26项单元/报告回归、88项运行检查及792项CSV/旧图复查通过，收据只存.local/t22_closeout，预算512MiB、保留150GiB，无安装。T2.2更新done（工程验收，本人解释未代验），证据见docs/t22_validation.md；T2.3/T4、Criteo/T0.4和全项目G0/G1不提前执行或勾选。下一项唯一建议T2.3一页业务决策备忘录，本轮不进入。

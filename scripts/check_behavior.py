@@ -13,13 +13,32 @@ def rows(path):
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def verify(prepared,hourly,render,output):
+def category_amendment(path,report):
+    proof=json.loads(Path(path).read_text())
+    before=json.loads((Path(path).parent/'preflight.json').read_text())
+    launch=json.loads((Path(path).parent.parent/'launch.json').read_text())
+    if not (proof['status']==launch['status']=='passed' and proof['spark_stopped'] and proof['fact_loads']==1
+            and proof['source_run']=='month-v101-01' and proof['analysis_scope']=='rees46_oct_user5_analysis_v1'
+            and proof['checks'] and all(r['pass'] for r in proof['checks'].values())):
+        raise ValueError('unsuccessful category closeout')
+    if sha(report/'category_concentration.csv')!=proof['category_csv_after_sha256'] or before['category_csv_sha256']!=proof['category_csv_before_sha256']:
+        raise ValueError('category closeout fingerprint mismatch')
+    actual=rows(report/'category_concentration.csv');old=before['old_categories']
+    if len(actual)!=14 or len(old)!=14:raise ValueError('category closeout requires 14 buckets')
+    for prior,current in zip(old,actual):
+        if {k:v for k,v in prior.items() if k not in ('users','buyers','monthly_distinct_status')}!={k:v for k,v in current.items() if k not in ('users','buyers','monthly_distinct_status')}:
+            raise ValueError('category closeout changed protected columns')
+    return proof
+
+
+def verify(prepared,hourly,render,output,category_closeout=None):
     prep=json.loads(Path(prepared).read_text());hour=json.loads(Path(hourly).read_text());fig=json.loads(Path(render).read_text())
     checks=[]
     def eq(name,want,got):
         ok=want==got;checks.append(dict(check=name,expected=str(want),actual=str(got),pass_check=ok))
         if not ok:raise AssertionError(name+': '+str(want)+' != '+str(got))
     report=ROOT/'reports';daily=rows(report/'behavior_daily.csv');stats=rows(report/'behavior_daily_stats.csv');categories=rows(report/'category_concentration.csv');hours=rows(report/'hourly_purchase.csv')
+    closeout=category_amendment(category_closeout,report) if category_closeout else None
     original=json.loads((ROOT/prep['config']['metrics_run']/'complete/validation.json').read_text());month=original['month']
     eq('31_days',31,len(daily));eq('exact_dates',[f'2019-10-{d:02d}' for d in range(1,32)],[r['utc_date'] for r in daily])
     max_error=0.
@@ -48,7 +67,11 @@ def verify(prepared,hourly,render,output):
         cumulative+=want[0]
         eq('category_share_'+r['category_key'],True,abs(Decimal(r['amount_share'])-want[0]/total)<Decimal('1e-15'))
         eq('cumulative_share_'+r['category_key'],True,abs(Decimal(r['cumulative_amount_share'])-cumulative/total)<Decimal('1e-15'))
-        eq('not_fabricated_month_users_'+r['category_key'],('','','not_measured_daily_counts_not_additive'),(r['users'],r['buyers'],r['monthly_distinct_status']))
+        if closeout:
+            measured=next(v for v in closeout['monthly'] if v['category_key']==r['category_key'])
+            eq('measured_month_users_'+r['category_key'],(str(measured['users']),str(measured['buyers']),'measured_from_fact_monthly_distinct'),(r['users'],r['buyers'],r['monthly_distinct_status']))
+        else:
+            eq('not_fabricated_month_users_'+r['category_key'],('','','not_measured_daily_counts_not_additive'),(r['users'],r['buyers'],r['monthly_distinct_status']))
     eq('category_total_amount',total,sum((Decimal(r['purchase_amount']) for r in categories),Decimal(0)))
     eq('category_total_purchase_events',month['purchase_events'],sum(int(r['purchase_events']) for r in categories))
     old_unknown=next(r for r in original['unknown_dimensions'] if r['dim_name']=='category_l1')
@@ -62,7 +85,12 @@ def verify(prepared,hourly,render,output):
     eq('monthly_active_users_source',month['active_users'],prep['month']['active_users']);eq('monthly_buyers_source',month['buyers'],prep['month']['buyers'])
     eq('figure_count',8,len(fig['figures']))
     for f in fig['figures']:
-        source=report/f['source_csv'];eq('figure_source_'+f['figure'],f['source_sha256'],sha(source));data=rows(source)
+        source=report/f['source_csv']
+        if closeout and f['source_csv']=='category_concentration.csv':
+            eq('original_figure_source_'+f['figure'],f['source_sha256'],closeout['category_csv_before_sha256'])
+            eq('amended_figure_source_'+f['figure'],closeout['category_csv_after_sha256'],sha(source))
+        else: eq('figure_source_'+f['figure'],f['source_sha256'],sha(source))
+        data=rows(source)
         if f['kind']=='daily_line':
             field={'daily_purchase_amount.png':'purchase_amount','daily_active_users.png':'active_users','daily_buyer_rate.png':'buyer_rate','daily_amount_per_buyer.png':'amount_per_buyer'}[f['figure']]
             vals=[float(r[field]) if r[field] else None for r in data];keys=[r['utc_date'] for r in data]
@@ -85,4 +113,4 @@ def verify(prepared,hourly,render,output):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--prepared',required=True);p.add_argument('--hourly',required=True);p.add_argument('--render',required=True);p.add_argument('--output',required=True);a=p.parse_args();verify(a.prepared,a.hourly,a.render,a.output)
+    p=argparse.ArgumentParser();p.add_argument('--prepared',required=True);p.add_argument('--hourly',required=True);p.add_argument('--render',required=True);p.add_argument('--output',required=True);p.add_argument('--category-closeout');a=p.parse_args();verify(a.prepared,a.hourly,a.render,a.output,a.category_closeout)

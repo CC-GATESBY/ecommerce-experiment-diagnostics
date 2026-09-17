@@ -29,6 +29,7 @@ def build(prepared,input_dir=None,output_dir=None):
             with (destination/name).open('x') as f:f.write(text)
         return dict(status='no_data',reports=2)
     overall=next(r for r in funnel if r['level']=='overall');price={r['segment']:r for r in funnel if r['level']=='price_band'};s={r['metric']:r for r in stats}
+    measured=all(r['monthly_distinct_status']=='measured_from_fact_monthly_distinct' for r in categories)
     peak=max(daily,key=lambda r:Decimal(r['purchase_amount']));low=min(daily,key=lambda r:Decimal(r['purchase_amount']));top=categories[:10];total=sum((Decimal(r['purchase_amount']) for r in categories),Decimal(0))
     shares={k:sum((Decimal(r['purchase_amount']) for r in categories[:k]),Decimal(0))/total for k in (1,5,10)}
     unknown=next((r for r in categories if r['is_unknown']=='True'),dict(purchase_amount='0.00',purchase_events='0',amount_share='0'));high_hour=max(hours,key=lambda r:int(r['purchase_events']));low_hour=min(hours,key=lambda r:int(r['purchase_events']))
@@ -82,6 +83,17 @@ U=当日活跃用户，B=当日购买用户，R=B/U，M=观测购买金额/B，V
     md+=f"category_l1共{len(categories)}个桶，金额分母为整月{money(total)}，包含unknown。Top1 / Top5 / Top10累计金额占比分别为**{pct(shares[1])} / {pct(shares[5])} / {pct(shares[10],4)}**。Top10指按金额排序的类别桶，含unknown，并非十个完整识别的业务品类。\n\n"
     md+=table(['金额排名','一级品类/桶','观测购买金额','购买事件','金额占比'],[(r['amount_rank'],r['category_label']+('（缺失/非法编码）' if r['is_unknown']=='True' else ''),money(r['purchase_amount']),n(r['purchase_events']),pct(r['amount_share'],4)) for r in top])
     md+=f"\nunknown的观测金额为{money(unknown['purchase_amount'])}（{pct(unknown['amount_share'],4)}），对应{n(unknown['purchase_events'])}条购买事件；这一金额没有删除或重分配。electronics占比说明本样本的日志金额结构集中，尚不能判断集中风险已经发生，也不能认为某品类有问题。\n\n用户可能跨日、跨品类出现。当前日维度表只能加总为user_days和buyer_user_days；[全类别CSV](category_concentration.csv)明确保留这两项，整月去重users/buyers为未测，未通过相加制造月人数。金额与事件可以加总，人数份额不能跨品类相加。\n"
+    if measured:
+        old='用户可能跨日、跨品类出现。当前日维度表只能加总为user_days和buyer_user_days；[全类别CSV](category_concentration.csv)明确保留这两项，整月去重users/buyers为未测，未通过相加制造月人数。金额与事件可以加总，人数份额不能跨品类相加。'
+        new=f'收尾授权后，已直接从合格事实按整月重新去重；users/buyers为月内去重用户/购买用户，原user_days/buyer_user_days仍保留。各品类用户集合相互重叠，不能把品类users相加当全月{n(month["active_users"])}名用户，也不能把每日用户相加当月人数。金额与事件可加总，人数的粒度必须单独说明。'
+        md=md.replace(old,new)
+        md+='\n'+table(['金额排名','品类/桶','月去重users','月去重buyers','用户日user_days','购买用户日buyer_user_days'],[(r['amount_rank'],r['category_label'],n(r['users']),n(r['buyers']),n(r['user_days']),n(r['buyer_user_days'])) for r in top])
+        if unknown.get('users') is not None:
+            md+=f"\nunknown月去重用户{n(unknown['users'])}、月去重购买用户{n(unknown['buyers'])}，与其他品类一样参与去重。"
+        example=next((r for r in top if int(r['users'])<int(r['user_days']) and int(r['buyers'])<int(r['buyer_user_days'])),None)
+        if example:
+            md+=f"{example['category_label']}的月用户{n(example['users'])}与逐日用户相加{n(example['user_days'])}不同，月买家{n(example['buyers'])}与逐日买家相加{n(example['buyer_user_days'])}也不同；差异体现跨日重叠，不是用户异常。"
+        md+='完整14桶见[全类别CSV](category_concentration.csv)，金额排名及Top1/5/10份额保持原值。\n'
     md+=picture('category_purchase_amount_top10','来源category_concentration.csv；整月category_l1金额；占比分母包含unknown；UTC固定样本。unknown排名第二，未移出Top10。')
     md+='## 4. 购买事件峰值在UTC 9时，不能解释为本地作息\n\n'
     md+=table(['UTC小时极值','购买事件','占37,019购买事件','小时内去重购买用户','观测购买金额'],[(r['utc_hour'],n(r['purchase_events']),pct(r['purchase_events_share'],4),n(r['purchase_users']),money(r['purchase_amount'])) for r in [high_hour,low_hour]])
@@ -117,6 +129,8 @@ U=当日活跃用户，B=当日购买用户，R=B/U，M=观测购买金额/B，V
 
 本轮仅完成描述性总结。品类整月去重人数无法从每日汇总还原，当前仅保留用户日与购买用户日，月去重未测。完整定义、八张图和证据见[行为分析](behavior.md)。下一项仅建议T2.3一页业务决策备忘录，尚未执行。
 '''
+    if measured:
+        short=short.replace('品类整月去重人数无法从每日汇总还原，当前仅保留用户日与购买用户日，月去重未测。',f'收尾已从合格事实补齐{len(categories)}个品类的月去重用户/买家，并保留用户日对照；不同品类用户不可相加。')
     for name,text in [('behavior.md',md),('period_summary.md',short)]:
         with (destination/name).open('x') as f:f.write(text)
     result=dict(reports=2,period_summary_characters=len(short),behavior_characters=len(md));print(json.dumps(result));return result
