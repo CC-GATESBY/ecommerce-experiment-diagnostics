@@ -1,0 +1,65 @@
+analysis_scope_version: rees46_oct_user5_analysis_v1
+approval: october_first_edition_scope_only
+binding:
+  source_id: rees46_multicategory_2019_oct
+  scope_id: rees46_2019_oct_user5_fedd938409b5f836_20260916_v1
+  series_id: rees46_fixed_users_20260916_v1
+  candidate_sha256: 5bfc34f9c683a81ecb5eef6853a62ed454a76eca3244c9b7d80a426b8100055b
+  fact_run: month-v101-01
+  metric_run: metrics-month-01
+  crosscheck_run: crosscheck-month-01
+  parsing_contract: rees46-events-v1.0.1
+  metric_version: rees46-metrics-v1
+  date_policy: rees46-date-quality-v1
+  brand_mapping: rees46-brand-oct01-07-top200-v1
+  duplicate_policy: baseline_keep_all
+observation:
+  start_inclusive: '2019-10-01T00:00:00Z'
+  end_exclusive: '2019-11-01T00:00:00Z'
+  timezone: UTC
+  interval: '[)'
+observed_event_range:
+  min: '2019-10-01T00:00:23Z'
+  max: '2019-10-31T23:59:56Z'
+  meaning: observed_candidate_events_not_upstream_completeness
+sampling:
+  algorithm_version: rees46-user-sample-v1
+  seed: '20260916'
+  target_user_probability: 0.05
+  payload_prefix: 'rees46-user-sample-v1|20260916|'
+  threshold_uint64: 922337203685477580
+  reference: docs/analysis_sampling.md
+uses:
+  descriptive:
+    window: observation
+    quality_purposes: [count, amount]
+    interpretation: fixed_user_sample_log_metrics_not_platform_or_financial_revenue
+  funnel:
+    max_window_hours: 24
+    start_inclusive: '2019-10-01T00:00:00Z'
+    end_exclusive: '2019-10-31T00:00:00Z'
+    result_window: observation
+    status: boundary_only_paths_not_implemented
+  history:
+    lookback_offsets_days: [7, 14, 21, 28]
+    min_history_points: 3
+    quality_purposes: [count, amount]
+    success_status: history_available_not_evaluated
+  experiment:
+    pre:
+      start_inclusive: '2019-10-01T00:00:00Z'
+      end_exclusive: '2019-10-15T00:00:00Z'
+    outcome:
+      start_inclusive: '2019-10-15T00:00:00Z'
+      end_exclusive: '2019-10-29T00:00:00Z'
+    cohort_rule: future_eligible_preperiod_users_not_all_month_users
+    status: windows_only_cohort_not_created
+evidence:
+  sampling: docs/analysis_sampling.md
+  manifest: data/manifest.json
+  parsing: docs/t11_month_validation.md
+  date_access: docs/t11_closeout_validation.md
+  duplicate_policy: reports/quality_policy.md
+  metrics: docs/t13_validation.md
+  crosscheck: docs/t14_validation.md
+  metric_contract: docs/metric_contract.md
