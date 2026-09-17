@@ -151,3 +151,9 @@ T2.1 已通过工程验收，本人解释未代验。[预先冻结的定义](rep
 日指标和漏斗沿用已核验结果，只新增一次受控UTC小时汇总，24桶精确对上37,019购买事件和11,598,630.22观测金额。图均由提交CSV生成，使用既有Matplotlib、无新安装，专用环境和依赖锁不变。[验收文档](docs/t22_validation.md)记录运行入口、expected/actual/pass、资源及历史元数据缺陷；模板为`config/behavior.example.json`，真实配置仅本地。
 
 **T2.2 done（工程验收，本人解释未代验）**。closeout按新授权从month-v101-01一次聚合补齐14桶的月去重users/buyers，同时保留用户日。electronics月用户84,077、月买家9,902，对应用户日156,714、购买用户日15,196；跨日及跨品类人数不可相加。逐桶事件/购买/金额精确对账，金额份额与八张图不变，原真实数据未重建。收尾入口为`scripts/close_behavior_categories.py`，测试和运行证据见原验收文档的closeout节。T2.3和T4未执行，下一项唯一建议为T2.3一页业务决策备忘录。
+
+## T2.3 一页业务决策备忘录
+
+[备忘录首稿](reports/business_decision_memo.md)的决定是暂不调整electronics策略，先核查unknown与electronics的品类编码覆盖。其依据是金额集中与编码解释盲区，尚不能证明业务异常或策略效果。核查对象、操作、新证据和改变建议的条件均已写明；库存、履约、营销来源标为待采集。
+
+T2.3 done（工程验收，本人解释未代验）。[20条证据登记](reports/business_decision_memo_evidence.csv)可定位原CSV，[验收记录](docs/t23_validation.md)记录60项标准库检查及12项测试。未启动分析引擎或查询新切片，T2.2结果不变。T4.4未来修订应保留本稿和修订原因；后续进入T3、T4还是T5需按总体项目顺序另行决定，本轮未执行。

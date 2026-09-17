@@ -1,0 +1,21 @@
+claim_id,claim_text,source_file,source_row_or_metric,value,grain,denominator,limitation
+month_active_users,全月用户,reports/metric_checks.csv,check=month_active_users; field=actual,151121,固定样本整月,同一scope的全部合格事件；人数月内去重,非全平台；不加总日人数；金额为日志price和
+month_buyers,全月购买用户,reports/metric_checks.csv,check=month_buyers; field=actual,17121,固定样本整月,同一scope的全部合格事件；人数月内去重,非全平台；不加总日人数；金额为日志price和
+month_purchase_events,全月购买事件,reports/metric_checks.csv,check=month_purchase_events; field=actual,37019,固定样本整月,同一scope的全部合格事件；人数月内去重,非全平台；不加总日人数；金额为日志price和
+month_purchase_amount,全月观测购买金额,reports/metric_checks.csv,check=month_purchase_amount; field=actual,11598630.22,固定样本整月,同一scope的全部合格事件；人数月内去重,非全平台；不加总日人数；金额为日志price和
+electronics_purchase_amount,electronics观测购买金额,reports/category_concentration.csv,category_key=category:electronics; field=purchase_amount,8750242.89,整月category_l1桶,同一桶合格事件；用户月内去重,品类用户集合重叠；金额不外推总体
+electronics_amount_share,electronics金额占比,reports/category_concentration.csv,category_key=category:electronics; field=amount_share; percent_dp=4,75.4420%,整月category_l1桶,11598630.22（含unknown）,品类用户集合重叠；金额不外推总体
+electronics_users,electronics月去重用户,reports/category_concentration.csv,category_key=category:electronics; field=users,84077,整月category_l1桶,同一桶合格事件；用户月内去重,品类用户集合重叠；金额不外推总体
+electronics_buyers,electronics月去重买家,reports/category_concentration.csv,category_key=category:electronics; field=buyers,9902,整月category_l1桶,同一桶合格事件；用户月内去重,品类用户集合重叠；金额不外推总体
+electronics_purchase_events,electronics购买事件,reports/category_concentration.csv,category_key=category:electronics; field=purchase_events,21184,整月category_l1桶,同一桶合格事件；用户月内去重,品类用户集合重叠；金额不外推总体
+unknown_purchase_amount,unknown观测购买金额,reports/category_concentration.csv,category_key=bucket:unknown; field=purchase_amount,1209130.91,整月category_l1桶,同一桶合格事件；用户月内去重,品类用户集合重叠；金额不外推总体
+unknown_amount_share,unknown金额占比,reports/category_concentration.csv,category_key=bucket:unknown; field=amount_share; percent_dp=4,10.4248%,整月category_l1桶,11598630.22（含unknown）,品类用户集合重叠；金额不外推总体
+unknown_users,unknown月去重用户,reports/category_concentration.csv,category_key=bucket:unknown; field=users,75652,整月category_l1桶,同一桶合格事件；用户月内去重,品类用户集合重叠；金额不外推总体
+unknown_buyers,unknown月去重买家,reports/category_concentration.csv,category_key=bucket:unknown; field=buyers,5201,整月category_l1桶,同一桶合格事件；用户月内去重,品类用户集合重叠；金额不外推总体
+unknown_purchase_events,unknown购买事件,reports/category_concentration.csv,category_key=bucket:unknown; field=purchase_events,8720,整月category_l1桶,同一桶合格事件；用户月内去重,品类用户集合重叠；金额不外推总体
+top5_share,Top5金额覆盖,reports/category_concentration.csv,amount_rank=5; field=cumulative_amount_share; percent_dp=4,98.2874%,按原金额排名累计,11598630.22（含unknown）,含unknown；不代表用户覆盖或策略收益
+top10_share,Top10金额覆盖,reports/category_concentration.csv,amount_rank=10; field=cumulative_amount_share; percent_dp=4,99.9710%,按原金额排名累计,11598630.22（含unknown）,含unknown；不代表用户覆盖或策略收益
+view_only_share,view-only路径比例,reports/funnel_summary.csv,level=overall; view_only / n_view; percent_dp=2,96.34%,formal商品会话路径,1341998,受最早view、24小时窗口、顺序判定及排除规则限制
+date_reference,尚未判定异常的日期,reports/behavior_daily.csv,utc_date=2019-10-16; field=utc_date,2019-10-16,UTC日,not_applicable,存在该日不等于异常
+observation_month,观察月份,reports/behavior_daily.csv,utc_date min/max month,2019-10,UTC整月,2019-10-01至2019-10-31,仅当前固定样本窗口
+sampling_probability,目标用户抽样概率,config/analysis_scope.yaml,sampling.target_user_probability,5%,固定用户哈希抽样设计,设计概率；非实测事件或用户占比,配置定义；不把样本金钱乘20

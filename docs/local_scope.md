@@ -58,3 +58,9 @@
 本轮新授权仅为唯一month-v101-01的category_l1整月跨日去重；analysis_scope、metric/funnel run及baseline_keep_all保持不变。直接复用T1.3冻结category表达式，人工字面预期先行，再一次FactReader物理加载，只返回14桶users/buyers及事件/购买/金额对账。未查询其他真实切片、重跑小时/T1.3/T2.1或读取真实CSV。
 
 14桶均通过精确对账，CSV仅补users/buyers/monthly_distinct_status，原用户日、金额排名及份额不变。报告只补品类人数与粒度说明，阶段总结三条观察不改，八张PNG不重绘；旧事实、指标、漏斗与收据不变。26项单元/报告回归、88项运行检查及792项CSV/旧图复查通过，收据只存.local/t22_closeout，预算512MiB、保留150GiB，无安装。T2.2更新done（工程验收，本人解释未代验），证据见docs/t22_validation.md；T2.3/T4、Criteo/T0.4和全项目G0/G1不提前执行或勾选。下一项唯一建议T2.3一页业务决策备忘录，本轮不进入。
+
+## T2.3 文档决策（2026-09-17）
+
+本轮仅用既有已提交脱敏报告/CSV与analysis_scope配置，形成electronics金额集中及category unknown覆盖核查的一页备忘录。当前决定暂不调整价格、流量、商品或漏斗策略；最高优先是编码覆盖核查，本轮只提出、不执行。四个替代解释、所需新证据和条件式决策见reports/business_decision_memo.md；库存、履约、营销来源数据待采集。
+
+20条证据登记、60项标准库引用/结构检查、12项测试通过，T2.3 done（工程验收，本人解释未代验）。仅复读安全汇总，无事实/用户级数据读取、Spark/DuckDB启动、新依赖或新切片；原T2.2报告、CSV和图不变。本稿作为未来T4.4修订前的初稿保留，不更新最终案例；T3/T4/T5的下一步按总体顺序另定，Criteo/T0.4与全项目G0/G1保持原状态。
