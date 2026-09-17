@@ -104,10 +104,21 @@ Spark SQL 实现在 [重复候选](sql/quality/duplicate_candidates.sql)和[会�
 
 ## T1.3 统一指标层
 
-T1.3 已达工程完成条件，本人解释未代验。四层由 Spark SQL 生成：first_seen 151,121行、user_daily 322,660行、daily_metrics 31行、daily_dim 6,879行；仅读取既有 month-v101-01，不去重或排除会话。全月购买用户17,121、购买事件37,019、日志观测购买金额11598630.22；计数和Decimal精确对账。它们是固定用户候选内的待独立核验指标，不是平台总体或财务收入。
+T1.3 已达工程完成条件，本人解释未代验。四层由 Spark SQL 生成：first_seen 151,121行、user_daily 322,660行、daily_metrics 31行、daily_dim 6,879行；仅读取既有 month-v101-01，不去重或排除会话。全月购买用户17,121、购买事件37,019、日志观测购买金额11598630.22；计数和Decimal精确对账。它们是固定用户候选内的指标，本轮独立核验见下文；不是平台总体或财务收入。
 
 [指标契约](docs/metric_contract.md)冻结粒度、分母、UTC、金额状态和维度；[品牌映射](reports/brand_mapping.md)只用10月1–7日选Top200，此后不重排。first_seen是观察窗口内首次出现，日用户/会话不能相加当月去重；金额按买家平均不是订单客单价。未知品牌/品类保留，并在[完整验收及31天预览](docs/t13_validation.md)报告其覆盖。
 
 运行入口 `scripts/run_metrics.py`、核心 SQL 在 `sql/metrics/`；模板 `config/metrics.example.json` 填写明确登记路径后保存到被忽略的 `config/metrics.local.json`。先运行人工测试；真实入口要求同版本通过收据，输出独立staging，四层主键、守恒、schema、全字段多重集写后核验通过且Spark停止后才发布。具体命令、预算10 GiB/保留150 GiB及资源记录见验收文档。
 
-可提交结果为[31天完整日指标CSV](reports/daily_metrics_preview.csv)、[433项核验](reports/metric_checks.csv)和脱敏文档；四层Parquet、用户标识、实际映射、配置及收据仅本地。下一项唯一建议为 **T1.4 DuckDB独立核验**；T1.4/T1.5、Criteo/T0.4和总G0/G1未完成。
+可提交结果为[31天完整日指标CSV](reports/daily_metrics_preview.csv)、[433项核验](reports/metric_checks.csv)和脱敏文档；四层Parquet、用户标识、实际映射、配置及收据仅本地。该阶段下一项为T1.4，已按新授权完成，见下方；T1.3历史验收文档保持原样。
+
+
+## T1.4 独立指标核验
+
+T1.4 已达工程完成条件，本人解释未代验。DuckDB 1.5.5 从原始候选 CSV 独立解析并计算 first_seen、品牌 Top200 和三个指标粒度；四张表及映射全部逐键核对，无键/类型/字段差异，金额最大差0.00、三个比率误差0。31天日期质量一致，10月5日另有完整单日核验。结果仅适用于既有固定用户候选。
+
+[比较契约](docs/t14_comparison_contract.md)在真实运行前冻结；[99项字段比较](reports/crosscheck.csv)、[31天结果](reports/crosscheck_daily.csv)与[验收、资源及复跑命令](docs/t14_validation.md)可直接检查。独立SQL位于 `sql/validation/`，入口 `tests/crosscheck_duckdb.py`；本机配置使用 `config/crosscheck.example.json` 模板，保存为被忽略的 `config/crosscheck.local.json`。
+
+人工测试复用T1.3真实build/publish，验证重复运行、固定观察上下文的输出日期扩展、失败后重试。`scripts/metric_snapshot.py` 只选择一个完成快照，不把新旧结果累加；这是本地串行快照机制，不是物理分区append或分布式事务。先运行 `scripts/run_crosscheck.py` 的人工阶段并停止Spark，再执行真实DuckDB核验。
+
+下一项唯一建议为 **T1.5：基于已核验数据冻结首版分析范围**；不默认下载11月或处理全量。T1.5、Criteo/T0.4和总G0/G1未完成。真实数据、数据库、Parquet、映射明细、实际配置和原始日志仍只留本机。
