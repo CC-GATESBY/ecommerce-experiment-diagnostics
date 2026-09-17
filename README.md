@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两份 100,000 条头部工程样本保留；完整源扫描实测 42,448,764 条，新增固定用户候选含 151,121 用户、2,114,081 条事件，源与候选均观察到 10 月全部 31 天。这是可追溯输入准备，尚未运行正式业务 ETL、实验分析或性能基准。Criteo 来源验收后移未取消，整个 T0.4 与 G0 仍未完成。状态见 [任务清单](TASKS_v4.md)，完整结果见 [整月输入验收](docs/t04_rees46_month_validation.md)，原获取和环境证据见 [首次 REES46 验收](docs/t04_rees46_validation.md)及 [T0.3 验收](docs/t03_validation.md)。
+S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两份 100,000 条头部工程样本保留；完整源扫描实测 42,448,764 条，新增固定用户候选含 151,121 用户、2,114,081 条事件，源与候选均观察到 10 月全部 31 天。上述是可追溯输入准备；后续已完成的事实解析和指标工程验收见下文，实验分析与性能基准尚未运行。Criteo 来源验收后移未取消，整个 T0.4 与 G0 仍未完成。状态见 [任务清单](TASKS_v4.md)，完整结果见 [整月输入验收](docs/t04_rees46_month_validation.md)，原获取和环境证据见 [首次 REES46 验收](docs/t04_rees46_validation.md)及 [T0.3 验收](docs/t03_validation.md)。
 
 仓库目标为 `CC-GATESBY/ecommerce-experiment-diagnostics`，可见性保持 **private**。仓库同步只包含审查过的文件，不表示全部本地文件、数据或运行环境已经上传。
 
@@ -88,7 +88,7 @@ REES46 行为日志用于观察行为与指标变化；人工模拟用于校验�
 
 ## T1.1 日期规则与受控读取
 
-T1.1 已达工程完成条件，本人解释未代验。固定 `month-v101-01` 为唯一真实下游批次，复验 run 不重复计入。[日期规则](docs/date_quality_policy.md)分别检查 count/amount 用途；[实际结果](reports/date_quality_gate.csv)为 31 天两类用途均放行、0 天阻断、31 天有维度缺失警告。这仅是 T1.1 使用条件，历史 formal_analysis_release 不改写，候选范围未升级，T1.3/T1.4 指标验收尚未进行。
+T1.1 已达工程完成条件，本人解释未代验。固定 `month-v101-01` 为唯一真实下游批次，复验 run 不重复计入。[日期规则](docs/date_quality_policy.md)分别检查 count/amount 用途；[实际结果](reports/date_quality_gate.csv)为 31 天两类用途均放行、0 天阻断、31 天有维度缺失警告。这仅是 T1.1 使用条件，历史 formal_analysis_release 不改写，候选范围未升级，该阶段尚未进行 T1.3/T1.4 指标验收；本轮 T1.3 结果见下方。
 
 复用接口为 `etl.fact_registry.FactReader`，必须传入本地登记文件、分析序列、明确日期、用途及预期 scope；任一日期缺失或阻断则拒绝整个请求。amount 用途仍返回全部合格行为，保留两个 eligibility 标记，不提前改变分母。登记按逻辑输入身份识别重跑，拒绝同序列日期重叠；只保证本地串行追加。
 
@@ -100,4 +100,14 @@ T1.1 已达工程完成条件，本人解释未代验。固定 `month-v101-01` �
 
 Spark SQL 实现在 [重复候选](sql/quality/duplicate_candidates.sql)和[会话统计](sql/quality/session_profile.sql)。运行入口 `scripts/run_quality.py` 使用原 FactReader 和独立新目录；主口径保持全部事件，B/C只作三场景敏感性对照。配置由 `config/quality.example.json` 填写为被忽略的 `config/quality.local.json`；真实运行必须先有同一代码版本的人工通过收据，不能传入人工低阈值。
 
-结果见 [重复汇总](reports/duplicate_summary.csv)、[会话汇总](reports/session_summary.csv)、[全月及逐日敏感性](reports/quality_sensitivity.csv)。用户级明细、实际配置和原始日志不提交。预算、复跑命令、失败修复与守恒证据见 [验收文档](docs/t12_validation.md)。下一项仅建议T1.3正式指标层，须另行授权。
+结果见 [重复汇总](reports/duplicate_summary.csv)、[会话汇总](reports/session_summary.csv)、[全月及逐日敏感性](reports/quality_sensitivity.csv)。用户级明细、实际配置和原始日志不提交。预算、复跑命令、失败修复与守恒证据见 [验收文档](docs/t12_validation.md)。该阶段下一项建议为T1.3；本轮按单独授权完成结果见下方。
+
+## T1.3 统一指标层
+
+T1.3 已达工程完成条件，本人解释未代验。四层由 Spark SQL 生成：first_seen 151,121行、user_daily 322,660行、daily_metrics 31行、daily_dim 6,879行；仅读取既有 month-v101-01，不去重或排除会话。全月购买用户17,121、购买事件37,019、日志观测购买金额11598630.22；计数和Decimal精确对账。它们是固定用户候选内的待独立核验指标，不是平台总体或财务收入。
+
+[指标契约](docs/metric_contract.md)冻结粒度、分母、UTC、金额状态和维度；[品牌映射](reports/brand_mapping.md)只用10月1–7日选Top200，此后不重排。first_seen是观察窗口内首次出现，日用户/会话不能相加当月去重；金额按买家平均不是订单客单价。未知品牌/品类保留，并在[完整验收及31天预览](docs/t13_validation.md)报告其覆盖。
+
+运行入口 `scripts/run_metrics.py`、核心 SQL 在 `sql/metrics/`；模板 `config/metrics.example.json` 填写明确登记路径后保存到被忽略的 `config/metrics.local.json`。先运行人工测试；真实入口要求同版本通过收据，输出独立staging，四层主键、守恒、schema、全字段多重集写后核验通过且Spark停止后才发布。具体命令、预算10 GiB/保留150 GiB及资源记录见验收文档。
+
+可提交结果为[31天完整日指标CSV](reports/daily_metrics_preview.csv)、[433项核验](reports/metric_checks.csv)和脱敏文档；四层Parquet、用户标识、实际映射、配置及收据仅本地。下一项唯一建议为 **T1.4 DuckDB独立核验**；T1.4/T1.5、Criteo/T0.4和总G0/G1未完成。
