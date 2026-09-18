@@ -175,3 +175,12 @@ T3.1 done（工程验收，本人解释未代验）。corrected v2.1全13,979,59
 [冻结契约](docs/criteo_split_contract.md) · [脱敏结果与digest](reports/criteo_manifest.md) · [QC CSV](reports/criteo_split_summary.csv) · [机器清单](data/criteo_split_manifest.json) · [验收与资源](docs/t31_validation.md)。单测：`.venv/bin/python -m unittest tests.test_criteo_split tests.test_criteo_source -v`。实际运行入口：`.venv/bin/python -m uplift.split --run-id criteo-split-v1-01`；已有run拒绝覆盖。
 
 train供后续训练/探索，valid供选择，test封存作预定最终评价。以后T3.2按固定协议进行全量总体aggregate evaluation是预声明例外，不授权利用test切片选变量或调模型。raw标签不删除，membership与日志只留本机。T3.2–T3.4保持未开始，G0/G1和本人解释项不自动勾选；下一项仅建议T3.2。
+
+
+## T3.2 公开实验基准的总体增量估计
+
+先读[一分钟业务摘要](reports/criteo_business_summary.md)。corrected公开样本的conversion从control 0.193759%到treatment 0.308946%，增加11.519 bp，相对提升59.45%；每万assigned users约多11.52个conversion（95%区间10.85–12.19）。visit约多103.42个/万人，两者同向；相对提升大不代表已具备扩投价值。
+
+[总体评估](reports/criteo_ate.md)区分数据事实、业务解释和决策限制；[效果表](reports/criteo_effects.csv)保留计数、SE与完整精度。公开非均匀抽样不能恢复原广告主增量或ROI，也不能改写成补贴效果；投入判断仍缺成本、收入/毛利、退款、留存及护栏。exposure只作描述，不用于筛分母。
+
+T3.2 done（工程验收，本人解释未代验）。入口`.venv/bin/python -m uplift.ate`复用既有local[4]/4g/UTC启动方式；人工先行，真实CSV仅扫描一次、只返回两行，独立标准库复核最终效果小表。18项测试、收据、低频规则与复跑命令见[验收文档](docs/t32_validation.md)。原raw/membership及历史结果未改，未安装依赖。本轮不分split分析、不做特征探索或T3.3，下一项优先建议T3.4业务实验设计，待另行授权。

@@ -84,3 +84,12 @@ T0.4更新done（工程验收，本人解释未代验），完整证据见docs/c
 新增上限4 GiB、保留150 GiB；membership仅576,697,968 bytes，峰值内存not_measured。不安装、下载或启动Spark/DuckDB，不读取REES46，不计算ATE、lift、CI、p-value或特征统计。test仅作最终评价；后续获授权的T3.2固定全量总体aggregate评估是预声明例外，不能借test切片挑选T3.3变量或模型。label rates只用于固定QC。
 
 本轮只提交代码、contract、脱敏汇总/manifest与验收；实际membership、失败/恢复收据和日志在.local/t31。T3.2–T3.4仍not_started，G0/G1与本人解释不代勾。下一项唯一建议T3.2真实随机实验来源数据总体评估，本轮停止。
+
+
+## T3.2 总体业务效果评估（2026-09-18）
+
+本轮只按T3.1预声明例外，在corrected Criteo完整公开样本中计算treatment assignment ITT group difference。conversion主结果、visit辅助、exposure描述性；不筛exposure、不按train/valid/test比较、不探索f特征或调整封存划分。真实CSV只扫描一次，显式schema的Spark聚合仅返回两行；复算使用两行缓存与独立标准库公式，人工CSV另作真实重聚合测试。
+
+T3.2 done（工程验收，本人解释未代验），唯一成功run criteo-itt-v1-02；18项测试、source计数守恒与独立公式一致，失败的端口启动/元数据适配收据保留。business summary优先解释绝对、相对及每万人量级，公开抽样限制和成本/收入/毛利/护栏缺口不被区间掩盖。详见docs/t32_validation.md；原raw、membership、manifest、依赖锁与历史报告不改。
+
+新增上限1 GiB、保留150 GiB，未下载或安装，无Spark/DuckDB性能比较。仅提交代码、测试、三行效果表、业务报告与必要状态；真实日志和收据只留.local/t32。T3.3/T3.4仍not_started，G0/G1及本人解释项不代勾。下一项优先建议T3.4下一轮业务实验设计，本轮不执行。
