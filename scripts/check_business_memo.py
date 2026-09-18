@@ -121,7 +121,7 @@ def main():
     if args.write_evidence:
         with target.open('x',newline='') as f:
             writer=csv.DictWriter(f,fieldnames=FIELDS,lineterminator='\n');writer.writeheader();writer.writerows(evidence())
-    result=validate((ROOT/'reports/business_decision_memo.md').read_text(),read_csv(ROOT,'reports/business_decision_memo_evidence.csv'))
+    result=validate((ROOT/'reports/business_decision_memo_v1_t23.md').read_text(),read_csv(ROOT,'reports/business_decision_memo_evidence.csv'))
     if args.output:
         with Path(args.output).open('x') as f:json.dump(result,f,ensure_ascii=False,indent=2)
     print(json.dumps({k:v for k,v in result.items() if k not in ('checks','source_sha256')},ensure_ascii=False))

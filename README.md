@@ -8,7 +8,7 @@
 |---|---|---|---|
 | 营销干预有没有增量，哪些用户值得进一步试验？ | [Criteo总体评估](reports/criteo_business_summary.md)；[购物车方案](reports/next_experiment_design.md)：首次加购等待24小时后，历史合格7,856人，后续购买参考率3.2459% | 在相同提醒下评估“加券”的价值，值得有条件准备；成本与样本不足以支持直接上线。Criteo不作为优惠券效果假设 | 券成本/贡献毛利、可触达流量、支付及安全护栏；定向分配曲线未做，不宣称已找到高增量用户 |
 | 哪些价格—购买关系值得进入实验？ | [行为报告](reports/behavior.md)与[funnel_summary](reports/funnel_summary.csv)中首次浏览价格带的路径差异 | 现有差异仅为描述性关联，商品构成与用户选择尚未排除，不能直接调价 | 同商品价格分析、混杂核查与后续随机实验；目前均未完成 |
-| 指标变化来自行为、商品构成还是覆盖变化？ | 日指标、品类集中和[阶段备忘录](reports/business_decision_memo.md)；下述三类品类覆盖 | 高金额集中值得核查，但不能据此归因或宣布异常；unknown保留在总量分母 | T4历史检测、变化拆解与维度贡献未做；编码规范与业务来源待补 |
+| 指标变化来自行为、商品构成还是覆盖变化？ | [10月25日案例](reports/case_observed_change.md)和[备忘录v2](reports/business_decision_memo.md)；下述三类品类覆盖 | 10月25日是固定规则唯一候选：M降幅最大，electronics承载主要金额差；不是因果事故，unknown保留在总量分母 | T4已完成一次回顾性案例；SKU构成、映射有效期、渠道/库存/履约仍待定向取证 |
 
 ### 品类覆盖补充：复用已验收汇总
 
@@ -18,7 +18,7 @@
 | 购买事件 | 28,299 / 37,019 | 76.4445% |
 | 观测购买金额 | 10,389,499.31 / 11,598,630.22 | 89.5752% |
 
-来自metrics-month-01已有month/unknown_dimensions汇总，[脱敏覆盖表](reports/category_coverage_context.csv)保留分母，未重新查询品类事实。这是编码可解释覆盖，不是上游日志完整性证明。若已知electronics归类正确且总金额不变，unknown全部不属于/全部属于electronics时，其金额占比边界为**75.4420%–85.8668%**。这是条件推导，不是重新分类或证明标签正确：高集中本身可以稳定成立，未知部分仍限制具体品类归因；没有证据证明Temu商家填报导致该问题。T2.3初稿保持不变。
+来自metrics-month-01已有month/unknown_dimensions汇总，[脱敏覆盖表](reports/category_coverage_context.csv)保留分母，未重新查询品类事实。这是编码可解释覆盖，不是上游日志完整性证明。若已知electronics归类正确且总金额不变，unknown全部不属于/全部属于electronics时，其金额占比边界为**75.4420%–85.8668%**。这是条件推导，不是重新分类或证明标签正确：高集中本身可以稳定成立，未知部分仍限制具体品类归因；没有证据证明Temu商家填报导致该问题。[T2.3初稿v1](reports/business_decision_memo_v1_t23.md)原文保留；本轮v2的优先级调整见下方T4案例。
 
 ## 当前状态
 
@@ -172,7 +172,7 @@ T2.1 已通过工程验收，本人解释未代验。[预先冻结的定义](rep
 
 ## T2.3 一页业务决策备忘录
 
-[备忘录首稿](reports/business_decision_memo.md)的决定是暂不调整electronics策略，先核查unknown与electronics的品类编码覆盖。其依据是金额集中与编码解释盲区，尚不能证明业务异常或策略效果。核查对象、操作、新证据和改变建议的条件均已写明；库存、履约、营销来源标为待采集。
+[备忘录首稿v1](reports/business_decision_memo_v1_t23.md)的决定是暂不调整electronics策略，先核查unknown与electronics的品类编码覆盖。其依据是金额集中与编码解释盲区，尚不能证明业务异常或策略效果。核查对象、操作、新证据和改变建议的条件均已写明；库存、履约、营销来源标为待采集。
 
 T2.3 done（工程验收，本人解释未代验）。[20条证据登记](reports/business_decision_memo_evidence.csv)可定位原CSV，[验收记录](docs/t23_validation.md)记录60项标准库检查及12项测试。未启动分析引擎或查询新切片，T2.2结果不变。T4.4未来修订应保留本稿和修订原因；后续进入T3、T4还是T5需按总体项目顺序另行决定，本轮未执行。
 
@@ -208,3 +208,11 @@ T3.2 done（工程验收，本人解释未代验）。入口`.venv/bin/python -m
 T3.4 done（历史基准＋条件式实验设计；未上线，本人解释未代验）。[方案](reports/next_experiment_design.md)先冻结首次加购的24+24小时窗口，再经一次FactReader真实加载计算历史基准；未读取源CSV或Criteo明细，未重建指标/漏斗。中心基准下检测20%相对提升需两组25,648人，超过当前历史合格7,856人；这是规划比较，不推算未来流量或实验天数。券成本负担10%时，盈亏平衡相对提升为11.1111%，不是“显著就值得上线”。
 
 [基准](reports/cart_recovery_baseline.csv)、[样本量](reports/sample_size_scenarios.csv)、[成本情景](reports/coupon_economics_scenarios.csv)均为小型汇总；用户级中间结果、失败记录及收据仅留本地。[验收与人工复跑](docs/t34_validation.md)记录旧登记对Criteo清单追加的限定兼容检查，原registry、manifest和数据不改写。下一主线为T4指标诊断，本轮未执行；T3.3/T5与总门槛不提前勾选。
+
+## T4.1–T4.4 一个可追溯的金额变化案例
+
+**先查electronics购买商品构成，暂不直接调价、改流量或发券。** [主案例](reports/case_observed_change.md)按固定规则选出10月25日：相对前三个合格周五的检测中位数下降12.4945%，是本轮唯一候选；与同组历史均值比下降15.3279%。每位买家金额M下降9.5620%，electronics承载77.96%的均值金额差；unknown绝对金额接近历史水平，其份额上升不能直接解释为编码丢失。窗口首次出现桶的变化受观察期成熟影响，不能当作新客渠道变化。
+
+[完整筛选](reports/anomaly_flags.csv)、[经营拆解](reports/decomposition.csv)、[维度贡献](reports/dimension_contributions.csv)、[覆盖核对](reports/case_category_coverage.csv)与[验收](docs/t4_validation.md)均可追溯。T4.1–T4.4 done（工程验收，本人解释未代验）；只是回顾性探索和代数定位，未证明原因或上线收益。T2.3的[原始v1](reports/business_decision_memo_v1_t23.md)逐字保留，[v2](reports/business_decision_memo.md)记录修订原因。
+
+本轮只通过既有选择器读取31行日指标和6,879行维度日指标，不读事实/用户日/路径/CSV，不启动Spark；无依赖安装或旧数据重建。一个运行入口为scripts/run_diagnosis.py；方法和复跑边界见验收文档。T4.5、T5及其他扩展不自动执行，G0/G1不自动勾选。

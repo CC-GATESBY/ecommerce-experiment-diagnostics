@@ -1,0 +1,20 @@
+version: rees46-retrospective-change-v1
+analysis_scope: rees46_oct_user5_analysis_v1
+metric_run: metrics-month-01
+fact_run: month-v101-01
+duplicate_policy: baseline_keep_all
+screen_metric: purchase_amount
+history_offsets_days: [7, 14, 21, 28]
+min_history_points: 3
+mad_scale: '1.4826'
+score_abs_gt: '3'
+relative_change_abs_gte: '0.10'
+absolute_business_threshold: not_set_no_currency_or_loss_tolerance
+selection: downward_largest_absolute_loss_then_any_largest_change_then_descriptive
+selection_tie: date_ascending
+dimensions: [category_l1, brand_group, price_band, is_first_seen_day]
+summary_top_k: 3
+summary_same_direction_coverage: '0.67'
+js_log_base: 2
+near_zero_relative_numeric: '1e-10'
+log_identity_abs_tolerance: '1e-12'

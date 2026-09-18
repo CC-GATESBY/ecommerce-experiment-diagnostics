@@ -12,7 +12,7 @@ from scripts.check_business_memo import ROOT,FORBIDDEN,evidence,percent,read_csv
 class BusinessMemoTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.memo=(ROOT/'reports/business_decision_memo.md').read_text()
+        cls.memo=(ROOT/'reports/business_decision_memo_v1_t23.md').read_text()
         cls.rows=read_csv(ROOT,'reports/business_decision_memo_evidence.csv')
 
     def rejected(self,text,rows=None):

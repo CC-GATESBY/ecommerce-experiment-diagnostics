@@ -1,0 +1,32 @@
+utc_date,history_dates,history_count,reason,current_amount,median_amount,mad,scale,score,amount_difference,relative_change,candidate,comparable,status
+2019-10-01,[],0,outside_observation:2019-09-24;outside_observation:2019-09-17;outside_observation:2019-09-10;outside_observation:2019-09-03,325065.85,,,,,,,False,False,insufficient_history
+2019-10-02,[],0,outside_observation:2019-09-25;outside_observation:2019-09-18;outside_observation:2019-09-11;outside_observation:2019-09-04,322531.41,,,,,,,False,False,insufficient_history
+2019-10-03,[],0,outside_observation:2019-09-26;outside_observation:2019-09-19;outside_observation:2019-09-12;outside_observation:2019-09-05,306999.13,,,,,,,False,False,insufficient_history
+2019-10-04,[],0,outside_observation:2019-09-27;outside_observation:2019-09-20;outside_observation:2019-09-13;outside_observation:2019-09-06,421496.80,,,,,,,False,False,insufficient_history
+2019-10-05,[],0,outside_observation:2019-09-28;outside_observation:2019-09-21;outside_observation:2019-09-14;outside_observation:2019-09-07,392555.09,,,,,,,False,False,insufficient_history
+2019-10-06,[],0,outside_observation:2019-09-29;outside_observation:2019-09-22;outside_observation:2019-09-15;outside_observation:2019-09-08,318133.79,,,,,,,False,False,insufficient_history
+2019-10-07,[],0,outside_observation:2019-09-30;outside_observation:2019-09-23;outside_observation:2019-09-16;outside_observation:2019-09-09,316133.71,,,,,,,False,False,insufficient_history
+2019-10-08,"[""2019-10-01""]",1,outside_observation:2019-09-24;outside_observation:2019-09-17;outside_observation:2019-09-10,302664.91,,,,,,,False,False,insufficient_history
+2019-10-09,"[""2019-10-02""]",1,outside_observation:2019-09-25;outside_observation:2019-09-18;outside_observation:2019-09-11,401563.05,,,,,,,False,False,insufficient_history
+2019-10-10,"[""2019-10-03""]",1,outside_observation:2019-09-26;outside_observation:2019-09-19;outside_observation:2019-09-12,346769.91,,,,,,,False,False,insufficient_history
+2019-10-11,"[""2019-10-04""]",1,outside_observation:2019-09-27;outside_observation:2019-09-20;outside_observation:2019-09-13,415980.94,,,,,,,False,False,insufficient_history
+2019-10-12,"[""2019-10-05""]",1,outside_observation:2019-09-28;outside_observation:2019-09-21;outside_observation:2019-09-14,377794.50,,,,,,,False,False,insufficient_history
+2019-10-13,"[""2019-10-06""]",1,outside_observation:2019-09-29;outside_observation:2019-09-22;outside_observation:2019-09-15,412334.49,,,,,,,False,False,insufficient_history
+2019-10-14,"[""2019-10-07""]",1,outside_observation:2019-09-30;outside_observation:2019-09-23;outside_observation:2019-09-16,489641.53,,,,,,,False,False,insufficient_history
+2019-10-15,"[""2019-10-08"", ""2019-10-01""]",2,outside_observation:2019-09-24;outside_observation:2019-09-17,410876.16,,,,,,,False,False,insufficient_history
+2019-10-16,"[""2019-10-09"", ""2019-10-02""]",2,outside_observation:2019-09-25;outside_observation:2019-09-18,546884.71,,,,,,,False,False,insufficient_history
+2019-10-17,"[""2019-10-10"", ""2019-10-03""]",2,outside_observation:2019-09-26;outside_observation:2019-09-19,488219.86,,,,,,,False,False,insufficient_history
+2019-10-18,"[""2019-10-11"", ""2019-10-04""]",2,outside_observation:2019-09-27;outside_observation:2019-09-20,469326.45,,,,,,,False,False,insufficient_history
+2019-10-19,"[""2019-10-12"", ""2019-10-05""]",2,outside_observation:2019-09-28;outside_observation:2019-09-21,366638.25,,,,,,,False,False,insufficient_history
+2019-10-20,"[""2019-10-13"", ""2019-10-06""]",2,outside_observation:2019-09-29;outside_observation:2019-09-22,377149.29,,,,,,,False,False,insufficient_history
+2019-10-21,"[""2019-10-14"", ""2019-10-07""]",2,outside_observation:2019-09-30;outside_observation:2019-09-23,385853.22,,,,,,,False,False,insufficient_history
+2019-10-22,"[""2019-10-15"", ""2019-10-08"", ""2019-10-01""]",3,outside_observation:2019-09-24,416067.48,325065.85,22400.94,33211.633644,2.74005280726202147672949923860120008,91001.63,0.279948293553444632833624325655863266,False,True,evaluated
+2019-10-23,"[""2019-10-16"", ""2019-10-09"", ""2019-10-02""]",3,outside_observation:2019-09-25,370069.30,401563.05,79031.64,117172.309464,-0.268781507713442605462034814604667781,-31493.75,-0.0784279081454332015856538593379047201,False,True,evaluated
+2019-10-24,"[""2019-10-17"", ""2019-10-10"", ""2019-10-03""]",3,outside_observation:2019-09-26,363062.27,346769.91,39770.78,58964.158428,0.276309548620019524244400193476801911,16292.36,0.0469831998975920373252685044097395878,False,True,evaluated
+2019-10-25,"[""2019-10-18"", ""2019-10-11"", ""2019-10-04""]",3,outside_observation:2019-09-27,368832.94,421496.8,5515.86,8177.814036,-6.43984563211703729673805950067216716,-52663.86,-0.124944863163848456263487646881304911,True,True,evaluated
+2019-10-26,"[""2019-10-19"", ""2019-10-12"", ""2019-10-05""]",3,outside_observation:2019-09-28,354319.18,377794.5,11156.25,16540.25625,-1.41928393642631745805026448728688832,-23475.32,-0.0621378024296277473600065644153104399,False,True,evaluated
+2019-10-27,"[""2019-10-20"", ""2019-10-13"", ""2019-10-06""]",3,outside_observation:2019-09-29,337914.99,377149.29,35185.2,52165.57752,-0.752110910397910993931616689595119813,-39234.3,-0.104028566512746185999713800336201084,False,True,evaluated
+2019-10-28,"[""2019-10-21"", ""2019-10-14"", ""2019-10-07""]",3,outside_observation:2019-09-30,331007.63,385853.22,69719.51,103366.145526,-0.530595290371976987865225160354887625,-54845.59,-0.142141071156539784739907055848853613,False,True,evaluated
+2019-10-29,"[""2019-10-22"", ""2019-10-15"", ""2019-10-08"", ""2019-10-01""]",4,,286352.50,367971.005,45500.815,67459.508319,-1.20988882121769204174385971928091663,-81618.505,-0.221806892094663817329846410045269735,False,True,evaluated
+2019-10-30,"[""2019-10-23"", ""2019-10-16"", ""2019-10-09"", ""2019-10-02""]",4,,297654.16,385816.175,39515.82,58586.154732,-1.50482678720413686425928924029046652,-88162.015,-0.228507825002412094308902419656200262,False,True,evaluated
+2019-10-31,"[""2019-10-24"", ""2019-10-17"", ""2019-10-10"", ""2019-10-03""]",4,,278736.72,354916.09,28031.57,41559.605682,-1.83301474472348676313410648495189926,-76179.37,-0.214640508408621316661073325810616250,False,True,evaluated

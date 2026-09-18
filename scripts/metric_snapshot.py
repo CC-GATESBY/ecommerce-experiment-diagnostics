@@ -14,7 +14,9 @@ def digest(path):
     with Path(path).open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 
 
-def select_snapshot(root,run_path,*,scope_id,source_run):
+def select_snapshot(root,run_path,*,scope_id,source_run,tables=TABLES):
+    require(isinstance(tables,(tuple,list)) and tables and len(tables)==len(set(tables))
+            and set(tables)<=set(TABLES),'invalid table selection')
     require(isinstance(run_path,(str,Path)),'exactly one run path required')
     require(not any(x in str(run_path) for x in ('*','?','[')),'wildcard snapshot selection forbidden')
     root=Path(root).resolve();run=Path(run_path);run=(root/run).resolve() if not run.is_absolute() else run.resolve()
@@ -29,7 +31,7 @@ def select_snapshot(root,run_path,*,scope_id,source_run):
             and lineage['contract_version']=='rees46-events-v1.0.1' and lineage['date_policy_version']=='rees46-date-quality-v1','snapshot lineage mismatch')
     dates=proof['daily'];require(dates and all(r['scope_id']==scope_id for r in dates),'snapshot scope mismatch')
     files={};inventory={}
-    for table in TABLES:
+    for table in tables:
         folder=complete/'metrics'/table
         require(folder.is_dir() and (folder/'_SUCCESS').is_file(),'incomplete metric table '+table)
         paths=sorted(p for p in folder.iterdir() if p.suffix=='.parquet')
