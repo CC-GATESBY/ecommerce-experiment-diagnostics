@@ -1,0 +1,4 @@
+scenario,days,purchase_amount,daily_mean,versus_october_daily_mean,limitation
+october_reference,31,11598630.22,374149.3619354838709677419355,0,observational_log_not_platform_revenue
+november_full_primary,30,13878438.48,462614.616,0.236443685502717923530801209,observational_log_not_platform_revenue
+november_exclude_15_17_posthoc,27,9841043.48,364483.0918518518518518518519,-0.0258353242502624238841017721,posthoc_unequal_calendar_not_adjusted_growth
