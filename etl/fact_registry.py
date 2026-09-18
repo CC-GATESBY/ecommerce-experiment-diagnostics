@@ -168,12 +168,33 @@ def register_batch(root, registry_path, descriptor):
     return {'status': 'registered', 'selected_run': d['run_id']}
 
 
+def registered_batch_matches(current, registered, *, allow_criteo_manifest_extension=False):
+    """Opt-in compatibility for one audited Criteo-only manifest extension.
+
+    The exact two file hashes bind the old REES46 evidence and the accepted
+    T0.4 Criteo addition. All other evidence and batch values remain exact.
+    This does not refresh the registry or allow arbitrary future extensions.
+    """
+    if current == registered:
+        return True
+    if not allow_criteo_manifest_extension:
+        return False
+    name = 'data/manifest.json'
+    pair = (registered.get('evidence', {}).get(name), current.get('evidence', {}).get(name))
+    if pair != ('f6fde65d4a8f2f8051456b5ed744233e08ea1881ee5ec50a539cd3d2772237ad',
+                '39089916016724996b3b8c6f204aa35e4a5a9978b3729bdc1cf67276529667f3'):
+        return False
+    adjusted = {**current, 'evidence': {**current['evidence'], name: pair[0]}}
+    return adjusted == registered
+
+
 class FactReader:
     """One cached Parquet materialization per batch in this reader; explicit close."""
 
-    def __init__(self, spark, root, registry_path, series_id):
+    def __init__(self, spark, root, registry_path, series_id, *, allow_criteo_manifest_extension=False):
         self.spark = spark; self.root = Path(root).resolve(); self.path = registry_path; self.series = series_id
         self.frames = {}; self.parquet_loads = 0; self.read_checks = {}
+        self.allow_criteo_manifest_extension = allow_criteo_manifest_extension
 
     def read(self, dates, purpose, *, expected_scopes):
         from pyspark.sql import functions as F
@@ -186,7 +207,9 @@ class FactReader:
         require(chosen and set(expected_scopes) == {e['descriptor']['scope_id'] for e in chosen}, 'unregistered range or scope mismatch')
         require(set(requested) <= {day for e in chosen for day in e['descriptor']['dates']}, 'requested date absent')
         for entry in chosen:
-            require(inspect_batch(self.root, entry['descriptor']) == entry, 'registered evidence or files changed')
+            require(registered_batch_matches(inspect_batch(self.root, entry['descriptor']), entry,
+                    allow_criteo_manifest_extension=self.allow_criteo_manifest_extension),
+                    'registered evidence or files changed')
             for day in set(requested) & set(entry['descriptor']['dates']):
                 gate = entry['gates'][day]
                 require(gate[purpose + '_allowed'], 'quality blocked ' + day + ': ' + ','.join(gate['reason_codes']))
