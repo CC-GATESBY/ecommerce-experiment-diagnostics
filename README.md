@@ -20,6 +20,12 @@
 
 来自metrics-month-01已有month/unknown_dimensions汇总，[脱敏覆盖表](reports/category_coverage_context.csv)保留分母，未重新查询品类事实。这是编码可解释覆盖，不是上游日志完整性证明。若已知electronics归类正确且总金额不变，unknown全部不属于/全部属于electronics时，其金额占比边界为**75.4420%–85.8668%**。这是条件推导，不是重新分类或证明标签正确：高集中本身可以稳定成立，未知部分仍限制具体品类归因；没有证据证明Temu商家填报导致该问题。[T2.3初稿v1](reports/business_decision_memo_v1_t23.md)原文保留；本轮v2的优先级调整见下方T4案例。
 
+## T4双月业务复核
+
+[10–11月报告](reports/cross_period_business_review.md)保留原十月案例，并将核查优先级改为：先对账11月15–17日总体purchase事件覆盖与时间，再查computers在10月25日、11月1日和8日的商品构成。electronics整体更接近大盘；computers反复相对偏弱但月底反弹，不能定性持续恶化。11月15日有18,981名活跃用户却无purchase，16–17日占该月金额29.09%，不能以峰值直接证明恢复或事故修复。
+
+新范围`rees46_oct_nov_user5_analysis_v1`延续同一5%目标概率用户哈希，包含11月新出现的匹配ID；11月新增3,340,951条样本事件，十月指标复用不重建。只补日指标/品类日表，不算品牌、first_seen、漏斗或实验。[范围与来源](docs/cross_period_source_scope.md) · [独立结果登记](reports/cross_period/analysis_scope.json) · [验收](docs/cross_period_validation.md)。不直接改变价格、流量或优惠策略；T4.5/T5未执行。
+
 ## 当前状态
 
 S0、T0.1、T0.2、T0.3 已完成工程验收。REES46 10 月原始文件和两份 100,000 条头部工程样本保留；完整源扫描实测 42,448,764 条，新增固定用户候选含 151,121 用户、2,114,081 条事件，源与候选均观察到 10 月全部 31 天。上述是可追溯输入准备；后续已完成的事实解析和指标工程验收见下文，REES46线上实验与性能基准尚未运行，已完成的Criteo总体评估和本轮离线方案见下文。Criteo corrected v2.1来源验收现已补齐，T0.4 done（工程验收，本人解释未代验）；G0/G1仍需另行审核。状态见 [任务清单](TASKS_v4.md)，完整结果见 [整月输入验收](docs/t04_rees46_month_validation.md)，原获取和环境证据见 [首次 REES46 验收](docs/t04_rees46_validation.md)及 [T0.3 验收](docs/t03_validation.md)。

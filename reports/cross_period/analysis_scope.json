@@ -1,0 +1,64 @@
+{
+  "analysis_scope_version": "rees46_oct_nov_user5_analysis_v1",
+  "status": "validated_for_declared_descriptive_cross_period_review_not_causal_or_platform_scope",
+  "observation": {
+    "start_inclusive": "2019-10-01T00:00:00Z",
+    "end_exclusive": "2019-12-01T00:00:00Z"
+  },
+  "series_id": "rees46_fixed_users_20260916_v1",
+  "duplicate_policy": "baseline_keep_all",
+  "sampling": {
+    "algorithm": "rees46-user-sample-v1",
+    "seed": "20260916",
+    "target_user_probability": "0.05",
+    "newly_observed_matching_ids_included": true
+  },
+  "october": {
+    "analysis_scope": "rees46_oct_user5_analysis_v1",
+    "fact_run": "month-v101-01",
+    "metric_run": "metrics-month-01",
+    "crosscheck_run": "crosscheck-month-01",
+    "candidate_sha256": "5bfc34f9c683a81ecb5eef6853a62ed454a76eca3244c9b7d80a426b8100055b",
+    "metric_files_sha256": {
+      "agg_daily_metrics": "0fedd8b49f8bdf7cb62671bb12929bf0b62e2e1c0566189d3d955f9304edea80",
+      "agg_daily_dim": "7c1a2087e56042240d5182034cf69fa235a462bc9e50fdabf499eb9a427ff8da"
+    }
+  },
+  "november": {
+    "source_id": "rees46_multicategory_2019_nov",
+    "source_csv_sha256": "addd9a27ed99abdece368019ebfba19568972c7fcbe949db3484aab8a3bcffec",
+    "candidate_scope": "rees46_2019_nov_user5_addd9a27ed99abde_20260916_v1",
+    "candidate_sha256": "46d918b3049ba540429519bd0f44852408910a00ce4ab48d569b429352d10e05",
+    "candidate_kind": "user_sample_candidate",
+    "sample_run": "nov-sample-01",
+    "metrics_run": "nov-metrics-02",
+    "independent_full_record_checks": {
+      "expected_minus_actual": 0,
+      "actual_minus_expected": 0
+    },
+    "metrics_receipt_sha256": "9969c06e84f171ce77c513429a17dc53106ebd1044c9ad090d0679a4bf919668",
+    "schema": "event_records/purchase_events BIGINT; purchase_amount DECIMAL(38,2)",
+    "daily_rows": 30,
+    "category_rows": 420
+  },
+  "review_run": "review-03",
+  "parsing_contract": "rees46-events-v1.0.1",
+  "metric_version": "rees46-metrics-v1",
+  "date_policy": "rees46-date-quality-v1",
+  "frozen_rule_config": "config/cross_period.yaml",
+  "frozen_rule_sha256": "e514a0a5cd8fab36bfa67c565e2c9d123dbc5deda386d14139126ef9b427133c",
+  "result_files": {
+    "daily_metrics.csv": "2242c990a12ac9f7d4a31d50afa11e6499c7277c6d37b3231758ae2863cfbe6d",
+    "category_comparisons.csv": "a91fd87b32dd8be46196fc7a0288e30cd894a6c34eb748ddce6903406d36e773",
+    "category_coverage.csv": "793b97a033ed6979374d8ee9d8906317e4bd6ea0ff1d1b08b8cd7028e4b4abb4",
+    "monthly_daily_means.csv": "92c2feabbbff677e483945ce04863ffb11e974ced181132b32b39db603311276",
+    "category_daily.csv": "d79487fa4618fc9298d1fb8720fd6ec85eb3c571d102602e03cb572e5379272e",
+    "friday_comparisons.csv": "17fd28de934a5dbd16a3cd79361dd8735c3a0f8954e46e82504cfe05779d3c49",
+    "anomaly_flags.csv": "6b14d4c93cd0bac2df0fd3de26a2f60b9619cbc54caa59f32a9165fc84709ea9"
+  },
+  "limitations": [
+    "11/15 has no purchase records; observed zero does not prove zero actual transactions or upstream completeness",
+    "November users are not restricted to October membership",
+    "No brand/funnel/first_seen/experiment reconstruction"
+  ]
+}

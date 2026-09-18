@@ -1,0 +1,31 @@
+version: rees46-oct-nov-review-v1
+analysis_scope: rees46_oct_nov_user5_analysis_v1
+observation_start: '2019-10-01'
+observation_end_exclusive: '2019-12-01'
+october_scope: rees46_oct_user5_analysis_v1
+october_metric_run: metrics-month-01
+october_fact_run: month-v101-01
+november_source: rees46_multicategory_2019_nov
+sampling_algorithm: rees46-user-sample-v1
+seed: '20260916'
+user_probability: '0.05'
+cohort: all_ids_matching_fixed_hash_in_each_month_not_october_returners
+parsing_contract: rees46-events-v1.0.1
+metric_version: rees46-metrics-v1
+date_policy: rees46-date-quality-v1
+duplicate_policy: baseline_keep_all
+history_offsets_days: [7, 14, 21, 28]
+min_history_points: 3
+mad_scale: '1.4826'
+score_abs_gt: '3'
+relative_change_abs_gte: '0.10'
+views: [all_61_daily_points, all_fridays_from_oct04, all_november_evaluations]
+focus_categories: [electronics, computers]
+category_baseline: same_qualified_history_dates_daily_mean
+category_relative_comparison: category_change_minus_total_change_percentage_points
+monthly_comparison: daily_means_31_vs_30_days_and_all_fridays
+first_seen: not_computed_not_used
+absolute_business_threshold: not_set_no_currency_or_loss_tolerance
+max_download_bytes: 4294967296
+max_new_bytes: 42949672960
+minimum_free_bytes: 161061273600

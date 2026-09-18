@@ -65,7 +65,12 @@ def add_fields(digest, row):
 
 
 class Profile:
-    def __init__(self):
+    def __init__(self, start=START, end=END):
+        self.start, self.end = start, end
+        first, last = date.fromisoformat(start[:10]), date.fromisoformat(end[:10])
+        if first >= last:
+            raise IngestError("Profile month window must be nonempty")
+        self.expected_dates = [(first + timedelta(days=i)).isoformat() for i in range((last-first).days)]
         self.records = 0
         self.width_errors = 0
         self.time_missing = 0
@@ -112,7 +117,7 @@ class Profile:
             self.latest = timestamp if self.latest is None else max(self.latest, timestamp)
             self.days[timestamp[:10]] += 1
             self.hours[timestamp[:13] + ":00:00+00:00"] += 1
-            self.outside_month += not START <= timestamp < END
+            self.outside_month += not self.start <= timestamp < self.end
         return parsed
 
     def summary(self):
@@ -132,7 +137,7 @@ class Profile:
             "user_id_whitespace_only_records": self.user_whitespace,
             "user_id_non_ascii_digit_string_records": self.user_non_digit,
             "user_id_leading_zero_records": self.user_leading_zero,
-            "expected_dates_without_records": [day for day in EXPECTED_DATES if not self.days[day]],
+            "expected_dates_without_records": [day for day in self.expected_dates if not self.days[day]],
         }
 
 
@@ -222,8 +227,8 @@ def scan(source, output, source_profile, candidate_profile, budget, progress_eve
                     "field_sequence_sha256": field_digest.hexdigest()}
 
 
-def validate_candidate(path, extraction, expected_profile, database, budget, progress_every, start):
-    profile = Profile()
+def validate_candidate(path, extraction, expected_profile, database, budget, progress_every, start, window=None):
+    profile = Profile(*window) if window else Profile()
     field_digest = hashlib.sha256()
     db = sqlite3.connect(database)
     try:

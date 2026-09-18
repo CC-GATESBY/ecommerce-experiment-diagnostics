@@ -184,10 +184,10 @@ def stream_download(response, destination, expected_bytes):
         raise
 
 
-def extract_gzip(archive, destination, expected_bytes, allowed_root):
+def extract_gzip(archive, destination, expected_bytes, allowed_root, expected_name="2019-Oct.csv"):
     """Ignore embedded gzip names; output only the explicitly allowed basename."""
     destination, allowed_root = Path(destination), Path(allowed_root).resolve()
-    if destination.name != "2019-Oct.csv" or destination.parent.resolve() != allowed_root:
+    if expected_name not in ("2019-Oct.csv", "2019-Nov.csv") or destination.name != expected_name or destination.parent.resolve() != allowed_root:
         raise IngestError("Unsafe extraction destination")
     if destination.exists() or destination.is_symlink():
         raise IngestError("Extraction would overwrite an existing file")
