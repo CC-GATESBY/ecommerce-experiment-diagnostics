@@ -20,6 +20,12 @@
 
 来自metrics-month-01已有month/unknown_dimensions汇总，[脱敏覆盖表](reports/category_coverage_context.csv)保留分母，未重新查询品类事实。这是编码可解释覆盖，不是上游日志完整性证明。若已知electronics归类正确且总金额不变，unknown全部不属于/全部属于electronics时，其金额占比边界为**75.4420%–85.8668%**。这是条件推导，不是重新分类或证明标签正确：高集中本身可以稳定成立，未知部分仍限制具体品类归因；没有证据证明Temu商家填报导致该问题。[T2.3初稿v1](reports/business_decision_memo_v1_t23.md)原文保留；本轮v2的优先级调整见下方T4案例。
 
+## 固定队列：为什么保留未返回者
+
+[T5.1队列说明](reports/cohort_definition.md)固定10月1–14日出现的84,165人，观察15–28日：返回33,442、未返回50,723、购买4,812。购买人数相同，全队列购买率5.7173%，返回者中的条件购买比例14.3891%；8.6718个百分点的差来自分母，不是策略效果。结果期才出现的57,527人不加入，队列也不等于T3.4购物车人群。
+
+每用户一行，身份与数值用稳定键连接并仅存本地；金额3,499,563.53，每入组用户41.5798，完整观测而非利润。仅复用已核验用户日表，未启动Spark或重建指标；[验收及复跑](docs/t51_validation.md) · [脱敏汇总](reports/cohort_baseline.csv)。T5.1已通过固定队列与分母验收，本人解释未代验；T5.2–T5.5未执行。
+
 ## computers：记录数量还是商品组合
 
 [商品构成定向复核](reports/computers_product_mix_review.md)仅查10月4/11/18/25日及11月1/8日。主案例金额低于历史日均41.61%，购买记录减少31.33%、单条均值降低14.97%；共同购买的12个商品却净增加1,998.74，同商品ID金额项仅−39.24。95个商品有负向变化，Top5覆盖全部负向金额差35.92%，不足以支持“一两个商品导致全部下降”或整体调价。
@@ -36,7 +42,7 @@
 
 [10–11月报告](reports/cross_period_business_review.md)保留原十月案例，并将核查优先级改为：先对账11月15–17日总体purchase事件覆盖与时间，再查computers在10月25日、11月1日和8日的商品构成。electronics整体更接近大盘；computers反复相对偏弱但月底反弹，不能定性持续恶化。11月15日有18,981名活跃用户却无purchase，16–17日占该月金额29.09%，不能以峰值直接证明恢复或事故修复。
 
-新范围`rees46_oct_nov_user5_analysis_v1`延续同一5%目标概率用户哈希，包含11月新出现的匹配ID；11月新增3,340,951条样本事件，十月指标复用不重建。只补日指标/品类日表，不算品牌、first_seen、漏斗或实验。[范围与来源](docs/cross_period_source_scope.md) · [独立结果登记](reports/cross_period/analysis_scope.json) · [验收](docs/cross_period_validation.md)。不直接改变价格、流量或优惠策略；T4.5/T5未执行。
+新范围`rees46_oct_nov_user5_analysis_v1`延续同一5%目标概率用户哈希，包含11月新出现的匹配ID；11月新增3,340,951条样本事件，十月指标复用不重建。只补日指标/品类日表，不算品牌、first_seen、漏斗或实验。[范围与来源](docs/cross_period_source_scope.md) · [独立结果登记](reports/cross_period/analysis_scope.json) · [验收](docs/cross_period_validation.md)。不直接改变价格、流量或优惠策略；该阶段未执行T4.5/T5，T5.1最新状态见上文。
 
 ## 当前状态
 
