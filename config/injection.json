@@ -1,0 +1,20 @@
+{
+  "version": "rees46-injection-v1",
+  "cohort_run": "cohort-oct-01",
+  "cohort_version": "rees46-pre-oct01-14-post-oct15-28-v1",
+  "experiment_id": "rees46-injected-v1-0001",
+  "assignment_prefix": "rees46-injected-assignment-v1|",
+  "rng": "PCG64",
+  "seed": 20260921,
+  "scenario_relative_lifts": {"S0": "0", "S1": "0.10"},
+  "sort": "cohort_key_ASC",
+  "probability_B": 0.5,
+  "srm_alpha": 0.001,
+  "alpha": 0.05,
+  "binary_method": "unpooled_wald_z_min_cell_10",
+  "expected_users": 84165,
+  "expected_Y0_sum": 4812,
+  "synthetic_mc_seed": 20260922,
+  "synthetic_mc_repeats": 500,
+  "synthetic_mc_max_abs_z": 6
+}

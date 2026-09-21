@@ -246,3 +246,12 @@ T3.4 done（历史基准＋条件式实验设计；未上线，本人解释未�
 [完整筛选](reports/anomaly_flags.csv)、[经营拆解](reports/decomposition.csv)、[维度贡献](reports/dimension_contributions.csv)、[覆盖核对](reports/case_category_coverage.csv)与[验收](docs/t4_validation.md)均可追溯。T4.1–T4.4 done（工程验收，本人解释未代验）；只是回顾性探索和代数定位，未证明原因或上线收益。T2.3的[原始v1](reports/business_decision_memo_v1_t23.md)逐字保留，[v2](reports/business_decision_memo.md)记录修订原因。
 
 本轮只通过既有选择器读取31行日指标和6,879行维度日指标，不读事实/用户日/路径/CSV，不启动Spark；无依赖安装或旧数据重建。一个运行入口为scripts/run_diagnosis.py；方法和复跑边界见验收文档。T4.5、T5及其他扩展不自动执行，G0/G1不自动勾选。
+
+
+## T5.5 已知购买率效应模拟
+
+[简短业务解释](reports/effect_injection.md)：人为设置相对全队列基准10%提升，生成真值为+0.5798个百分点；单次固定分组估计+0.2955个百分点，95%CI[−0.0255,+0.6165]，p=.0712。看见正估计、识别出提升与证明投入价值是不同问题；没有换种子求显著，也没有合成收入。
+
+仅一次读取原固定队列的键、二元结果与scope，全部84,165人保留。原队列、A/A结果和金额不改；新模拟独立放在本地忽略目录。方法、人工测试与复跑边界见[模拟契约](docs/injection_contract.md)、[验收](docs/t55_validation.md)，逐场景数字见[结果CSV](reports/effect_injection_results.csv)。入口为`scripts/run_injection.py`，已用run ID拒绝覆盖。
+
+T5.5 done（已知效应模拟与单次评估；非真实策略效果，本人解释未代验）。无新依赖、Spark或数据下载；CUPED及完整功效曲线未执行。下一项优先T7成果整理与理解验收，不自动叠加组件。
