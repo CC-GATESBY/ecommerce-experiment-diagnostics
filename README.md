@@ -62,6 +62,10 @@
 
 目录入口：业务报告在`reports/`；契约、验收与手册在`docs/`；SQL在`sql/`；接入/解析在`ingest/`、`etl/`；统计在`abtest/`；运行入口在`scripts/`。真实数据、用户键、membership、模拟数组、机器配置与日志仅留本地，不随仓库提供。
 
+## 同商品价格关联与条件门槛（新增专题）
+
+[PRICE-01业务判断](reports/price_margin_review.md)比较既有十月正式路径中的固定价格对：先按支持度选商品，再看关联与日期限制。当前优先核对price_product_A的同规格浏览价与成交价对应，尚不支持直接调价；假设贡献毛利门槛与观察结果分开，不作为真实ROI或价格因果。见[脱敏比较](reports/price_analysis/product_comparisons.csv)、[条件情景](reports/price_analysis/margin_scenarios.csv)与[验收](docs/price_margin_validation.md)。不改变上述computers调查结论。
+
 ## 当前可展示范围
 
 已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、公开实验总体评估、未上线购物车设计、固定队列、离线A/A及已知效应模拟。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
