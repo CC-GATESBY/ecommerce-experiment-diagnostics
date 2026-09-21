@@ -1,0 +1,20 @@
+{
+  "version": "rees46-aa-method-v1",
+  "cohort_run": "cohort-oct-01",
+  "cohort_version": "rees46-pre-oct01-14-post-oct15-28-v1",
+  "experiment_prefix": "rees46-aa-v1-",
+  "first_experiment": 1,
+  "last_experiment": 300,
+  "assignment_prefix": "rees46-aa-assignment-v1|",
+  "probability_b": 0.5,
+  "srm_alpha": 0.001,
+  "alpha": 0.05,
+  "binary_method": "unpooled_wald_z_min_cell_10",
+  "amount_method": "welch_t",
+  "bootstrap_seed": 20260921,
+  "bootstrap_repeats": 6000,
+  "bootstrap_batches": 30,
+  "max_users": 84165,
+  "expected_converted": 4812,
+  "expected_amount_cents": 349956353
+}

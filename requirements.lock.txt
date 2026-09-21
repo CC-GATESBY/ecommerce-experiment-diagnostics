@@ -1,6 +1,8 @@
 duckdb==1.5.5
+numpy==2.4.6
 pip==26.1.2
 py4j==0.10.9.9
 pyspark==3.5.8
 PyYAML==6.0.3
+scipy==1.17.1
 setuptools==82.0.1
