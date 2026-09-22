@@ -66,10 +66,14 @@
 
 [PRICE-01业务判断](reports/price_margin_review.md)比较既有十月正式路径中的固定价格对：先按支持度选商品，再看关联与日期限制。当前优先核对price_product_A的同规格浏览价与成交价对应，尚不支持直接调价；假设贡献毛利门槛与观察结果分开，不作为真实ROI或价格因果。见[脱敏比较](reports/price_analysis/product_comparisons.csv)、[条件情景](reports/price_analysis/margin_scenarios.csv)与[验收](docs/price_margin_validation.md)。不改变上述computers调查结论。
 
+## 同覆盖人数，是否值得定向？（新增专题）
+
+[TARGET-01公开基准判断](reports/targeting_coverage_review.md)：30%容量下，固定简单规则相对随机覆盖的每万候选记录差额为+3.0217，成对区间[2.1421, 3.8292]；但RESPONSE与INCREMENTAL选中了完全相同的记录，未显示额外增量排序价值。保留简单规则，下一步仅建议独立留出评价；当前是train/valid开发证据，test未用于本轮分析，不代表真实投放ROI。见[同容量比较](reports/targeting/coverage_comparison.csv)、[直接策略差](reports/targeting/policy_differences.csv)与[验收](docs/targeting_validation.md)。T3.3的f0/f1有限描述分层已有证据，未完成复杂uplift模型或最终test评价。
+
 ## 当前可展示范围
 
 已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、公开实验总体评估、未上线购物车设计、固定队列、离线A/A及已知效应模拟。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
 
-Hadoop/YARN、CUPED、完整功效曲线、有限异质性、故障注入、受控性能对照及uplift模型均未完成，不写入已完成实践成果。见[逐项阶段审查](reports/project_release_checklist.md)、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
+Hadoop/YARN、CUPED、完整功效曲线、故障注入、受控性能对照及uplift模型均未完成，不写入已完成实践成果。见[逐项阶段审查](reports/project_release_checklist.md)、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
 
 历史以[TASKS](TASKS_v4.md)、各阶段验收和[原README快照](https://github.com/CC-GATESBY/ecommerce-experiment-diagnostics/blob/8be3b17175e5a52d99dcb895f177bb026746ab7b/README.md)为准；历史报告中的“当轮未执行”是当时状态，不批量改写。项目没有自动公开、外部发布或策略上线。

@@ -1,0 +1,99 @@
+{
+  "version": "criteo-targeting-rules-v1",
+  "boundaries": {
+    "f0": [
+      21.923943332541803,
+      24.436236184073156
+    ],
+    "f1": []
+  },
+  "groups": [
+    {
+      "group_id": 0,
+      "n_control": 624167,
+      "n_treatment": 3569473,
+      "conversion_control": 2106,
+      "conversion_treatment": 19780,
+      "p0_train": 0.0033740969964769045,
+      "p1_train": 0.005541434267747648,
+      "delta_train": 0.0021673372712707434,
+      "fallback": false,
+      "fallback_reason": "supported",
+      "response_score": 0.0033740969964769045,
+      "incremental_score": 0.0021673372712707434,
+      "response_score_fraction": "2106/624167",
+      "incremental_score_fraction": "112295654/51812726837",
+      "response_rank": 1,
+      "incremental_rank": 1
+    },
+    {
+      "group_id": 1,
+      "n_control": 315753,
+      "n_treatment": 1781063,
+      "conversion_control": 193,
+      "conversion_treatment": 1405,
+      "p0_train": 0.0006112372645707246,
+      "p1_train": 0.0007888547457333065,
+      "delta_train": 0.00017761748116258187,
+      "fallback": false,
+      "fallback_reason": "supported",
+      "response_score": 0.0006112372645707246,
+      "incremental_score": 0.00017761748116258187,
+      "response_score_fraction": "193/315753",
+      "incremental_score_fraction": "99887806/562375985439",
+      "response_rank": 2,
+      "incremental_rank": 2
+    },
+    {
+      "group_id": 2,
+      "n_control": 317768,
+      "n_treatment": 1779049,
+      "conversion_control": 114,
+      "conversion_treatment": 807,
+      "p0_train": 0.0003587522972734825,
+      "p1_train": 0.0004536131382553263,
+      "delta_train": 9.486084098184376e-05,
+      "fallback": false,
+      "fallback_reason": "supported",
+      "response_score": 0.0003587522972734825,
+      "incremental_score": 9.486084098184376e-05,
+      "response_score_fraction": "57/158884",
+      "incremental_score_fraction": "26813595/282662421316",
+      "response_rank": 3,
+      "incremental_rank": 3
+    }
+  ],
+  "train_totals": [
+    1257688,
+    7129585,
+    2413,
+    21992
+  ],
+  "global_p0": 0.0019185998435224,
+  "global_delta": 0.0011660116731367044,
+  "features": [
+    "f0",
+    "f1"
+  ],
+  "outcome": "conversion",
+  "capacities_percent": [
+    10,
+    20,
+    30,
+    50,
+    100
+  ],
+  "primary_contrast": "INCREMENTAL_minus_RANDOM_G",
+  "tie_break": "SHA256(UTF8(target-v1|20260921| + row_id)) ascending; row_id ascending if hash collision",
+  "quantile_algorithm": "DuckDB quantile_cont; Hyndman-Fan type 7 on finite DOUBLE train values",
+  "bin_boundary": "right_closed; deduplicate cuts; remove cuts equal to min or max",
+  "policy_sha256": "324cf7a4c7e527480c5fc02116759c58969ac09ad5e0f41a10099958d6133228",
+  "code_sha256": {
+    "uplift/targeting.py": "babc2f01819d77b08003d83878c1343c5860512677e5921358fd0d1cf3e09386",
+    "tests/test_targeting.py": "0c4ee28381050953cefc40a64b18853df00c9c821f0f53fa857cfaaf232c5127",
+    "config/targeting.json": "324cf7a4c7e527480c5fc02116759c58969ac09ad5e0f41a10099958d6133228"
+  },
+  "source_sha256": "e4d7c710ca1f38e523309d0f8a0745d1b53e7392d51f20d1088b6cfeaef222ef",
+  "split_run": "criteo-split-v1-01",
+  "frozen_before_valid_effects": true
+}
