@@ -68,7 +68,9 @@
 
 ## 同覆盖人数，是否值得定向？（新增专题）
 
-[TARGET-01公开基准判断](reports/targeting_coverage_review.md)：30%容量下，固定简单规则相对随机覆盖的每万候选记录差额为+3.0217，成对区间[2.1421, 3.8292]；但RESPONSE与INCREMENTAL选中了完全相同的记录，未显示额外增量排序价值。保留简单规则，下一步仅建议独立留出评价；当前是train/valid开发证据，test未用于本轮分析，不代表真实投放ROI。见[同容量比较](reports/targeting/coverage_comparison.csv)、[直接策略差](reports/targeting/policy_differences.csv)与[验收](docs/targeting_validation.md)。T3.3的f0/f1有限描述分层已有证据，未完成复杂uplift模型或最终test评价。
+[TARGET-01开发评价](reports/targeting_coverage_review.md)：30%容量下，固定简单规则相对随机覆盖的每万候选记录差额为+3.0217，成对区间[2.1421, 3.8292]；RESPONSE与INCREMENTAL选中了完全相同的记录。该阶段只使用train/valid，原结果保留，见[同容量比较](reports/targeting/coverage_comparison.csv)、[直接策略差](reports/targeting/policy_differences.csv)与[验收](docs/targeting_validation.md)。
+
+[TARGET-02冻结规则留出评价](reports/targeting_holdout_review.md)：test的30%容量每规则覆盖838,367条，简单定向相对随机的差额为+2.6064/万候选记录，成对区间[1.7130, 3.4390]，支持保留简单规则作目标业务试验候选；两种定向名单仍相同，没有额外增量排序价值。下一步最需要目标业务的处理前特征、随机干预及真实成本证据，不直接部署或迁移成优惠券名单。见[test结果](reports/targeting_test/coverage_comparison.csv)、[test策略差](reports/targeting_test/policy_differences.csv)、[事前协议](docs/targeting_holdout_protocol.md)与[验收](docs/targeting_holdout_validation.md)。这是固定简单规则评价，未完成E1模型训练或完整E2模型评价。
 
 ## 当前可展示范围
 
