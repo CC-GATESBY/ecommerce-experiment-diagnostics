@@ -48,7 +48,7 @@
 | 证据线 | 用来回答什么 | 不支持什么 |
 |---|---|---|
 | A · REES46观察性日志 | 行为描述、金额拆解、覆盖核查；据此提出条件式购物车试验设计 | 平台总体收入、事故根因、价格因果、已经创造的业务收益 |
-| B · Criteo独立公开随机实验来源基准 | [公开样本组间差异](reports/criteo_business_summary.md)，强调绝对量级和区间 | 恢复原广告主ROI，迁移为优惠券效果；不与REES46连接用户 |
+| B · Criteo独立公开随机实验来源基准 | [公开样本组间差异](reports/criteo_business_summary.md)及[冻结简单规则的test比较](reports/targeting_holdout_review.md)，强调绝对量级、分母和区间 | 恢复原广告主ROI，迁移为优惠券效果；不与REES46连接用户 |
 | C · 离线A/A与人工效应注入 | 固定队列下的分流、估计与边界验证 | 线上实验次数、真实新增买家、完整功效曲线或投入收益 |
 
 ## 证据、实现与最小复现
@@ -72,9 +72,11 @@
 
 [TARGET-02冻结规则留出评价](reports/targeting_holdout_review.md)：test的30%容量每规则覆盖838,367条，简单定向相对随机的差额为+2.6064/万候选记录，成对区间[1.7130, 3.4390]，支持保留简单规则作目标业务试验候选；两种定向名单仍相同，没有额外增量排序价值。下一步最需要目标业务的处理前特征、随机干预及真实成本证据，不直接部署或迁移成优惠券名单。见[test结果](reports/targeting_test/coverage_comparison.csv)、[test策略差](reports/targeting_test/policy_differences.csv)、[事前协议](docs/targeting_holdout_protocol.md)与[验收](docs/targeting_holdout_validation.md)。这是固定简单规则评价，未完成E1模型训练或完整E2模型评价。
 
+这里RESPONSE与INCREMENTAL是本版同一份名单，不是两套独立成功证据；复杂模型未被比较，不能据此说已证明无用。test是同一公开来源的随机留出，不是跨时间、跨市场验证。上述G差是容量标准化组间差额，不是真实新增客户、转化率相对提升或预算节省；登记使用原策略差文件的完整精度，不以展示值相减。
+
 ## 当前可展示范围
 
-已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、公开实验总体评估、未上线购物车设计、固定队列、离线A/A及已知效应模拟。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
+已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、价格关联及条件门槛、公开实验总体评估、有限覆盖规则的valid/test比较、未上线购物车设计、固定队列、离线A/A及已知效应模拟。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
 
 Hadoop/YARN、CUPED、完整功效曲线、故障注入、受控性能对照及uplift模型均未完成，不写入已完成实践成果。见[逐项阶段审查](reports/project_release_checklist.md)、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
 

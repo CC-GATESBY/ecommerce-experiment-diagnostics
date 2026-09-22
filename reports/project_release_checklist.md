@@ -1,19 +1,22 @@
 # 首版成果阶段审查
 
-2026-09-21，证据起点`8be3b17175e5a52d99dcb895f177bb026746ab7b`。审查run_id=`t7-evidence-review-01`。本轮只重组已提交证据、核对数字/引用并运行人工最小演示；没有读取真实明细、重建指标、重跑A/A或效应注入。仓库保持private/main，未外发简历或发布站点。
+历史T7审查：2026-09-21，证据起点`8be3b17175e5a52d99dcb895f177bb026746ab7b`，run_id=`t7-evidence-review-01`。当时重组证据并完成一次人工隔离环境最小复现，下文保留其验收事实。
+
+当前材料收尾：2026-09-22，起点`76a4e9406091389fe30e7553bdbaab17ffd5c012`。仅复读已提交报告、脱敏CSV及验收摘要，将PRICE-01、TARGET-01/02纳入求职材料；没有查询用户级数据、读取Criteo raw/test或重跑bootstrap、历史测试、演示及真实任务。本轮远程同步要求为private/main，未外发简历或发布站点。
 
 ## 已有产物能支持什么
 
-| 项目 | 证据 | 本轮结论与限制 |
+| 项目 | 证据 | 当前结论与限制 |
 |---|---|---|
 | 数据正确性与可追溯输入 | [来源](../docs/data_sources.md)、[清单](../data/MANIFEST.md)、[T0.3](../docs/t03_validation.md)、[T1.1](../docs/t11_closeout_validation.md)、[T1.4](../docs/t14_validation.md) | 指定输入/日期下已有工程核验；本轮复核文档，不冒充重扫大文件 |
-| 经营判断与条件式实验设计 | [computers](computers_product_mix_review.md)、[购买时间](purchase_timing_review.md)、[购物车](next_experiment_design.md) | 可解释取证顺序和暂不行动条件；没有真实价格、库存、发券或事故因果证据 |
+| 经营判断、价格关联与条件式实验设计 | [computers](computers_product_mix_review.md)、[购买时间](purchase_timing_review.md)、[PRICE-01](price_margin_review.md)、[购物车](next_experiment_design.md) | 价格对的同期支持和稀疏购买限制已纳入建议；条件毛利门槛是假设，不是实测盈利；没有调价、发券或事故因果证据 |
 | 公开实验基准与离线方法 | [Criteo](criteo_business_summary.md)、[队列](cohort_definition.md)、[AA](aa_validation.md)、[注入](effect_injection.md) | 三类证据未混同；公开样本差异、无处理重分组、人工真值分别登记 |
-| 最小复现 | [runbook](../docs/runbook.md)、[薄入口](../scripts/demo_synthetic.py) | 新临时venv和代码副本实际运行passed；没有`.local`依赖，不是全量生产复现 |
+| 有限覆盖规则与留出比较 | [TARGET-01](targeting_coverage_review.md)、[TARGET-02](targeting_holdout_review.md)、[主差CSV](targeting_test/policy_differences.csv) | 固定30%容量主比较在test获正向支持；两种定向同名单，不是独立成功；复杂模型未比较，同源随机留出不验证跨期/跨市场 |
+| 最小复现 | [runbook](../docs/runbook.md)、[薄入口](../scripts/demo_synthetic.py) | 历史新临时venv和代码副本实际运行passed；本轮未重跑。没有`.local`依赖，不是全量生产复现 |
 | 简历与导航 | [README](../README.md)、[证据登记](../docs/result_registry.csv)、[三条草稿](resume_evidence.md) | 表述有来源/分母/日期/run/commit/限制；没有“全部代码独立完成”或已创造业务收益 |
 | 本人理解与现场修改 | [练习材料](interview_notes.md) | **pending**；材料准备不能替代本人表现，未填写学习完成记录 |
 
-## 最小复现与本轮检查
+## 历史最小复现与检查（2026-09-21）
 
 | expected | actual | 结果 |
 |---|---|---|
@@ -28,6 +31,17 @@
 
 独立venv运行ID为`t7-synthetic-isolated-01`；实际日志、临时路径、安装记录和最终文件核对收据只在本地`.local/t7/`。最小环境仅证明这一人工路径，未声称重新验收整个Spark环境。原README在参考commit完整保留，历史报告的“当轮未执行”原样保留；当前状态以TASKS任务块与本表为准。
 
+## 本轮材料核对（2026-09-22）
+
+| expected | actual | 结果 |
+|---|---|---|
+| 新结果登记保留阶段、完整精度、分母/单位/run及限制 | 新增21个来源单元格登记；旧41条原列值保留，新增data_stage列只补本轮条目。PRICE原始关联/假设门槛、valid开发和test留出分开 | pass |
+| TARGET-02主差从原策略差取值，不由舍入G相减 | 原值2.6063689715161527，区间[1.713007888790414,3.4389972459362395]；展示+2.6064及[1.7130,3.4390] | pass |
+| 简历最多三条且均有证据/本人解释问题 | 经营及价格判断、购物车试验条件、有限覆盖test比较；A/A和注入仅作方法支撑 | pass |
+| 三类证据和能力边界不扩大 | 观察性关联、公开基准比较、人工方法验证分开；同名单不算双重成功，复杂模型未比较，同源随机留出非跨期验证 | pass |
+| 本人理解保持待验 | 仅追加Q9–Q11的问题及参考思路；作答、修改、通过均pending；T7.3/G2不勾选 | pending（本人待验） |
+| 旧结果与本轮范围 | 只修改这五份既有求职材料；来源报告、规则、valid/test汇总、代码及锁文件不改，不执行历史任务 | pass |
+
 ## 按原定义审查总门槛
 
 没有将门槛批量打勾；工程证据具备与本人理解签认分开。
@@ -37,8 +51,8 @@
 | G0：T0.1–T0.4；小型Spark写读 | 范围、环境、Spark人工写读及REES46/Criteo corrected来源验收已有文档。见[TASKS对应项](../TASKS_v4.md)、[Criteo来源](../docs/criteo_source_validation.md) | **工程前置证据具备**，按原范围有效；不是本轮重新安装/下载或全项目理解签认 |
 | G1：T1.1–T1.4样本核验 | 十月事实字段/守恒、日期门禁、质量敏感性、指标及DuckDB独立核验已有证据。见[T1.2](../docs/t12_validation.md)、[T1.3](../docs/t13_validation.md)、[T1.4](../docs/t14_validation.md) | **REES46指定范围工程条件具备**；十一月增量证据另见[双月验收](../docs/cross_period_validation.md)。Criteo走独立T0.4/T3路径，不能说所有数据经过同一指标流水线 |
 | G2：所有P0通过，报告/代码/本人解释一致 | 业务及方法工程产物、T7.1和T7.2证据已整理 | **未通过**：T7.3待本人实际作答/现场修改，各历史本人解释项未代验；文件齐全不满足此条件 |
-| G3：P0+P1，有YARN/CUPED/故障与性能证据 | 仅保留规划 | **未通过**：T3.3、T4.5、T5.6–5.7、T6.1–6.3未完成，也缺G2本人验收 |
-| G4：相关P2完成 | 仅保留规划 | **未通过**：E1–E4模型、留出评价、定向建议/云迁移未完成 |
+| G3：P0+P1，有YARN/CUPED/故障与性能证据 | T3.3有限描述分层已有TARGET-01证据；其余缺口仍保留 | **未通过**：T4.5、T5.6–5.7、T6.1–6.3未完成，也缺G2本人验收 |
+| G4：相关P2完成 | TARGET-02已有冻结简单规则的test证据；E1–E4规划项未整体完成 | **未通过**：不以简单规则专题代替E1训练、完整E2模型/Qini评价及云迁移；复杂模型未比较，不断言其无用 |
 
 ## T7状态与使用条件
 
