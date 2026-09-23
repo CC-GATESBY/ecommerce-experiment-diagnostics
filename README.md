@@ -2,7 +2,7 @@
 
 **公开数据上的电商增长判断、经营诊断与实验分析。**
 
-这是个人公开数据项目，不是拼多多/Temu内部项目，也不是已上线实验平台。项目重点是判断何时值得试验、先核查什么，以及证据不足时为何暂不行动。仓库：[CC-GATESBY/ecommerce-experiment-diagnostics](https://github.com/CC-GATESBY/ecommerce-experiment-diagnostics)，保持 **private / main**。
+这是个人公开数据项目，不是拼多多/Temu内部项目，也不是已上线实验平台。项目重点是判断何时值得试验、先核查什么，以及证据不足时为何暂不行动。仓库：[CC-GATESBY/ecommerce-experiment-diagnostics](https://github.com/CC-GATESBY/ecommerce-experiment-diagnostics)，当前为 **public / main**，由用户主动公开（2026-09-23确认）。公开内容仅限已审核代码、文档和脱敏汇总；真实数据、membership、本机实际配置、凭据与日志不随仓库提供。
 
 ## 优惠券是否值得进入试验？
 
