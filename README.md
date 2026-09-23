@@ -41,7 +41,9 @@
 
 离线A/A在无处理时也出现显著正差；已知正效应模拟在固定单次分组中仍未显著。它们帮助检验方法和解释误判风险，不能证明真实优惠券有效。公开源零购买也不等于现实零交易，仍需交易侧发生时间与入库记录才能区分原因。
 
-[购买时间形态与敏感性](reports/purchase_timing_review.md) · [固定分母](reports/cohort_definition.md) · [A/A误判风险](reports/aa_validation.md) · [已知效应单次评估](reports/effect_injection.md)
+[购买时间形态与敏感性](reports/purchase_timing_review.md) · [固定分母](reports/cohort_definition.md) · [A/A误判风险](reports/aa_validation.md) · [已知效应单次评估](reports/effect_injection.md) · [未调整购买率的功效与漏检](reports/power_raw_report.md)
+
+POWER-01进一步给出固定历史队列、人工效果生成与重新分组下的检出曲线及Monte Carlo区间。它帮助解释一次未显著的局限，保留原单次结果；不验证购物车资格人群的功效、优惠券盈利门槛或跨业务迁移。
 
 ## 三类证据，三种结论边界
 
@@ -49,7 +51,7 @@
 |---|---|---|
 | A · REES46观察性日志 | 行为描述、金额拆解、覆盖核查；据此提出条件式购物车试验设计 | 平台总体收入、事故根因、价格因果、已经创造的业务收益 |
 | B · Criteo独立公开随机实验来源基准 | [公开样本组间差异](reports/criteo_business_summary.md)及[冻结简单规则的test比较](reports/targeting_holdout_review.md)，强调绝对量级、分母和区间 | 恢复原广告主ROI，迁移为优惠券效果；不与REES46连接用户 |
-| C · 离线A/A与人工效应注入 | 固定队列下的分流、估计与边界验证 | 线上实验次数、真实新增买家、完整功效曲线或投入收益 |
+| C · 离线A/A与人工效应注入 | 固定队列下的分流、估计、未调整购买率功效及边界验证 | 线上实验次数、真实新增买家、raw/CUPED完整比较或投入收益 |
 
 ## 证据、实现与最小复现
 
@@ -78,8 +80,8 @@
 
 附录 [COST-01：固定进口成本与篮子选择](reports/cross_border_cost_review.md)只使用27个人工篮子，比较商家承担、提价与增购在双参照下的需求门槛。它是政策启发的成本情景，不是REES46/Criteo实证、真实利润或税务核定；见[人工结果](reports/cost_analysis/strategy_comparison.csv)与[验收/复跑](docs/cost_scenarios_validation.md)。不并入简历三条主项目。
 
-已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、价格关联及条件门槛、公开实验总体评估、有限覆盖规则的valid/test比较、未上线购物车设计、固定队列、离线A/A及已知效应模拟。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
+已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、价格关联及条件门槛、公开实验总体评估、有限覆盖规则的valid/test比较、未上线购物车设计、固定队列、离线A/A、已知效应模拟及POWER-01未调整购买率功效。[POWER-01合同与复跑入口](docs/power_raw_contract.md)、[验收](docs/power_raw_validation.md)独立登记，旧AA/单次注入结果不改。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
 
-Hadoop/YARN、CUPED、完整功效曲线、故障注入、受控性能对照及uplift模型均未完成，不写入已完成实践成果。见[逐项阶段审查](reports/project_release_checklist.md)、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
+Hadoop/YARN、CUPED、T5.7完整raw/CUPED功效比较、故障注入、受控性能对照及uplift模型均未完成，不写入已完成实践成果；POWER-01仅完成T5.7的raw先行子项。见[逐项阶段审查](reports/project_release_checklist.md)、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
 
 历史以[TASKS](TASKS_v4.md)、各阶段验收和[原README快照](https://github.com/CC-GATESBY/ecommerce-experiment-diagnostics/blob/8be3b17175e5a52d99dcb895f177bb026746ab7b/README.md)为准；历史报告中的“当轮未执行”是当时状态，不批量改写。项目没有自动公开、外部发布或策略上线。
