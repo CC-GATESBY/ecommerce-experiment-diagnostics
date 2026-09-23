@@ -72,9 +72,11 @@ POWER-01进一步给出固定历史队列、人工效果生成与重新分组下
 
 [TARGET-01开发评价](reports/targeting_coverage_review.md)：30%容量下，固定简单规则相对随机覆盖的每万候选记录差额为+3.0217，成对区间[2.1421, 3.8292]；RESPONSE与INCREMENTAL选中了完全相同的记录。该阶段只使用train/valid，原结果保留，见[同容量比较](reports/targeting/coverage_comparison.csv)、[直接策略差](reports/targeting/policy_differences.csv)与[验收](docs/targeting_validation.md)。
 
-[TARGET-02冻结规则留出评价](reports/targeting_holdout_review.md)：test的30%容量每规则覆盖838,367条，简单定向相对随机的差额为+2.6064/万候选记录，成对区间[1.7130, 3.4390]，支持保留简单规则作目标业务试验候选；两种定向名单仍相同，没有额外增量排序价值。下一步最需要目标业务的处理前特征、随机干预及真实成本证据，不直接部署或迁移成优惠券名单。见[test结果](reports/targeting_test/coverage_comparison.csv)、[test策略差](reports/targeting_test/policy_differences.csv)、[事前协议](docs/targeting_holdout_protocol.md)与[验收](docs/targeting_holdout_validation.md)。这是固定简单规则评价，未完成E1模型训练或完整E2模型评价。
+[TARGET-02冻结规则留出评价](reports/targeting_holdout_review.md)：test的30%容量每规则覆盖838,367条，简单定向相对随机的差额为+2.6064/万候选记录，成对区间[1.7130, 3.4390]，支持保留简单规则作目标业务试验候选；两种定向名单仍相同，没有额外增量排序价值。下一步最需要目标业务的处理前特征、随机干预及真实成本证据，不直接部署或迁移成优惠券名单。见[test结果](reports/targeting_test/coverage_comparison.csv)、[test策略差](reports/targeting_test/policy_differences.csv)、[事前协议](docs/targeting_holdout_protocol.md)与[验收](docs/targeting_holdout_validation.md)。这份历史证据只评价固定简单规则，不是模型test结果。
 
-这里RESPONSE与INCREMENTAL是本版同一份名单，不是两套独立成功证据；复杂模型未被比较，不能据此说已证明无用。test是同一公开来源的随机留出，不是跨时间、跨市场验证。上述G差是容量标准化组间差额，不是真实新增客户、转化率相对提升或预算节省；登记使用原策略差文件的完整精度，不以展示值相减。
+这里RESPONSE与INCREMENTAL是本版同一份名单，不是两套独立成功证据；原结果不能证明复杂模型无用。test是同一公开来源的随机留出，不是跨时间、跨市场验证。上述G差是容量标准化组间差额，不是真实新增客户、转化率相对提升或预算节省；登记使用原策略差文件的完整精度，不以展示值相减。
+
+[E1有限模型开发](reports/uplift_model_card.md)新增响应、S、T三个基线的valid比较。30%同容量下三个模型相对简单规则均有正向开发线索；保留响应模型为唯一新增候选，其G差为+3.8462，成对区间[2.7614, 4.8114]。S点估计略高且与响应名单高度重合，不据此宣称S胜出或等价。只用原train内部早停，没有新的模型test评价；原test已用于TARGET-02，后续评价性质须另行讨论。见[五策结果](reports/uplift_valid_policy_comparison.csv)、[预测诊断](reports/uplift_development_metrics.csv)、[事前协议](docs/uplift_baselines_protocol.md)与[验收](docs/uplift_baselines_validation.md)。
 
 ## 当前可展示范围
 
@@ -82,6 +84,6 @@ POWER-01进一步给出固定历史队列、人工效果生成与重新分组下
 
 已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、价格关联及条件门槛、公开实验总体评估、有限覆盖规则的valid/test比较、未上线购物车设计、固定队列、离线A/A、已知效应模拟及POWER-01未调整购买率功效。[POWER-01合同与复跑入口](docs/power_raw_contract.md)、[验收](docs/power_raw_validation.md)独立登记，旧AA/单次注入结果不改。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
 
-Hadoop/YARN、CUPED、T5.7完整raw/CUPED功效比较、故障注入、受控性能对照及uplift模型均未完成，不写入已完成实践成果；POWER-01仅完成T5.7的raw先行子项。见[逐项阶段审查](reports/project_release_checklist.md)、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
+E1仅完成有限模型训练与valid开发比较，非最终模型确认。Hadoop/YARN、CUPED、T5.7完整raw/CUPED功效比较、故障注入、受控性能对照及E2/E3仍未完成，不写入已完成实践成果；POWER-01仅完成T5.7的raw先行子项。见[逐项阶段审查](reports/project_release_checklist.md)（保留当轮审查状态）、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
 
 历史以[TASKS](TASKS_v4.md)、各阶段验收和[原README快照](https://github.com/CC-GATESBY/ecommerce-experiment-diagnostics/blob/8be3b17175e5a52d99dcb895f177bb026746ab7b/README.md)为准；历史报告中的“当轮未执行”是当时状态，不批量改写。项目没有自动公开、外部发布或策略上线。
