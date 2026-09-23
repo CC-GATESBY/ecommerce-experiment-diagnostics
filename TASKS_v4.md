@@ -544,21 +544,22 @@ T5.6/CUPED、T5.7完整功效曲线未执行，其他门槛不代勾。下一项
 
 ### E2 冻结方案后评价留出排序（P2）
 
-- [ ] 已实现并记录实际输入范围。
+- [x] MODEL-EVAL-01：冻结原四分类器，2,794,557条旧test；30%响应−简单为主比较，固定五容量与1%网格Qini为辅助，范围调整在读取新结果前登记。
 - [ ] 测试集未参与模型选择；三个模型按相同规则评价；允许曲线不优于随机线；整体估计接近0或为负时不输出误导性的“前20%贡献全量X%”。数据bug修复后的重评估必须登记，不能伪装全新盲测。
-- [ ] 证据已保存：`uplift/evaluate.py`；`tests/test_uplift_metrics.py`；`reports/uplift.md`；`reports/uplift_test_metrics.csv`
+- [x] 五策同容量/嵌套、原随机/简单名单及点估计不变；联合重抽、Qini累计/面积、无对照/稀疏/负值、100%守恒通过。上条独立确认条件未满足：test已用于TARGET-02，建模发生在此前结果已知之后；不把本次正向区间称为新的确认性结论。
+- [x] 实际证据：`uplift/evaluate.py`、`scripts/run_model_evaluation.py`、`tests/test_uplift_metrics.py`、`reports/uplift_additional_evaluation.md`、`reports/model_evaluation/`四表、`docs/model_evaluation_protocol.md`、`docs/model_evaluation_validation.md`。采用本轮指定路径，不复制旧规划中的同义报告。
 - [ ] 能独立解释：Qini的纵轴是什么？高分组不显著和模型完全无用是否同一结论？
 
-状态：`not_started`　run_id：`未运行`　实际完成日期：`未完成`　阻塞：`无已记录阻塞`
+状态：`in_progress`（旧test追加公开基准评价子项已完成；不将E2整体标为首次独立确认）　run_id：`model-eval-test-01`　子项完成日期：`2026-09-24`　缺口：`旧test使用与适应性分析不能由本轮bootstrap消除；本人解释未代验`
 
 ### E3 条件化投放建议与方法迁移说明（P2）
 
-- [ ] 已实现并记录实际输入范围。
-- [ ] 建议含不确定性和下一步实验，允许“证据不足，暂不改变策略”；没有确定性“只投前40%”。
-- [ ] 证据已保存：`reports/uplift_decision_note.md`
+- [x] 本轮说明仅针对MODEL-EVAL-01的旧test追加公开基准，原响应候选不变，不把原E2独立确认前置条件写成已通过。
+- [x] 30%主差及条件式区间支持继续保留响应候选；说明S/T非赢家搜索、十二特征/版本/评分解释代价、未测成本，以及下一步目标业务随机干预与处理前特征/成本证据。没有确定性投放或预算批准。
+- [x] 证据合并于`reports/uplift_additional_evaluation.md`的“条件式迁移决定”，不另复制`reports/uplift_decision_note.md`。
 - [ ] 能独立解释：为什么公开基准上的排序效果不能直接变成拼多多的预算决策？
 
-状态：`not_started`　run_id：`未运行`　实际完成日期：`未完成`　阻塞：`无已记录阻塞`
+状态：`done`（本轮追加基准的条件式迁移说明；非独立确认、真实迁移或部署验收，本人解释未代验）　run_id：`model-eval-test-01`　实际完成日期：`2026-09-24`
 
 ### E4 有授权时迁移学校云或HPC（P2）
 
@@ -611,6 +612,15 @@ T5.6/CUPED、T5.7完整功效曲线未执行，其他门槛不代勾。下一项
 - [ ] 本人独立解释：为什么全额转嫁对ABSORB可容忍75%下降，但相对REFERENCE不能下降？同类增购为什么不是无条件赢家？哪项真实成本和购买响应证据会改变选择？
 
 状态：`done`（人工成本与需求条件分析；非真实利润或税务核定，本人解释未代验）。run_id=`cost01-synthetic-01`，日期`2026-09-23`。证据：`reports/cross_border_cost_review.md`、`reports/cost_analysis/`、`docs/cost_scenarios_validation.md`。没有读取真实行为数据、安装依赖、运行Spark/DuckDB/bootstrap或显著性检验；不加入三条简历主项目，不勾选T7.3/G2，不自动进入后续模块。
+
+### MODEL-EVAL-01 冻结模型的旧test追加公开基准评价
+
+- [x] 原模型/参数/迭代、原test身份及QC全部核对；先冻结协议，无训练、调参或更换候选。
+- [x] 30%各838,367条；响应−简单G差+4.3145，[3.3044,5.2780]。S/T及所有辅助容量保留；25组结果、20组差、505个Qini点、5个未归一化面积均已保存。
+- [x] 先人工后一次真实运行；原raw、membership、模型、规则及历史valid/test结果不改；区间不校正旧test使用，不作为新的确认性显著证据。
+- [ ] 本人独立解释：30%成对差与Qini面积分别回答什么？为什么追加正向支持不是独立确认？模型额外比较量为什么不等于可覆盖成本的真实收益？
+
+状态：`done`（追加公开基准评价与条件式解释；本人解释未代验），run_id=`model-eval-test-01`，日期`2026-09-24`。证据见E2/E3本轮链接；E2整体仍in_progress，T7.3/G2及其他未完成方法不代勾。本轮停止，不重新训练、调参、另切test或继续旧test搜索。
 
 ## 发布门槛
 

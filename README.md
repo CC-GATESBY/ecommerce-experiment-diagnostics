@@ -76,7 +76,9 @@ POWER-01进一步给出固定历史队列、人工效果生成与重新分组下
 
 这里RESPONSE与INCREMENTAL是本版同一份名单，不是两套独立成功证据；原结果不能证明复杂模型无用。test是同一公开来源的随机留出，不是跨时间、跨市场验证。上述G差是容量标准化组间差额，不是真实新增客户、转化率相对提升或预算节省；登记使用原策略差文件的完整精度，不以展示值相减。
 
-[E1有限模型开发](reports/uplift_model_card.md)新增响应、S、T三个基线的valid比较。30%同容量下三个模型相对简单规则均有正向开发线索；保留响应模型为唯一新增候选，其G差为+3.8462，成对区间[2.7614, 4.8114]。S点估计略高且与响应名单高度重合，不据此宣称S胜出或等价。只用原train内部早停，没有新的模型test评价；原test已用于TARGET-02，后续评价性质须另行讨论。见[五策结果](reports/uplift_valid_policy_comparison.csv)、[预测诊断](reports/uplift_development_metrics.csv)、[事前协议](docs/uplift_baselines_protocol.md)与[验收](docs/uplift_baselines_validation.md)。
+[E1有限模型开发](reports/uplift_model_card.md)新增响应、S、T三个基线的valid比较。30%同容量下三个模型相对简单规则均有正向开发线索；保留响应模型为唯一新增候选，其G差为+3.8462，成对区间[2.7614, 4.8114]。S点估计略高且与响应名单高度重合，不据此宣称S胜出或等价。只用原train内部早停；E1当轮未进行模型test评价，原test此前已用于TARGET-02。见[五策结果](reports/uplift_valid_policy_comparison.csv)、[预测诊断](reports/uplift_development_metrics.csv)、[事前协议](docs/uplift_baselines_protocol.md)与[验收](docs/uplift_baselines_validation.md)。
+
+[MODEL-EVAL-01旧test追加比较](reports/uplift_additional_evaluation.md)直接加载上述模型，不重训。30%同覆盖下响应模型相对简单规则的G差为 **+4.3145，成对区间[3.3044, 5.2780]**，继续支持保留响应候选；S/T辅助结果完整保留，不重新选赢家。test已用过且建模在其先前结果已知后开展，因此这不是全新独立确认，也不批准部署。Qini只作固定网格的未归一化辅助摘要，决策仍基于预定容量的直接差与区间；下一步需要未参与方案选择的目标业务随机干预、处理前特征和实际成本证据。见[容量结果](reports/model_evaluation/coverage_comparison.csv)、[策略差](reports/model_evaluation/policy_differences.csv)、[协议](docs/model_evaluation_protocol.md)与[验收](docs/model_evaluation_validation.md)。
 
 ## 当前可展示范围
 
@@ -84,6 +86,6 @@ POWER-01进一步给出固定历史队列、人工效果生成与重新分组下
 
 已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、价格关联及条件门槛、公开实验总体评估、有限覆盖规则的valid/test比较、未上线购物车设计、固定队列、离线A/A、已知效应模拟及POWER-01未调整购买率功效。[POWER-01合同与复跑入口](docs/power_raw_contract.md)、[验收](docs/power_raw_validation.md)独立登记，旧AA/单次注入结果不改。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
 
-E1仅完成有限模型训练与valid开发比较，非最终模型确认。Hadoop/YARN、CUPED、T5.7完整raw/CUPED功效比较、故障注入、受控性能对照及E2/E3仍未完成，不写入已完成实践成果；POWER-01仅完成T5.7的raw先行子项。见[逐项阶段审查](reports/project_release_checklist.md)（保留当轮审查状态）、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
+E1完成有限模型训练与valid开发比较；MODEL-EVAL-01完成E2的旧test追加比较子项及本轮E3条件式说明，尚无全新独立模型确认或真实业务迁移。Hadoop/YARN、CUPED、T5.7完整raw/CUPED功效比较、故障注入及受控性能对照仍未完成，不写入已完成实践成果；POWER-01仅完成T5.7的raw先行子项。见[逐项阶段审查](reports/project_release_checklist.md)（保留当轮审查状态）、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。
 
 历史以[TASKS](TASKS_v4.md)、各阶段验收和[原README快照](https://github.com/CC-GATESBY/ecommerce-experiment-diagnostics/blob/8be3b17175e5a52d99dcb895f177bb026746ab7b/README.md)为准；历史报告中的“当轮未执行”是当时状态，不批量改写。项目没有自动公开、外部发布或策略上线。

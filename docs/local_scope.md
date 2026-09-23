@@ -12,7 +12,9 @@
 8. **保留现有规划。** 三份 v4 文件继续使用；不复制另一套完整规划，不重排全部任务。
 9. **当前仓库为 public/main。** 用户于2026-09-23确认仓库由本人主动公开，后续不恢复 private，不因公开状态阻止已授权的正常推送；不擅自修改远程可见性。公开范围仅限已审核代码、文档和脱敏汇总，raw、用户级数据、membership、真实配置、凭据和日志仍只留本地。历史 private 记录保留。历史同步收尾阶段仅同步既有材料提交并更新可见性说明，当时未新增分析或执行跨境成本分析。
 
-当前授权（2026-09-23启动，2026-09-24完成，E1）：仅corrected Criteo原train/valid十二特征有限训练，固定train内fit/early_stop，四分类器串行，30%同容量与冻结简单规则作valid开发比较。test只作CSV/membership结构及身份对齐，不转换/缓存其特征或conversion，不打开既有test明细或新增模型test评价。允许项目环境新增官方scikit-learn及必要joblib/threadpoolctl，既有核心依赖不升级；最多4线程、进程树8 GiB目标、新增15 GiB、空闲150 GiB。E1已完成，证据见`docs/uplift_baselines_validation.md`；raw、membership、原规则和历史结果不变。只保留一个新增开发候选，不进入E2/E3、CUPED或调参，T7.3/G2本人仍待验；逐文件审核推送public/main后停止。
+当前授权（2026-09-24，MODEL-EVAL-01）：直接加载uplift-valid-01四个SHA匹配的模型，原CSV/membership顺序对齐，只补建原test十二特征缓存；不训练或更改候选。主比较冻结为30%响应模型−简单规则的G差，五容量共同bootstrap 1,000次、seed20260924；固定1%网格Qini仅辅助点估计。旧test已用于TARGET-02，不能写成新的独立确认，旧报告保持当时性质。一次真实运行通过，证据见`docs/model_evaluation_validation.md`及`reports/uplift_additional_evaluation.md`；E2只完成追加评价子项，E3仅本次条件式说明，不代勾T7.3/G2。无安装/下载/Spark，至多4线程、新增6GiB、空闲150GiB，沿用进程树内存停止规则。仅提交脱敏汇总、代码与文档，正常推送public/main后停止，不继续查旧test、调参或训练。
+
+历史授权（2026-09-23启动，2026-09-24完成，E1）：仅corrected Criteo原train/valid十二特征有限训练，固定train内fit/early_stop，四分类器串行，30%同容量与冻结简单规则作valid开发比较。test只作CSV/membership结构及身份对齐，不转换/缓存其特征或conversion，不打开既有test明细或新增模型test评价。允许项目环境新增官方scikit-learn及必要joblib/threadpoolctl，既有核心依赖不升级；最多4线程、进程树8 GiB目标、新增15 GiB、空闲150 GiB。E1已完成，证据见`docs/uplift_baselines_validation.md`；raw、membership、原规则和历史结果不变。只保留一个新增开发候选，不进入E2/E3、CUPED或调参，T7.3/G2本人仍待验；逐文件审核推送public/main后停止。
 
 历史授权（2026-09-23，POWER-01）：仅一次读取cohort-oct-01的cohort_key与post_converted，固定84,165人/4,812个购买标记；9档×300轮未调整购买率模拟。先构造潜在结果，再分组；同轮共享U/分组、不同轮独立随机流。预算512 MiB、保留150 GiB；不读取金额、事实、用户日或Criteo/test，不安装、下载、启动Spark或改旧队列/AA/单次注入/COST-01。POWER-01完成证据见`docs/power_raw_validation.md`；T5.7只完成raw先行子项，T5.6及raw/CUPED比较未做，T7.3/G2仍待本人验收。正常推送public/main后停止。
 

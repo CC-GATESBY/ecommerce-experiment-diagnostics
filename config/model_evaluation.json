@@ -1,0 +1,30 @@
+{
+  "version": "criteo-model-additional-evaluation-v1",
+  "run_id": "model-eval-test-01",
+  "model_run": "uplift-valid-01",
+  "model_sha256": {
+    "RESPONSE_MODEL": "cb0c743adf610d1fca54a06e5484f1967d2d5178a16c36b1c786b61b07835b2a",
+    "S_LEARNER": "53e5150b7aa76de40d6b6a4e201cb9a68d5b4a149ad2500e53cb6f24259f75f6",
+    "T_CONTROL": "92e5086ed983500acdd224b03dfd72e8e1c29776f33e37a07138821a62f8fd2d",
+    "T_TREATMENT": "25349b23e016b4c8c14eabd4d09446b4834257f9c570bf70bef398e309033296"
+  },
+  "candidate": "RESPONSE_MODEL",
+  "source_id": "criteo_uplift_v2_1_corrected",
+  "split": "test",
+  "features": ["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11"],
+  "outcome": "conversion",
+  "capacities_percent": [10, 20, 30, 50, 100],
+  "primary_capacity_percent": 30,
+  "primary_contrast": "RESPONSE_MODEL_minus_FROZEN_SIMPLE",
+  "bootstrap_seed": 20260924,
+  "bootstrap_repetitions": 1000,
+  "sparse_min_success_or_failure_per_arm": 10,
+  "qini_grid_percent": [0, 100, 1],
+  "max_joint_types": 12500,
+  "threads": 4,
+  "batch_size": 65536,
+  "max_new_bytes": 6442450944,
+  "minimum_free_bytes": 161061273600,
+  "stop_process_tree_rss_bytes": 8053063680,
+  "monitor_interval_seconds": 2
+}

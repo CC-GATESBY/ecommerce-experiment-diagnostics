@@ -1,0 +1,6 @@
+policy,N_test,grid,unnormalized_qini_area_approx,status,interval,reference
+RANDOM,2794557,fixed_1_percent_actual_K_over_N,-28.13394546146668,point_estimate_only,not_computed,L(c)=c*Q(1); not empirical RANDOM
+FROZEN_SIMPLE,2794557,fixed_1_percent_actual_K_over_N,553.7869711707436,point_estimate_only,not_computed,L(c)=c*Q(1); not empirical RANDOM
+RESPONSE_MODEL,2794557,fixed_1_percent_actual_K_over_N,1077.2354581365569,point_estimate_only,not_computed,L(c)=c*Q(1); not empirical RANDOM
+S_LEARNER,2794557,fixed_1_percent_actual_K_over_N,1054.2554718833162,point_estimate_only,not_computed,L(c)=c*Q(1); not empirical RANDOM
+T_LEARNER,2794557,fixed_1_percent_actual_K_over_N,865.2053945818534,point_estimate_only,not_computed,L(c)=c*Q(1); not empirical RANDOM
