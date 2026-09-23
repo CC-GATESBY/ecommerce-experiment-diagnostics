@@ -76,6 +76,8 @@
 
 ## 当前可展示范围
 
+附录 [COST-01：固定进口成本与篮子选择](reports/cross_border_cost_review.md)只使用27个人工篮子，比较商家承担、提价与增购在双参照下的需求门槛。它是政策启发的成本情景，不是REES46/Criteo实证、真实利润或税务核定；见[人工结果](reports/cost_analysis/strategy_comparison.csv)与[验收/复跑](docs/cost_scenarios_validation.md)。不并入简历三条主项目。
+
 已有工程及分析证据覆盖数据接入/指标核验、行为与经营判断、价格关联及条件门槛、公开实验总体评估、有限覆盖规则的valid/test比较、未上线购物车设计、固定队列、离线A/A及已知效应模拟。T7.1文档/最小复现与T7.2证据映射/阶段审查完成；**T7.3仅备好练习，本人独立理解与现场修改仍待验，G2尚未通过。**
 
 Hadoop/YARN、CUPED、完整功效曲线、故障注入、受控性能对照及uplift模型均未完成，不写入已完成实践成果。见[逐项阶段审查](reports/project_release_checklist.md)、[简历草稿与证据](reports/resume_evidence.md)、[本人练习材料](reports/interview_notes.md)。

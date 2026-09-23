@@ -1,0 +1,24 @@
+{
+  "version": "cost01-fixed-fee-v1",
+  "run_id": "cost01-synthetic-01",
+  "evidence_type": "synthetic_scenario",
+  "currency": "EUR_scenario",
+  "net_sales": ["20", "40", "80"],
+  "merchandise_margin": ["0.20", "0.30", "0.40"],
+  "charge_categories": [1, 2, 3],
+  "base_fulfillment": "4",
+  "shock_fee_per_category": "3",
+  "partial_pass_fraction": "0.50",
+  "add_sales_and_cost_factor": "1.25",
+  "add_fulfillment": "5",
+  "demand_retention": ["1.00", "0.95", "0.90", "0.80", "0.70"],
+  "main_case": {"S0": "40", "m0": "0.30", "H": 2},
+  "assumptions": {
+    "inputs": "All baskets, amounts, margins and demand ratios are planning assumptions; no real business weights.",
+    "policy": "Policy-inspired f=3 scenario; assume an eligible low-value distance-sale consignment, one origin country and one parcel per successful purchase. H is an input, not a tariff classification decision.",
+    "vat": "Sales exclude output VAT; costs are net of assumed recoverable VAT. Recoverability is not verified for a real business.",
+    "probability": "Unknown 0<p_ref<=1 is common to REFERENCE and ABSORB; their comparison values stay at r=1. No price or content change means no assumed demand change from the cost shock alone.",
+    "omitted": "Nonrecoverable taxes, other handling charges, payment fees, refunds, inventory, acquisition, financing and long-run cannibalization are not modeled.",
+    "demand": "The fixed r grid is not a forecast or confidence interval. Equal r across actions is only a conditional comparison. Ratios above 1 require checking p_ref*r<=1."
+  }
+}
