@@ -76,9 +76,9 @@ POWER-01进一步给出固定历史队列、人工效果生成与重新分组下
 
 这里RESPONSE与INCREMENTAL是本版同一份名单，不是两套独立成功证据；原结果不能证明复杂模型无用。test是同一公开来源的随机留出，不是跨时间、跨市场验证。上述G差是容量标准化组间差额，不是真实新增客户、转化率相对提升或预算节省；登记使用原策略差文件的完整精度，不以展示值相减。
 
-[E1有限模型开发](reports/uplift_model_card.md)新增响应、S、T三个基线的valid比较。30%同容量下三个模型相对简单规则均有正向开发线索；保留响应模型为唯一新增候选，其G差为+3.8462，成对区间[2.7614, 4.8114]。S点估计略高且与响应名单高度重合，不据此宣称S胜出或等价。只用原train内部早停；E1当轮未进行模型test评价，原test此前已用于TARGET-02。见[五策结果](reports/uplift_valid_policy_comparison.csv)、[预测诊断](reports/uplift_development_metrics.csv)、[事前协议](docs/uplift_baselines_protocol.md)与[验收](docs/uplift_baselines_validation.md)。
+[E1有限模型开发](reports/uplift_model_card.md)已完成响应、S-learner、T-learner三种方法结构的有限训练与valid比较；T分两臂建模，共四个分类器。30%同容量下响应模型相对简单规则的G差为+3.8462，成对区间[2.7614, 4.8114]，保留为唯一新增开发候选。S点估计略高且与响应名单高度重合，不据此宣称S胜出或等价。只用原train内部早停；E1当轮未进行模型test评价，原test此前已用于TARGET-02。见[五策结果](reports/uplift_valid_policy_comparison.csv)、[预测诊断](reports/uplift_development_metrics.csv)、[事前协议](docs/uplift_baselines_protocol.md)与[验收](docs/uplift_baselines_validation.md)。
 
-[MODEL-EVAL-01旧test追加比较](reports/uplift_additional_evaluation.md)直接加载上述模型，不重训。30%同覆盖下响应模型相对简单规则的G差为 **+4.3145，成对区间[3.3044, 5.2780]**，继续支持保留响应候选；S/T辅助结果完整保留，不重新选赢家。test已用过且建模在其先前结果已知后开展，因此这不是全新独立确认，也不批准部署。Qini只作固定网格的未归一化辅助摘要，决策仍基于预定容量的直接差与区间；下一步需要未参与方案选择的目标业务随机干预、处理前特征和实际成本证据。见[容量结果](reports/model_evaluation/coverage_comparison.csv)、[策略差](reports/model_evaluation/policy_differences.csv)、[协议](docs/model_evaluation_protocol.md)与[验收](docs/model_evaluation_validation.md)。
+[MODEL-EVAL-01旧test追加比较](reports/uplift_additional_evaluation.md)已完成冻结模型评价。30%同覆盖下响应模型相对简单规则的G差为 **+4.3145，成对区间[3.3044, 5.2780]**，与valid开发比较方向保持；响应候选继续保留，简单规则继续作基准，S/T辅助结果不用于重新选赢家。test已用过且建模在其先前结果已知后开展，因此这不是全新独立确认，也不批准部署。Qini只作辅助排序摘要；真实迁移需要不同于当前公开广告基准、未参与方案选择的目标业务随机干预、处理前特征和实际成本证据。见[容量结果](reports/model_evaluation/coverage_comparison.csv)、[策略差](reports/model_evaluation/policy_differences.csv)、[协议](docs/model_evaluation_protocol.md)与[验收](docs/model_evaluation_validation.md)。模型专题到此收尾，不自动调参或训练更多模型。
 
 ## 当前可展示范围
 
